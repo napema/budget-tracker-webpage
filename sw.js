@@ -1,4 +1,4 @@
-const CACHE = 'registro-v4';
+const CACHE = 'registro-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -23,6 +23,8 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   // le chiamate all'API di GitHub non devono mai passare dalla cache
   if (e.request.url.indexOf('api.github.com') !== -1) return;
+  // config.js sempre dalla rete: se cambi il token deve arrivare subito
+  if (e.request.url.indexOf('config.js') !== -1) return;
   e.respondWith(
     caches.match(e.request).then(hit => {
       const net = fetch(e.request).then(res => {

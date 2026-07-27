@@ -1,6 +1,68 @@
 # Registro
 
-Tracker di entrate e uscite. Sito statico: nessun server, nessun account, nessun abbonamento.
+Tracker di entrate e uscite, tarato sul budget di Torino da settembre 2026.
+
+## Com'è configurata
+
+### Otto macrocategorie
+Corrispondono uno a uno ai pocket Revolut, così app e conto raccontano la stessa storia:
+**Fisse · Casa · Auto · Spesa · Trasporti · Personale · Accantonamenti · Risparmio**
+
+Sotto ognuna ci sono le sottocategorie (una trentina in tutto), ciascuna con le keyword
+dei negozi che compaiono davvero nell'estratto conto: IP, Q8, Eni, Telepass, Conad,
+Esselunga, Autogrill, GTT, Trenitalia. Scrivi la nota e categoria e sottocategoria si
+assegnano da sole al primo inserimento.
+
+### Due profili di budget
+
+| Categoria | Settembre | Agosto (ferie) |
+|---|---|---|
+| Fisse | 940 | 440 |
+| Casa | 80 | 0 |
+| Auto | 170 | 170 |
+| Spesa | 200 | 0 |
+| Trasporti | 100 | 100 |
+| Personale | 480 | 300 |
+| Accantonamenti | 125 | 125 |
+| **Totale** | **2.095** | **1.135** |
+
+Il profilo si sceglie da solo in base al mese: agosto 2026 e precedenti usano il profilo
+ferie, da settembre 2026 in poi quello di Torino. Ad agosto la home mostra il fondo
+trasloco invece del costo casa, perché vitto e alloggio sono coperti e l'obiettivo è
+accumulare il massimo entro il 1 settembre.
+
+Entrambi i profili si modificano in Setup, ognuno per conto suo.
+
+### Tipi di movimento
+
+Non tutto quello che si muove è una spesa. Solo `Spesa` ed `Entrata` toccano il budget:
+
+| Tipo | Conta come |
+|---|---|
+| Spesa | uscita |
+| Entrata | entrata |
+| Giroconto | niente |
+| Rimborso ricevuto | niente |
+| Reso | niente |
+| **Ricarica extra** | **sforamento** |
+
+I rimborsi degli amici gonfiavano sia entrate che uscite e rendevano illeggibile la spesa
+vera: ora restano fuori dai totali ma sono comunque registrati.
+
+### Il numero in cima alla home
+
+Le **ricariche extra** — quando ricarichi Revolut da un'altra carta — sono in cima a
+tutto, prima del budget. Non sono movimenti neutri: sono la prova che il sistema a pocket
+ha ceduto quel mese, ed è il motivo per cui il conto principale scende. È l'unico numero
+che deve restare a zero, e la home lo dice in verde quando ci riesci.
+
+### Il costo casa
+
+In home c'è un indicatore fisso: **risparmio reale = 580 − casa all-in**. A 450 risparmi
+130, a 500 ottanta, a 580 chiudi in pari, a 700 bruci 120 al mese. Una riga sola del
+budget decide se metti via o consumi, quindi sta sotto gli occhi.
+
+Il valore si cambia in Setup e l'indicatore si aggiorna.
 
 ## Sincronizzazione tra iPhone e computer
 
@@ -43,6 +105,63 @@ hanno versioni diverse, vince la più recente. Le eliminazioni lasciano una trac
 un movimento cancellato sul computer non ricompare dal telefono. Budget e tetti seguono
 l'ultimo dispositivo che li ha toccati. Il vocabolario delle categorie si somma: quello
 che insegni su un dispositivo lo sa anche l'altro.
+
+### Configurare un secondo dispositivo senza ridigitare niente
+
+Da **Setup → Copia link di configurazione** ottieni un indirizzo che contiene repository
+e token. Aprilo sull'altro dispositivo: si configura da solo e sincronizza subito.
+
+Salva quel link nel gestore password o nelle note bloccate — ti serve solo se cambi
+dispositivo o reinstalli. Contiene il token, quindi vale quanto una password.
+
+Il token e il repository finiscono dopo il `#`, cioè nel frammento dell'indirizzo:
+i browser non lo inviano mai al server, resta solo in locale.
+
+### Configurazione permanente per tutti i dispositivi — `config.js`
+
+Se vuoi che il sync sia già attivo ovunque, senza inserire niente su nessun dispositivo:
+
+1. Configura il sync su un dispositivo come sopra.
+2. **Setup → Genera config.js** — copia negli appunti il contenuto del file.
+3. Nel repository **del sito** (quello con Pages): *Add file → Create new file*,
+   nome `config.js`, incolla, commit.
+
+Da quel momento chiunque apra l'indirizzo trova il sync già attivo. Sopravvive alla
+cancellazione della cache, alla reinstallazione dell'app, a un dispositivo nuovo.
+In Setup compare una riga verde che conferma che `config.js` è in uso.
+
+Se su un dispositivo inserisci repository e token a mano, quelli hanno la precedenza
+su `config.js`. Se premi *Disattiva*, quel dispositivo resta disattivato e non si
+riconfigura da solo.
+
+Per cambiare il token in futuro: rigenera `config.js` e sostituisci il file. Non è in
+cache, quindi la modifica arriva al primo caricamento.
+
+### Cosa stai accettando con `config.js`
+
+Su GitHub Pages gratuito il repository del sito è pubblico, quindi `config.js` è leggibile
+da chiunque conosca l'indirizzo. Il token è codificato — non per nasconderlo a un umano,
+ma perché lo scanner automatico di GitHub non lo riconosca e non lo revochi, cosa che
+succederebbe entro poche ore con un token in chiaro.
+
+Chi trovasse l'indirizzo potrebbe quindi leggere e modificare il repository dei dati.
+Due attenuanti reali: l'indirizzo non è pubblicizzato da nessuna parte, e i dati sono
+in git — anche una cancellazione resta recuperabile dalla cronologia dei commit.
+
+Se in futuro cambi idea: cancella `config.js` dal repository e revoca il token da GitHub.
+
+### L'alternativa senza `config.js`
+
+Sarebbe la soluzione comoda, ma non è praticabile. Su GitHub Pages gratuito il repository
+del sito è pubblico: chiunque potrebbe aprire `index.html` e leggere il token, e con quello
+entrare nel repository privato dei dati. In più GitHub scansiona i repo pubblici alla ricerca
+di credenziali e revoca da solo i token che trova — il sync smetterebbe di funzionare
+comunque, ma dopo aver esposto i dati.
+
+Senza `config.js` il token vive nel `localStorage` del singolo dispositivo: lo inserisci una
+volta e resta. Non scade a fine sessione, sopravvive a riavvii e aggiornamenti del sito. Sparisce
+solo se cancelli i dati di navigazione o disinstalli l'app. Su iPhone, l'app aggiunta alla
+schermata Home ha uno spazio riservato che la pulizia della cronologia di Safari non tocca.
 
 ### Sul token — leggilo
 

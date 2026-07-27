@@ -1,0 +1,6 @@
+window.RCFG = {
+  r: "tuo-utente/finance-tracker-dati",
+  p: "registro.json",
+  b: "main",
+  k: ["Z2l0aHViX3Bh", "dF8xMUFCQ0RF", "Rkc..."]
+};
