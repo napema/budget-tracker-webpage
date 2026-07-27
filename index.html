@@ -163,21 +163,30 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;letter
 .nav button.on{color:var(--txt);background:var(--glass-2)}
 .nav button:active{transform:scale(.94)}
 
-.sheet{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center}
+body.locked{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;touch-action:none}
 .scrim{position:absolute;inset:0;background:rgba(0,0,0,.3);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:fd .28s}
-.panel{position:relative;width:100%;max-width:490px;max-height:94vh;overflow-y:auto;border-radius:30px 30px 0 0;
-  padding:11px 18px calc(22px + var(--sab));background:var(--glass);
+.panel{position:relative;width:100%;max-width:490px;max-height:92vh;overflow-y:auto;border-radius:30px 30px 0 0;
+  padding:10px 18px 0;background:var(--glass);
   -webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%);
-  border:.5px solid var(--glass-brd);animation:up .42s var(--spring);-webkit-overflow-scrolling:touch}
+  border:.5px solid var(--glass-brd);animation:up .42s var(--spring);
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y}
 @keyframes fd{from{opacity:0}}
 @keyframes up{from{transform:translateY(101%)}}
-.grab{width:40px;height:5px;border-radius:999px;background:var(--txt3);margin:0 auto 12px}
-.sheet-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.sheet-h .t{font-size:17px;font-weight:600;letter-spacing:-.02em}
-.x{width:32px;height:32px;border-radius:999px;background:var(--sunk);color:var(--txt2);display:grid;place-items:center;font-size:15px;transition:transform .3s var(--spring)}
-.x:active{transform:scale(.9)}
-.amt{text-align:center;padding:18px 0 18px;font-size:58px;font-weight:700;letter-spacing:-.042em;line-height:1;transition:color .3s}
-.amt .c{font-size:29px;font-weight:600;color:var(--txt3);margin-right:5px;vertical-align:7px}
+.grab{width:40px;height:5px;border-radius:999px;background:var(--txt3);margin:0 auto}
+.sheet-h{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:8px;padding:12px 0 14px;margin:0 -18px;padding-left:18px;padding-right:18px;
+  background:var(--glass);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);
+  border-bottom:.5px solid var(--hair)}
+.sheet-h .t{font-size:17px;font-weight:600;letter-spacing:-.02em;text-align:center;white-space:nowrap}
+.hbtn{font-size:16px;font-weight:500;color:var(--blue);padding:8px 2px;transition:opacity .2s;white-space:nowrap}
+.hbtn:active{opacity:.45}
+.hbtn.rt{text-align:right} .hbtn.dg{color:var(--red)}
+.foot{position:sticky;bottom:0;z-index:6;margin:0 -18px;padding:14px 18px calc(16px + var(--sab));
+  background:var(--glass);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);
+  border-top:.5px solid var(--hair)}
+.amt{text-align:center;padding:16px 0 14px;font-size:52px;font-weight:700;letter-spacing:-.042em;line-height:1;transition:color .3s}
+.amt .c{font-size:26px;font-weight:600;color:var(--txt3);margin-right:5px;vertical-align:6px}
 
 .seg{display:flex;gap:3px;padding:3px;background:var(--sunk);border-radius:12px;margin-bottom:16px}
 .seg button{flex:1;padding:9px 4px;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--txt2);
@@ -201,11 +210,12 @@ input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 
 .auto-hint{font-size:12.5px;color:var(--blue);font-weight:600;display:flex;align-items:center;gap:5px}
 .auto-hint svg{width:13px;height:13px}
 
-.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0 14px}
-.keys button{background:var(--glass-2);border:.5px solid var(--hair);border-radius:var(--r-s);padding:17px 0;
-  font-size:24px;font-weight:500;font-variant-numeric:tabular-nums;transition:transform .28s var(--spring),background .15s}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.keys button{background:var(--glass-2);border:.5px solid var(--hair);border-radius:13px;padding:13px 0;
+  font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;touch-action:manipulation;
+  -webkit-user-select:none;user-select:none;transition:transform .28s var(--spring),background .15s}
 .keys button:active{transform:scale(.92);background:var(--sunk)}
-.save{width:100%;padding:18px;border-radius:var(--r-s);font-size:17px;font-weight:600;letter-spacing:-.015em;color:#fff;
+.save{width:100%;padding:17px;border-radius:var(--r-s);font-size:17px;font-weight:600;letter-spacing:-.015em;color:#fff;
   position:relative;overflow:hidden;transition:transform .3s var(--spring),opacity .25s}
 .save::before{content:'';position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,0))}
 .save span{position:relative} .save:active{transform:scale(.975)} .save:disabled{opacity:.32}
@@ -916,8 +926,8 @@ function uniqueId(base,list){ let id=slug(base),n=1; while(list.some(x=>x.id===i
 function usedCount(catId,subId){
   return DB.tx.filter(t=>t.cat===catId&&(subId===undefined||t.sub===subId)).length;
 }
-function openMgr(side){ MG={view:'list',side:side||'out',cat:null,sub:null}; drawMgr(); }
-function closeMgr(){ MG=null; document.getElementById('sheetHost').innerHTML=''; render(); }
+function openMgr(side){ MG={view:'list',side:side||'out',cat:null,sub:null}; lockScroll(); drawMgr(); }
+function closeMgr(){ MG=null; document.getElementById('sheetHost').innerHTML=''; unlockScroll(); render(); }
 
 function drawMgr(){
   const H=document.getElementById('sheetHost');
@@ -956,13 +966,16 @@ function drawMgr(){
   }
   const titles={list:'Categorie',cat:'Modifica categoria',sub:MG.sub?'Modifica sottocategoria':'Nuova sottocategoria'};
   H.innerHTML=`<div class="sheet"><div class="scrim" data-mclose="1"></div>
-    <div class="panel"><div class="grab"></div>
+    <div class="panel">
+      <div class="grab"></div>
       <div class="sheet-h">
-        <span class="t">${MG.view!=='list'?'<button class="link" data-mback="1" style="margin-right:8px">‹ Indietro</button>':''}${titles[MG.view]}</span>
-        <button class="x" data-mclose="1" aria-label="Chiudi">✕</button></div>
-      <div style="margin-top:14px">${body}</div>
-      ${MG.view!=='list'?`<button class="save" id="mSave" style="background:var(--blue);margin-top:18px"><span>Salva</span></button>`:''}
+        ${MG.view!=='list'?`<button class="hbtn" data-mback="1">‹ Indietro</button>`:`<span></span>`}
+        <span class="t">${titles[MG.view]}</span>
+        <button class="hbtn rt" data-mclose="1">Fine</button></div>
+      <div style="margin-top:16px;padding-bottom:${MG.view!=='list'?'0':'calc(20px + var(--sab))'}">${body}</div>
+      ${MG.view!=='list'?`<div class="foot"><button class="save" id="mSave" style="background:var(--blue)"><span>Salva</span></button></div>`:''}
     </div></div>`;
+  bindDrag(closeMgr);
 }
 
 function mgrSave(){
@@ -1005,16 +1018,53 @@ function mgrDelete(what){
 }
 
 /* ═══════════ SHEET ═══════════ */
-let E=null;
+let E=null, lockY=0, locked=false;
+function lockScroll(){
+  if(locked||!document.body) return; locked=true;
+  lockY=window.scrollY||0;
+  document.body.style.top=(-lockY)+'px';
+  document.body.classList.add('locked');
+}
+function unlockScroll(){
+  if(!locked||!document.body) return; locked=false;
+  document.body.classList.remove('locked');
+  document.body.style.top='';
+  window.scrollTo(0,lockY);
+}
+
+/* trascina verso il basso l'intestazione per chiudere, come su iOS */
+function bindDrag(onClose){
+  const panel=document.querySelector('.panel');
+  const handle=document.querySelector('.grab');
+  const head=document.querySelector('.sheet-h');
+  if(!panel||!handle) return;
+  let y0=null,dy=0;
+  const start=e=>{ if(panel.scrollTop>2) return; y0=e.touches[0].clientY; dy=0; panel.style.transition='none'; };
+  const move=e=>{ if(y0===null) return;
+    dy=e.touches[0].clientY-y0;
+    if(dy<0){ dy=0; return; }
+    e.preventDefault();
+    panel.style.transform='translateY('+dy+'px)'; };
+  const end=()=>{ if(y0===null) return;
+    panel.style.transition='transform .38s cubic-bezier(.32,.72,0,1)';
+    if(dy>110){ panel.style.transform='translateY(100%)'; setTimeout(onClose,220); }
+    else panel.style.transform='';
+    y0=null; };
+  [handle,head].forEach(el=>{ if(!el) return;
+    el.addEventListener('touchstart',start,{passive:true});
+    el.addEventListener('touchmove',move,{passive:false});
+    el.addEventListener('touchend',end);
+    el.addEventListener('touchcancel',end); });
+}
 const cents=r=>r?parseInt(r,10):0;
 const fmtR=r=>(cents(r)/100).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
 
 function openEntry(sd,ex){
   E=ex?{...ex,raw:String(ex.amount),side:side(ex),auto:null,touched:true}
       :{side:sd,kind:sd==='out'?'out':'in',raw:'',cat:null,sub:null,note:'',date:iso(now),id:null,auto:null,touched:false};
-  drawSheet();
+  lockScroll(); drawSheet();
 }
-function closeEntry(){ E=null; document.getElementById('sheetHost').innerHTML=''; }
+function closeEntry(){ E=null; document.getElementById('sheetHost').innerHTML=''; unlockScroll(); }
 function pull(){ const n=document.getElementById('noteIn'),d=document.getElementById('dateIn');
   if(n) E.note=n.value; if(d) E.date=d.value||E.date; }
 
@@ -1058,19 +1108,23 @@ function drawSheet(){
   const K=KINDS[E.kind], keys=['1','2','3','4','5','6','7','8','9','C','0','⌫'];
   document.getElementById('sheetHost').innerHTML=`
   <div class="sheet"><div class="scrim" data-close="1"></div>
-   <div class="panel"><div class="grab"></div>
-    <div class="sheet-h"><span class="t" style="color:${K.col}">${E.id?'Modifica':E.side==='out'?'Uscita':'Entrata'}</span>
-      <div class="row" style="gap:7px">${E.id?`<button class="x" id="delTx" style="color:var(--red)" aria-label="Elimina">✕</button>`:''}
-        <button class="x" data-close="1" aria-label="Chiudi">${E.id?'↓':'✕'}</button></div></div>
+   <div class="panel">
+    <div class="grab"></div>
+    <div class="sheet-h">
+      <button class="hbtn" data-close="1">Annulla</button>
+      <span class="t" style="color:${K.col}">${E.id?'Modifica':E.side==='out'?'Uscita':'Entrata'}</span>
+      ${E.id?`<button class="hbtn rt dg" id="delTx">Elimina</button>`:`<span></span>`}
+    </div>
     <div class="amt num" style="color:${cents(E.raw)?K.col:'var(--txt3)'}"><span class="c">${CUR}</span>${fmtR(E.raw)}</div>
-    <div class="seg" id="kindWrap"></div>
     <div class="keys">${keys.map(k=>`<button data-key="${k}">${k}</button>`).join('')}</div>
     <div class="fld"><label>Su cosa</label>
-      <input id="noteIn" placeholder="${E.side==='out'?'Conad, IP, Telepass, Autogrill…':'Stipendio, rimborso Luca…'}" value="${esc(E.note)}" maxlength="60" autocomplete="off" enterkeyhint="done"></div>
+      <input id="noteIn" placeholder="${E.side==='out'?'Barbiere, Conad, IP, Glovo…':'Stipendio, rimborso Luca…'}" value="${esc(E.note)}" maxlength="60" autocomplete="off" enterkeyhint="done"></div>
     <div class="fld"><label id="catLabel">Categoria <span class="auto-hint" id="autoHint"></span></label><div id="chipWrap"></div></div>
+    <div class="fld"><label>Tipo di movimento</label><div class="seg" id="kindWrap"></div></div>
     <div class="fld"><label>Data</label><input type="date" id="dateIn" value="${E.date}"></div>
-    <button class="save" id="saveTx"></button></div></div>`;
-  redraw(); bindNote();
+    <div class="foot"><button class="save" id="saveTx"></button></div>
+   </div></div>`;
+  redraw(); bindNote(); bindDrag(closeEntry);
 }
 function commit(){
   pull();
@@ -1199,6 +1253,12 @@ document.addEventListener('click',e=>{
     save(); queueSync(); closeEntry(); render(); toast('Movimento eliminato'); } return; }
   if(t.dataset.tx){ const x=DB.tx.find(z=>z.id===t.dataset.tx); if(x) openEntry(side(x),x); return; }
 });
+document.addEventListener('touchmove',e=>{
+  if(!(E||MG)) return;
+  const p=e.target.closest&&e.target.closest('.panel');
+  if(!p) e.preventDefault();
+},{passive:false});
+
 document.getElementById('pM').onclick=()=>{ M--; if(M<0){M=11;Y--;} render(); };
 document.getElementById('nM').onclick=()=>{ M++; if(M>11){M=0;Y++;} render(); };
 document.addEventListener('keydown',e=>{
