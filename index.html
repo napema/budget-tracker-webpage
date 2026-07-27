@@ -47,7 +47,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;letter
 /* ---------- superfici ---------- */
 .g{background:var(--s1);border-radius:var(--r);position:relative;overflow:hidden}
 .g.tint{background:color-mix(in srgb, var(--tc) 13%, var(--s1))}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px calc(150px + var(--sab))}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px calc(126px + var(--sab))}
 .hidden{display:none!important}
 .eyebrow{font-size:13px;font-weight:600;color:var(--txt2);letter-spacing:-.01em}
 
@@ -145,7 +145,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;letter
 .crow-s{font-size:13px;color:var(--txt3);margin-top:7px}
 
 /* ---------- barra inferiore ---------- */
-.nav{position:fixed;left:16px;right:16px;bottom:calc(24px + var(--sab));z-index:40;display:flex;padding:6px;
+.nav{position:fixed;left:16px;right:16px;bottom:calc(6px + var(--sab));z-index:40;display:flex;padding:6px;
   border-radius:999px;background:rgba(28,28,32,.82);-webkit-backdrop-filter:blur(24px) saturate(180%);
   backdrop-filter:blur(24px) saturate(180%);max-width:430px;margin:0 auto;
   box-shadow:0 10px 34px -10px rgba(0,0,0,.7)}
@@ -220,7 +220,7 @@ input:focus,select:focus{outline:none;background:var(--s3);box-shadow:0 0 0 3px 
 .sync-line{display:flex;align-items:center;gap:11px;font-size:14.5px;padding:14px 16px;border-radius:var(--r-s);
   background:var(--s2);margin-bottom:16px}
 .sync-line .dt{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(114px + var(--sab));
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + var(--sab));
   background:var(--s3);color:var(--txt);padding:14px 24px;border-radius:999px;font-size:15px;font-weight:600;
   z-index:200;animation:up .35s var(--spring);box-shadow:0 12px 36px -10px rgba(0,0,0,.6)}
 svg.ch{width:100%;display:block;overflow:visible}
@@ -252,13 +252,50 @@ svg.ch{width:100%;display:block;overflow:visible}
 @keyframes enter{from{opacity:0;transform:translateY(16px) scale(.98)}}
 #view.noanim>*{animation:none!important}
 
-@media(min-width:860px){
-  .wrap{padding-bottom:36px;padding-top:8px}
-  .nav{position:sticky;top:12px;bottom:auto;left:auto;right:auto;margin:0 auto 18px}
-  .cols{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;align-items:start}
-  .acts{max-width:460px}
+@media(min-width:900px){
+  /* su uno schermo non OLED il nero pieno è una lastra: si alza di qualche punto */
+  :root{--bg:#0D0D10; --s1:#17171B; --s2:#202026; --s3:#2B2B32; --hair:rgba(255,255,255,.06)}
+  @media(prefers-color-scheme:light){:root{--bg:#F2F2F7;--s1:#FFFFFF;--s2:#F2F2F7;--s3:#E6E6EB}}
+
+  .wrap{max-width:1060px;padding:0 28px 48px}
+  .top{padding:26px 2px 18px;gap:16px}
+  .top h1{order:1;flex:0 0 auto;text-align:left;font-size:27px}
+  .top .mnav{order:2;margin-left:auto}
+  .top>.row{order:3}
+
+  /* la barra diventa una fila di schede, non una pillola sospesa */
+  .nav{position:static;margin:0 0 22px;max-width:none;width:-moz-fit-content;width:fit-content;
+    background:var(--s1);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:5px}
+  .nav button{flex:0 0 auto;flex-direction:row;gap:9px;padding:11px 20px;font-size:14.5px}
+  .nav button svg{width:18px;height:18px}
+
+  /* tinte più discrete: su un monitor grande saturano troppo */
+  .g.tint{background:color-mix(in srgb, var(--tc) 8%, var(--s1))}
+
+  /* la home si dispone su due colonne vere */
+  #view.v-home{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:start}
+  #view.v-home>.over{grid-column:1;grid-row:1;margin:0}
+  #view.v-home>.pace{grid-column:2;grid-row:1/span 3;margin:0}
+  #view.v-home>.acts{grid-column:1;grid-row:2;margin:0}
+  #view.v-home>.card{grid-column:1;grid-row:3;margin:0}
+  #view.v-home>.cols{grid-column:1/-1;margin-top:2px}
+  #view.v-home>.over{align-self:stretch}
+
+  .over{padding:24px}
+  .pace{padding:26px}
+  .pace-amt{font-size:42px}
+  .acts{grid-template-columns:1fr 1fr;gap:16px;margin:0}
+  .act{padding:18px}
+  .act .pill{padding:14px 10px}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  #view.v-mov,#view.v-set{max-width:920px}
+  #view.v-anal .cols{grid-template-columns:1.15fr 1fr}
+
   .sheet{align-items:center}
-  .panel{border-radius:32px;max-height:90vh}
+  .panel{border-radius:32px;max-height:88vh;padding:10px 24px 0}
+  .sheet-h{margin:0 -24px;padding-left:24px;padding-right:24px}
+  .foot{margin:0 -24px;padding-left:24px;padding-right:24px}
   @keyframes up{from{transform:translateY(20px);opacity:0}}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -1160,7 +1197,7 @@ function render(soft){
   if(E||MG) return;
   if(soft&&document.activeElement&&document.activeElement.tagName==='INPUT') return;
   const v0=document.getElementById('view');
-  if(soft) v0.classList.add('noanim'); else v0.classList.remove('noanim');
+  v0.className='v-'+TAB+(soft?' noanim':'');
   renderNav();
   document.getElementById('syncSlot').innerHTML=chipHTML();
   document.getElementById('mLbl').textContent=MESI[M].slice(0,3)+' '+String(Y).slice(2);

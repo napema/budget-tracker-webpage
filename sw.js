@@ -1,4 +1,4 @@
-const CACHE = 'registro-v10';
+const CACHE = 'registro-v11';
 const ASSETS = [
   './',
   './index.html',
