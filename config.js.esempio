@@ -1,6 +1,6 @@
 window.RCFG = {
-  r: "tuo-utente/finance-tracker-dati",
+  r: "napema/finance-tracker",
   p: "registro.json",
   b: "main",
-  k: ["Z2l0aHViX3Bh", "dF8xMUFCQ0RF", "Rkc..."]
+  k: ["Z2l0aHViX3BhdF8xMUFYQkRXN1kwb2lncFFYeDN1RX", "h5XzhjSnNnQ1U3TFhaRnpvUkcxYWMxWEE1UEw1enBI", "eG5oMDVzMHE2YmhlNXVXS0U3WFZNVXNtamt2cWtr"]
 };
