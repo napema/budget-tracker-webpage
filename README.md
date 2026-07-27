@@ -8,10 +8,35 @@ Tracker di entrate e uscite, tarato sul budget di Torino da settembre 2026.
 Corrispondono uno a uno ai pocket Revolut, così app e conto raccontano la stessa storia:
 **Fisse · Casa · Auto · Spesa · Trasporti · Personale · Accantonamenti · Risparmio**
 
-Sotto ognuna ci sono le sottocategorie (una trentina in tutto), ciascuna con le keyword
-dei negozi che compaiono davvero nell'estratto conto: IP, Q8, Eni, Telepass, Conad,
-Esselunga, Autogrill, GTT, Trenitalia. Scrivi la nota e categoria e sottocategoria si
-assegnano da sole al primo inserimento.
+Sotto ognuna ci sono **80 sottocategorie**, ciascuna con le sue keyword. Scrivi la nota e
+categoria e sottocategoria si assegnano da sole al primo inserimento: barbiere, Glovo,
+spritz, Foot Locker, multa ZTL, revisione, lenti a contatto, Ticketone, Airbnb, SMAT.
+
+Il livello di dettaglio serve a rispondere a "dove sono finiti i soldi": non *Personale
+480*, ma quanto di quei 480 è aperitivo, quanto delivery, quanto barbiere.
+
+| Categoria | Sottocategorie |
+|---|---|
+| Fisse | 5 — prestito, affitto, abbonamenti digitali, telefono, assicurazioni |
+| Casa | 9 — luce e gas, acqua, internet, condominio, detersivi, arredo, biancheria, stoviglie, riparazioni |
+| Auto | 12 — carburante, pedaggi, parcheggi, tagliando, gomme, meccanico, RC, bollo, revisione, multe, lavaggio, accessori |
+| Spesa | 7 — supermercato, panetteria, macelleria, frutta e verdura, pescheria, bevande, alimentari |
+| Trasporti | 7 — treno, abbonamento urbano, biglietti, bus extraurbano, taxi, aereo, sharing |
+| Personale | 33 — dal caffè al barbiere all'ottico ai concerti |
+| Accantonamenti | 4 — fondo auto, imprevisti, salute, tecnologia |
+| Risparmio | 3 — fondo trasloco, risparmio, investimenti |
+
+### Aggiungere e modificare categorie
+
+**Setup → Gestisci categorie.** Puoi creare macrocategorie nuove (nome, colore tra dodici,
+icona tra ventitré), rinominarle, eliminarle, e fare lo stesso con le sottocategorie.
+
+Per ogni sottocategoria imposti le **parole che la fanno scattare**, separate da virgola:
+appena una compare nella nota, la categoria si assegna da sola.
+
+Le categorie viaggiano nel sync e nel backup, quindi quello che crei sul telefono lo trovi
+sul computer. Una macrocategoria nuova nasce con budget zero in entrambi i profili: il
+tetto lo metti tu in Setup.
 
 ### Due profili di budget
 

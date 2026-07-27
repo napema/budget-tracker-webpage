@@ -231,6 +231,24 @@ svg.ch{width:100%;display:block;overflow:visible}
 #view>*:nth-child(5){animation-delay:.18s} #view>*:nth-child(n+6){animation-delay:.22s}
 @keyframes enter{from{opacity:0;transform:translateY(14px) scale(.985)}}
 
+#view.noanim>*{animation:none!important}
+.mrow{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:.5px solid var(--hair);cursor:pointer;transition:opacity .18s}
+.mrow:last-child{border-bottom:0} .mrow:active{opacity:.5}
+.mrow .nm{flex:1;font-size:15.5px;font-weight:500;letter-spacing:-.016em}
+.mrow .ct{font-size:13px;color:var(--txt3)}
+.mrow .ar{color:var(--txt3);font-size:19px}
+.addrow{display:flex;align-items:center;gap:11px;padding:14px 0;color:var(--blue);font-size:15px;font-weight:500;cursor:pointer;width:100%}
+.addrow svg{width:19px;height:19px}
+.swatch{display:flex;flex-wrap:wrap;gap:10px}
+.swatch button{width:36px;height:36px;border-radius:999px;position:relative;transition:transform .3s var(--spring)}
+.swatch button:active{transform:scale(.88)}
+.swatch button.on::after{content:'';position:absolute;inset:-4px;border-radius:999px;border:2.5px solid var(--txt)}
+.icgrid{display:flex;flex-wrap:wrap;gap:9px}
+.icgrid button{width:44px;height:44px;border-radius:13px;background:var(--glass-2);border:.5px solid var(--hair);
+  display:grid;place-items:center;color:var(--txt2);transition:transform .3s var(--spring),background .2s}
+.icgrid button svg{width:21px;height:21px}
+.icgrid button:active{transform:scale(.9)}
+.icgrid button.on{background:var(--txt);color:var(--bg);border-color:var(--txt)}
 @media(min-width:860px){
   .wrap{padding-bottom:36px;padding-top:8px}
   .nav{position:sticky;top:12px;bottom:auto;left:auto;right:auto;margin:0 auto 18px}
@@ -289,6 +307,17 @@ const I={
  n_gear:'<circle cx="12" cy="12" r="3"/><path d="M19.1 14.8a1.5 1.5 0 0 0 .3 1.7l.1.1a1.9 1.9 0 1 1-2.7 2.7l-.1-.1a1.5 1.5 0 0 0-1.7-.3 1.5 1.5 0 0 0-.9 1.4v.2a1.9 1.9 0 1 1-3.8 0v-.1a1.5 1.5 0 0 0-1-1.4 1.5 1.5 0 0 0-1.7.3l-.1.1a1.9 1.9 0 1 1-2.7-2.7l.1-.1a1.5 1.5 0 0 0 .3-1.7 1.5 1.5 0 0 0-1.4-.9h-.2a1.9 1.9 0 1 1 0-3.8h.1a1.5 1.5 0 0 0 1.4-1 1.5 1.5 0 0 0-.3-1.7l-.1-.1a1.9 1.9 0 1 1 2.7-2.7l.1.1a1.5 1.5 0 0 0 1.7.3h.1a1.5 1.5 0 0 0 .9-1.4v-.2a1.9 1.9 0 1 1 3.8 0v.1a1.5 1.5 0 0 0 .9 1.4 1.5 1.5 0 0 0 1.7-.3l.1-.1a1.9 1.9 0 1 1 2.7 2.7l-.1.1a1.5 1.5 0 0 0-.3 1.7v.1a1.5 1.5 0 0 0 1.4.9h.2a1.9 1.9 0 1 1 0 3.8h-.1a1.5 1.5 0 0 0-1.4.9z"/>',
  cloud:'<path d="M7 18.5h9.8a4.2 4.2 0 0 0 .6-8.35 5.6 5.6 0 0 0-10.75-1.4A4 4 0 0 0 7 18.5z"/>',
  cloudoff:'<path d="M7 18.5h9.8a4.2 4.2 0 0 0 2.9-1.2M8.3 8.6a5.6 5.6 0 0 1 8.35 1.55 4.2 4.2 0 0 1 2.35 1.15M6.4 10.9A4 4 0 0 0 7 18.5M3.5 3.5l17 17"/>',
+ cup:'<path d="M4.5 6.5h11v5.5a5.5 5.5 0 0 1-11 0zM15.5 7.5h2a2.6 2.6 0 0 1 0 5.2h-2M3 20h14"/>',
+ scissors:'<circle cx="6.5" cy="6.5" r="2.4"/><circle cx="6.5" cy="17.5" r="2.4"/><path d="M8.6 8.1 20 18M20 6 8.6 15.9"/>',
+ shirt:'<path d="M8.5 3.5 12 5.5l3.5-2 4 2.8-2.4 3.2V20.5h-10.2V9.5L4.5 6.3z"/>',
+ heart:'<path d="M12 20.3S3.8 15.6 3.8 9.9A4.6 4.6 0 0 1 12 7.2a4.6 4.6 0 0 1 8.2 2.7c0 5.7-8.2 10.4-8.2 10.4z"/>',
+ book:'<path d="M4 4.5h6a3 3 0 0 1 2 2.8v12a2.4 2.4 0 0 0-2-2H4zM20 4.5h-6a3 3 0 0 0-2 2.8v12a2.4 2.4 0 0 1 2-2h6z"/>',
+ plane:'<path d="M10.3 20.5 12 15l6.8-1.2 2.4-2.9-6.6 1.1 2.6-6.9-2.6-.6-4.2 6.3-4.8.8-1.4 2.2 4.6.9z"/>',
+ gift:'<path d="M20 12.5v7.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7.5M3 8.5h18v4H3zM12 8.5v12.5"/><path d="M12 8.5S11 3.5 8.5 3.5a2.5 2.5 0 0 0 0 5zM12 8.5s1-5 3.5-5a2.5 2.5 0 0 1 0 5z"/>',
+ tools:'<path d="M14.2 6.8a3.8 3.8 0 0 1 5 5l-8.4 8.4a2.2 2.2 0 0 1-3.1-3.1z"/><path d="M6.5 3.5 4 6l2.5 2.5L9 6z"/>',
+ phone:'<rect x="6.5" y="2.8" width="11" height="18.4" rx="2.6"/><path d="M10.6 5.4h2.8M12 18.2h.01"/>',
+ star:'<path d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.9l6-.9z"/>',
+ ticket:'<path d="M4 8.4a1.6 1.6 0 0 1 1.6-1.6h12.8A1.6 1.6 0 0 1 20 8.4v1.9a1.7 1.7 0 0 0 0 3.4v1.9a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 15.6v-1.9a1.7 1.7 0 0 0 0-3.4z"/>',
  wand:'<path d="M4 20 15 9M13.5 4.5l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7zM19 10l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z"/>'
 };
 const ic=(k,s=1.75)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${s}" stroke-linecap="round" stroke-linejoin="round">${I[k]||I.dots}</svg>`;
@@ -296,63 +325,115 @@ const ic=(k,s=1.75)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 /* ═══════════ CATEGORIE ═══════════ */
 const KEY='registro.v4', SKEY='registro.sync', CUR='€';
 
-const CATS=[
- {id:'fisse', n:'Fisse',          i:'lock',  col:'#5856D6', subs:[
-   {id:'prestito',    n:'Prestito',        kw:['prestito','rata','finanziamento']},
-   {id:'affitto',     n:'Affitto',         kw:['affitto','canone','locazione']},
-   {id:'abbonamenti', n:'Abbonamenti',     kw:['netflix','spotify','icloud','apple one','disney','prime','youtube','dazn','chatgpt','claude','telefono','iliad','vodafone','tim','windtre','ho.','fastweb','abbonamento','rinnovo']}
+const DEF_CATS=[
+ {id:'fisse', n:'Fisse', i:'lock', col:'#5856D6', subs:[
+   {id:'prestito',  n:'Prestito',           kw:['prestito','rata','finanziamento','mutuo']},
+   {id:'affitto',   n:'Affitto',            kw:['affitto','canone','locazione','pigione']},
+   {id:'digitali',  n:'Abbonamenti digitali',kw:['netflix','spotify','icloud','apple one','disney','prime video','youtube','dazn','chatgpt','claude','dropbox','adobe','crunchyroll','now tv','sky']},
+   {id:'telefono',  n:'Telefono e SIM',     kw:['iliad','vodafone','tim ','windtre','ho.','very mobile','kena','fastweb mobile','ricarica sim','telefono']},
+   {id:'assicuraz', n:'Assicurazioni',      kw:['polizza','assicurazione vita','assicurazione sanitaria','infortuni']}
  ]},
- {id:'casa', n:'Casa',            i:'home',  col:'#AF52DE', subs:[
-   {id:'utenze',   n:'Utenze',      kw:['luce','gas','acqua','bolletta','enel','internet','wifi','fibra','condominio']},
-   {id:'pulizia',  n:'Pulizia',     kw:['detersivo','detergente','pulizie','carta igienica','spazzolone']},
-   {id:'arredo',   n:'Arredo',      kw:['ikea','mobili','lampada','tenda','cuscino','stoviglie','pentola']}
+ {id:'casa', n:'Casa', i:'home', col:'#AF52DE', subs:[
+   {id:'luce-gas',  n:'Luce e gas',      kw:['luce','gas','enel','eni plenitude','a2a','hera','iren','bolletta luce','bolletta gas']},
+   {id:'acqua',     n:'Acqua',           kw:['acqua','smat','bolletta acqua','acquedotto']},
+   {id:'internet',  n:'Internet',        kw:['internet','wifi','fibra','tim casa','vodafone casa','fastweb','wind casa']},
+   {id:'condominio',n:'Condominio',      kw:['condominio','spese condominiali','amministratore']},
+   {id:'pulizia',   n:'Detersivi e pulizia',kw:['detersivo','detergente','ammorbidente','carta igienica','sgrassatore','spugne','sacchi spazzatura','pulizie']},
+   {id:'arredo',    n:'Arredo',          kw:['ikea','mobili','lampada','tenda','scaffale','sedia','materasso','scrivania','maisons du monde']},
+   {id:'biancheria',n:'Biancheria',      kw:['lenzuola','asciugamani','federe','coperta','piumone','cuscino']},
+   {id:'stoviglie', n:'Cucina e stoviglie',kw:['pentola','padella','piatti','bicchieri','posate','tupperware','stoviglie']},
+   {id:'riparaz',   n:'Riparazioni',     kw:['idraulico','elettricista','fabbro','riparazione','manutenzione casa','ferramenta']}
  ]},
- {id:'auto', n:'Auto',            i:'car',   col:'#FF9500', subs:[
-   {id:'carburante',   n:'Carburante',    kw:['ip ','q8','eni','esso','tamoil','agip','benzina','gasolio','diesel','carburante','rifornimento','pieno','distributore']},
-   {id:'pedaggi',      n:'Pedaggi',       kw:['telepass','autostrada','pedaggio','aspi','sat ']},
-   {id:'parcheggio',   n:'Parcheggio',    kw:['parcheggio','sosta','easypark','parcometro','garage']},
-   {id:'manutenzione', n:'Manutenzione',  kw:['tagliando','gomme','pneumatici','meccanico','officina','revisione','autolavaggio','olio motore','batteria']},
-   {id:'assicurazione',n:'Assicurazione', kw:['assicurazione','rc auto','polizza','bollo']}
+ {id:'auto', n:'Auto', i:'car', col:'#FF9500', subs:[
+   {id:'carburante',n:'Carburante',   kw:['ip ','q8','eni','esso','tamoil','agip','api ','repsol','benzina','gasolio','diesel','carburante','rifornimento','pieno','distributore']},
+   {id:'pedaggi',   n:'Pedaggi',      kw:['telepass','autostrada','pedaggio','aspi','satap','autostrade']},
+   {id:'parcheggio',n:'Parcheggi',    kw:['parcheggio','sosta','easypark','parcometro','garage','strisce blu','park']},
+   {id:'tagliando', n:'Tagliando',    kw:['tagliando','cambio olio','filtri','olio motore','service auto']},
+   {id:'gomme',     n:'Gomme',        kw:['gomme','pneumatici','cambio gomme','invernali','estive','equilibratura']},
+   {id:'meccanico', n:'Meccanico',    kw:['meccanico','officina','carrozzeria','riparazione auto','frizione','freni','batteria auto']},
+   {id:'rcauto',    n:'Assicurazione RC',kw:['rc auto','assicurazione auto','polizza auto','genertel','quixa','prima.it','verti']},
+   {id:'bollo',     n:'Bollo',        kw:['bollo','tassa automobilistica','bollo auto']},
+   {id:'revisione', n:'Revisione',    kw:['revisione','collaudo','motorizzazione']},
+   {id:'multe',     n:'Multe',        kw:['multa','sanzione','verbale','contravvenzione','ztl']},
+   {id:'lavaggio',  n:'Autolavaggio', kw:['autolavaggio','lavaggio auto','car wash']},
+   {id:'accessori', n:'Accessori auto',kw:['catene','tappetini','portapacchi','norauto','accessori auto']}
  ]},
- {id:'spesa', n:'Spesa',          i:'cart',  col:'#0A84FF', subs:[
-   {id:'supermercato', n:'Supermercato', kw:['conad','esselunga','lidl','coop','eurospin','carrefour','penny','md ','pam','despar','crai','famila','bennet','iper','tigre','supermercato','spesa','discount','aldi']},
-   {id:'alimentari',   n:'Alimentari',   kw:['panetteria','panificio','macelleria','fruttivendolo','pescheria','forno','alimentari','pane','frutta']},
-   {id:'casalinghi',   n:'Casalinghi',   kw:['tigota','acqua e sapone','dm ','casalinghi']}
+ {id:'spesa', n:'Spesa', i:'cart', col:'#0A84FF', subs:[
+   {id:'supermerc', n:'Supermercato', kw:['conad','esselunga','lidl','coop','eurospin','carrefour','penny','md ','pam','despar','crai','famila','bennet','iper','tigre','in\'s','supermercato','spesa','discount','aldi','todis','basko']},
+   {id:'panetteria',n:'Panetteria',   kw:['panetteria','panificio','forno','pane','focacceria']},
+   {id:'macelleria',n:'Macelleria',   kw:['macelleria','macellaio','carne']},
+   {id:'frutta',    n:'Frutta e verdura',kw:['fruttivendolo','ortofrutta','frutta','verdura','mercato']},
+   {id:'pescheria', n:'Pescheria',    kw:['pescheria','pesce','pescivendolo']},
+   {id:'bevande',   n:'Bevande',      kw:['bevande','acqua minerale','birre','vino','enoteca','cantina']},
+   {id:'etnico',    n:'Alimentari vari',kw:['alimentari','salumeria','gastronomia','biologico','naturasi']}
  ]},
- {id:'trasporti', n:'Trasporti',  i:'bus',   col:'#30B0C7', subs:[
-   {id:'treno',   n:'Treno',    kw:['trenitalia','italo','treno','frecciarossa','regionale','biglietto treno']},
-   {id:'urbano',  n:'Urbano',   kw:['gtt','atm','bus','metro','tram','urbano','biglietto','abbonamento urbano','abbonamento gtt','abbonamento bus','abbonamento mensile trasporti','tper','seta']},
-   {id:'taxi',    n:'Taxi',     kw:['taxi','uber','free now','bolt ']},
-   {id:'aereo',   n:'Aereo',    kw:['ryanair','easyjet','wizz','volo','aereo','aeroporto','flixbus']}
+ {id:'trasporti', n:'Trasporti', i:'bus', col:'#30B0C7', subs:[
+   {id:'treno',    n:'Treno',            kw:['trenitalia','italo','treno','frecciarossa','frecciargento','intercity','regionale','biglietto treno']},
+   {id:'abbo-urb', n:'Abbonamento urbano',kw:['abbonamento urbano','abbonamento gtt','abbonamento bus','abbonamento mensile','tessera trasporti']},
+   {id:'urbano',   n:'Biglietti urbani',  kw:['gtt','atm ','bus','metro','tram','biglietto bus','tper','seta','urbano']},
+   {id:'extraurb', n:'Bus extraurbano',   kw:['flixbus','marino','baltour','autolinee','pullman','corriera']},
+   {id:'taxi',     n:'Taxi e NCC',        kw:['taxi','uber','free now','ncc','bolt ']},
+   {id:'aereo',    n:'Aereo',             kw:['ryanair','easyjet','wizz','ita airways','volo','aereo','aeroporto','skyscanner','bagaglio']},
+   {id:'sharing',  n:'Sharing',           kw:['car sharing','enjoy','share now','lime','bird','dott','monopattino','bike sharing','ridemovi']}
  ]},
- {id:'personale', n:'Personale', i:'user',   col:'#FF2D55', subs:[
-   {id:'bar',        n:'Bar',           kw:['bar','caffe','caffè','cappuccino','colazione','brioche','cornetto','autogrill','aperitivo','spritz','birra','cocktail','pasticceria']},
-   {id:'ristorante', n:'Ristorante',    kw:['ristorante','pizzeria','pizza','sushi','kebab','mcdonald','burger','poke','trattoria','osteria','panino','piadina','cena','pranzo','gelato','tavola calda']},
-   {id:'palestra',   n:'Palestra',      kw:['palestra','integratori','proteine','whey','creatina','fitness','piscina','crossfit']},
-   {id:'vestiti',    n:'Abbigliamento', kw:['zara','h&m','nike','adidas','decathlon','uniqlo','scarpe','maglietta','felpa','jeans','giacca','calzedonia','intimissimi','abbigliamento']},
-   {id:'svago',      n:'Svago',         kw:['cinema','concerto','libro','libri','feltrinelli','mondadori','museo','teatro','steam','videogioco','discoteca','bowling']},
-   {id:'salute',     n:'Salute',        kw:['farmacia','medico','dentista','ottico','occhiali','visita','analisi','fisioterapia','parafarmacia']},
-   {id:'cura',       n:'Cura persona',  kw:['barbiere','parrucchiere','profumeria','sephora','rasoio','shampoo','dopobarba']},
-   {id:'regali',     n:'Regali',        kw:['regalo','regali','compleanno','fiori','anniversario','natale']},
-   {id:'varie',      n:'Varie',         kw:['amazon','varie','altro']}
+ {id:'personale', n:'Personale', i:'user', col:'#FF2D55', subs:[
+   {id:'caffe',     n:'Caffè e bar',    kw:['bar','caffe','caffè','cappuccino','espresso','autogrill','chiosco']},
+   {id:'colazione', n:'Colazione',      kw:['colazione','brioche','cornetto','pasticceria','cappuccino e brioche','croissant']},
+   {id:'pranzo',    n:'Pranzo fuori',   kw:['pranzo','mensa','tavola calda','rosticceria','panino','piadina','poke','insalateria','schiacciata']},
+   {id:'cena',      n:'Cena fuori',     kw:['cena','ristorante','trattoria','osteria','pizzeria','pizza','sushi','giapponese','messicano','hamburgeria','braceria','steakhouse']},
+   {id:'aperitivo', n:'Aperitivo',      kw:['aperitivo','spritz','cocktail','birra','pub','happy hour','drink','vineria','lounge']},
+   {id:'delivery',  n:'Delivery',       kw:['glovo','deliveroo','just eat','uber eats','domicilio','delivery','asporto']},
+   {id:'fastfood',  n:'Fast food',      kw:['mcdonald','burger king','kfc','kebab','old wild west','roadhouse','fast food']},
+   {id:'gelato',    n:'Gelato e dolci', kw:['gelato','gelateria','dolce','pasticcini','crepe','waffle']},
+   {id:'barbiere',  n:'Barbiere',       kw:['barbiere','parrucchiere','taglio','barba','barber']},
+   {id:'cura',      n:'Cura persona',   kw:['rasoio','schiuma da barba','dopobarba','shampoo','bagnoschiuma','deodorante','dentifricio','crema','skincare','tigota','acqua e sapone']},
+   {id:'profumi',   n:'Profumeria',     kw:['profumo','profumeria','sephora','douglas','marionnaud','pinalli']},
+   {id:'abbigl',    n:'Abbigliamento',  kw:['zara','h&m','uniqlo','pull&bear','bershka','jack jones','maglietta','felpa','jeans','giacca','camicia','pantaloni','cappotto','abbigliamento','ovs','primark']},
+   {id:'scarpe',    n:'Scarpe',         kw:['scarpe','sneakers','foot locker','snipes','stivali','scarponi','cisalfa','anfibi']},
+   {id:'accessori', n:'Accessori',      kw:['cintura','portafoglio','orologio','occhiali da sole','zaino','borsa','cappello','sciarpa']},
+   {id:'intimo',    n:'Intimo e calze', kw:['intimo','calzini','calze','boxer','tezenis','calzedonia','intimissimi']},
+   {id:'palestra',  n:'Palestra',       kw:['palestra','abbonamento palestra','fitness','crossfit','piscina','ingresso palestra','mcfit','virgin active']},
+   {id:'integrat',  n:'Integratori',    kw:['integratori','proteine','whey','creatina','multivitaminico','omega 3','magnesio','myprotein','prozis']},
+   {id:'attrezz',   n:'Attrezzatura sport',kw:['decathlon','cisalfa','scarpe running','garmin','borraccia','fascia cardio','tappetino','manubri','corda']},
+   {id:'gare',      n:'Gare e iscrizioni',kw:['iscrizione gara','pettorale','maratona','trail','corsa iscrizione','tesseramento']},
+   {id:'farmacia',  n:'Farmacia',       kw:['farmacia','parafarmacia','medicinale','antidolorifico','cerotti','tachipirina']},
+   {id:'medico',    n:'Visite mediche', kw:['medico','dentista','visita','specialista','analisi del sangue','ecografia','fisioterapia','fisioterapista','ticket']},
+   {id:'ottico',    n:'Ottico',         kw:['ottico','occhiali','lenti','lenti a contatto','salmoiraghi','grandvision']},
+   {id:'libri',     n:'Libri',          kw:['libro','libri','feltrinelli','mondadori','libreria','ebook','kindle','audible']},
+   {id:'cinema',    n:'Cinema e teatro',kw:['cinema','teatro','film','biglietto cinema','uci','the space']},
+   {id:'eventi',    n:'Concerti ed eventi',kw:['concerto','festival','ticketone','evento','biglietto concerto','dice','museo','mostra']},
+   {id:'gaming',    n:'Videogiochi',    kw:['steam','playstation','xbox','nintendo','gioco','videogioco','epic games','gamestop']},
+   {id:'serate',    n:'Serate e uscite',kw:['discoteca','ingresso','serata','club','bowling','biliardo','sala giochi','karaoke']},
+   {id:'viaggi',    n:'Viaggi',         kw:['viaggio','vacanza','escursione','gita','tour','guida turistica','noleggio auto']},
+   {id:'alloggi',   n:'Hotel e alloggi',kw:['hotel','airbnb','booking','ostello','bnb','albergo','agriturismo','pernottamento']},
+   {id:'elettr',    n:'Elettronica',    kw:['mediaworld','unieuro','amazon','cuffie','caricatore','cavo','powerbank','mouse','tastiera','hard disk','apple store']},
+   {id:'studio',    n:'Cancelleria e studio',kw:['cancelleria','quaderno','penne','stampe','fotocopie','libri universitari','materiale']},
+   {id:'regali',    n:'Regali',         kw:['regalo','regali','compleanno','fiori','anniversario','natale','bomboniera','laurea']},
+   {id:'varie',     n:'Varie',          kw:['varie','altro','imprevisto']}
  ]},
  {id:'accanton', n:'Accantonamenti', i:'shield', col:'#FFB800', subs:[
-   {id:'fondo-auto',  n:'Fondo auto',      kw:['fondo auto','accantonamento auto']},
-   {id:'fondo-impr',  n:'Fondo imprevisti',kw:['imprevisti','fondo imprevisti']}
+   {id:'f-auto',  n:'Fondo auto',       kw:['fondo auto','accantonamento auto']},
+   {id:'f-impr',  n:'Fondo imprevisti', kw:['imprevisti','fondo imprevisti']},
+   {id:'f-salute',n:'Fondo salute',     kw:['fondo salute']},
+   {id:'f-tech',  n:'Fondo tecnologia', kw:['fondo tech','fondo tecnologia']}
  ]},
- {id:'risparmio', n:'Risparmio', i:'pig',   col:'#34C759', subs:[
-   {id:'trasloco',  n:'Fondo trasloco', kw:['trasloco','deposito','caparra','cauzione']},
-   {id:'generico',  n:'Risparmio',      kw:['risparmio','messo da parte']}
+ {id:'risparmio', n:'Risparmio', i:'pig', col:'#34C759', subs:[
+   {id:'trasloco',   n:'Fondo trasloco',kw:['trasloco','caparra','cauzione','deposito affitto','anticipo affitto']},
+   {id:'generico',   n:'Risparmio',     kw:['risparmio','messo da parte','salvadanaio']},
+   {id:'investimenti',n:'Investimenti', kw:['etf','investimento','pac','deposito titoli','trade republic','degiro']}
  ]}
 ];
-const CATS_IN=[
+const DEF_CATS_IN=[
  {id:'stipendio', n:'Stipendio', i:'cash', col:'#34C759', subs:[
-   {id:'stipendio', n:'Stipendio',  kw:['stipendio','paga','competenze','indennita','indennità','busta paga','soldo','tredicesima']}
+   {id:'stipendio', n:'Stipendio',  kw:['stipendio','paga','competenze','busta paga','soldo','mensilita','mensilità']},
+   {id:'indennita', n:'Indennità',  kw:['indennita','indennità','missione','trasferta','straordinari']},
+   {id:'arretrati', n:'Arretrati',  kw:['arretrati','conguaglio','tredicesima','quattordicesima']}
  ]},
- {id:'altre-in',  n:'Altre entrate', i:'plus', col:'#30B0C7', subs:[
-   {id:'vendita', n:'Vendita', kw:['vendita','venduto','subito','vinted']},
-   {id:'regalo',  n:'Regalo',  kw:['regalo','mancia','nonna','nonno']},
-   {id:'altro',   n:'Altro',   kw:[]}
+ {id:'altre-in', n:'Altre entrate', i:'plus', col:'#30B0C7', subs:[
+   {id:'vendita',  n:'Vendite',        kw:['vendita','venduto','subito','vinted','wallapop','ebay']},
+   {id:'regalo',   n:'Regali ricevuti',kw:['regalo','mancia','nonna','nonno','zio','zia']},
+   {id:'interessi',n:'Interessi',      kw:['interessi','cedola','dividendo','rendimento']},
+   {id:'altro',    n:'Altro',          kw:[]}
  ]}
 ];
 
@@ -378,18 +459,21 @@ const PROFILI={
 function profileKey(y,m){ return (y<2026 || (y===2026 && m<=7)) ? 'agosto' : 'settembre'; }
 
 /* ═══════════ ARCHIVIO ═══════════ */
-let DB=load();
-
+const clone=o=>JSON.parse(JSON.stringify(o));
 function blank(){
-  return {v:4, tx:[], tomb:[],
-    profili:JSON.parse(JSON.stringify(PROFILI)),
-    rules:{}, meta:{up:0}};
+  return {v:4, tx:[], tomb:[], cats:clone(DEF_CATS), catsIn:clone(DEF_CATS_IN),
+    profili:clone(PROFILI), rules:{}, meta:{up:0}};
 }
 function normalize(d){
   const o=blank(); if(!d) return o;
   o.tx=(Array.isArray(d.tx)?d.tx:[]).map(t=>({...t, kind:t.kind||t.type||'out', up:t.up||t.ts||0}));
   o.tomb=Array.isArray(d.tomb)?d.tomb:[];
+  if(Array.isArray(d.cats)&&d.cats.length) o.cats=d.cats;
+  if(Array.isArray(d.catsIn)&&d.catsIn.length) o.catsIn=d.catsIn;
+  o.cats.forEach(c=>{ c.subs=Array.isArray(c.subs)?c.subs:[]; });
+  o.catsIn.forEach(c=>{ c.subs=Array.isArray(c.subs)?c.subs:[]; });
   if(d.profili){ Object.keys(o.profili).forEach(k=>{ if(d.profili[k]) o.profili[k]={...o.profili[k],...d.profili[k],b:{...o.profili[k].b,...(d.profili[k].b||{})}}; }); }
+  o.cats.forEach(c=>Object.values(o.profili).forEach(P=>{ if(P.b[c.id]===undefined) P.b[c.id]=0; }));
   o.rules=d.rules||{}; o.meta={up:(d.meta&&d.meta.up)||0};
   return o;
 }
@@ -399,6 +483,7 @@ function load(){
   return blank();
 }
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(DB)); }catch(e){ toast('Spazio esaurito — esporta un backup'); } }
+let DB=load();
 
 function merge(a,b){
   const A=normalize(a),B=normalize(b),o=blank();
@@ -407,7 +492,7 @@ function merge(a,b){
   o.tx=Object.values(map).filter(t=>!(gr[t.id]>=(t.up||0)));
   o.tomb=Object.entries(gr).map(([id,up])=>({id,up})).filter(g=>Date.now()-g.up<1000*60*60*24*120);
   const S=(A.meta.up>=B.meta.up)?A:B;
-  o.profili=S.profili; o.meta={up:Math.max(A.meta.up,B.meta.up)};
+  o.profili=S.profili; o.cats=S.cats; o.catsIn=S.catsIn; o.meta={up:Math.max(A.meta.up,B.meta.up)};
   o.rules={}; [A.rules,B.rules].forEach(src=>Object.entries(src||{}).forEach(([tk,cs])=>{
     o.rules[tk]=o.rules[tk]||{}; Object.entries(cs).forEach(([c,n])=>{ o.rules[tk][c]=Math.max(o.rules[tk][c]||0,n); });
   }));
@@ -463,11 +548,11 @@ function setState(s,m){
   const el=document.getElementById('syncSlot'); if(el) el.innerHTML=chipHTML();
   const st=document.getElementById('syncStatus'); if(st) st.innerHTML=statusHTML();
 }
-const sig=()=>JSON.stringify({t:DB.tx,d:DB.tomb,p:DB.profili,m:DB.meta});
+const sig=()=>JSON.stringify({t:DB.tx,d:DB.tomb,p:DB.profili,c:DB.cats,ci:DB.catsIn,m:DB.meta});
 
 async function syncNow(silent){
   if(!syncOn()||syncing) return;
-  syncing=true; setState('busy');
+  syncing=true; if(!silent) setState('busy');
   try{
     let remote=null,sha=null;
     const g=await gh('GET');
@@ -479,8 +564,8 @@ async function syncNow(silent){
     const before=sig();
     if(remote) DB=merge(DB,remote);
     save();
-    const payload=JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,rules:DB.rules,meta:DB.meta},null,1);
-    const remotePayload=remote?JSON.stringify({v:4,tx:remote.tx||[],tomb:remote.tomb||[],profili:remote.profili,rules:remote.rules,meta:remote.meta},null,1):null;
+    const payload=JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,1);
+    const remotePayload=remote?JSON.stringify({v:4,tx:remote.tx||[],tomb:remote.tomb||[],profili:remote.profili,cats:remote.cats,catsIn:remote.catsIn,rules:remote.rules,meta:remote.meta},null,1):null;
 
     if(payload!==remotePayload){
       const p=await gh('PUT',{message:'registro '+new Date().toISOString().slice(0,16).replace('T',' '),
@@ -492,7 +577,7 @@ async function syncNow(silent){
 
     SY.at=Date.now(); lastPull=Date.now(); retryN=0; clearTimeout(retryTimer);
     setState('ok');
-    if(before!==sig()){ render(); if(silent) toast('Aggiornato'); }
+    if(before!==sig()) render(!!silent);
     if(!silent) toast('Sincronizzato');
   }catch(e){
     setState('err',e.message||'Errore di rete');
@@ -502,7 +587,7 @@ async function syncNow(silent){
     retryTimer=setTimeout(()=>{ syncing=false; syncNow(true); },w);
   } finally { syncing=false; }
 }
-function queueSync(){ if(!syncOn()) return; setState('busy'); clearTimeout(syncTimer); syncTimer=setTimeout(()=>syncNow(true),1200); }
+function queueSync(){ if(!syncOn()) return; clearTimeout(syncTimer); syncTimer=setTimeout(()=>syncNow(true),1200); }
 
 function chipHTML(){
   if(!syncOn()) return `<button id="syncChip" class="chip-sync off" data-tab="set" title="Sincronizzazione non attiva">${ic('cloudoff',1.9)}</button>`;
@@ -521,7 +606,7 @@ function statusHTML(){
 /* ═══════════ AUTO-CATEGORIA ═══════════ */
 function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s&.]/g,' ').replace(/\s+/g,' ').trim(); }
 function toks(s){ return norm(s).split(' ').filter(t=>t.length>=3); }
-function catList(side){ return side==='in'?CATS_IN:CATS; }
+function catList(side){ return side==='in'?DB.catsIn:DB.cats; }
 
 function guess(note,side){
   const n=norm(note); if(n.length<2) return null;
@@ -530,7 +615,7 @@ function guess(note,side){
     Object.entries(r).forEach(([k,c])=>{ if(c>bs){ bs=c; best=k; } }); });
   if(best){ const [c,s]=best.split('/'); if(catList(side).find(x=>x.id===c)) return {cat:c,sub:s,why:'imparato'}; }
   let m=null,len=0;
-  catList(side).forEach(c=>c.subs.forEach(s=>(s.kw||[]).forEach(w=>{
+  catList(side).forEach(c=>(c.subs||[]).forEach(s=>(s.kw||[]).forEach(w=>{
     const nw=norm(w);
     if(nw&&nw.length>len&&n.includes(nw)){ m={cat:c.id,sub:s.id}; len=nw.length; }
   })));
@@ -638,7 +723,7 @@ function viewHome(){
   const recHTML=rec.length?rec.map(txRow).join(''):`<div class="empty">Ancora nessun movimento in ${MESI[M]}.</div>`;
 
   const byCat={}; tx.filter(t=>t.kind==='out').forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
-  const rows=CATS.filter(c=>byCat[c.id]||P.b[c.id]).map(c=>{
+  const rows=DB.cats.filter(c=>byCat[c.id]||P.b[c.id]).map(c=>{
     const v=byCat[c.id]||0, b=P.b[c.id]||0, pct=b?v/b*100:0;
     const cc=pct>100?'var(--red)':pct>85?'var(--orange)':c.col;
     return `<div class="crow">
@@ -680,14 +765,14 @@ function viewAnalisi(){
   const total=o.reduce((a,t)=>a+t.amount,0), dim=daysIn(Y,M), today=curMonth()?now.getDate():dim;
 
   const byCat={}; o.forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
-  const sl=CATS.filter(c=>byCat[c.id]).map(c=>({n:c.n,col:c.col,v:byCat[c.id],p:byCat[c.id]/total})).sort((a,b)=>b.v-a.v);
+  const sl=DB.cats.filter(c=>byCat[c.id]).map(c=>({n:c.n,col:c.col,v:byCat[c.id],p:byCat[c.id]/total})).sort((a,b)=>b.v-a.v);
   const R=54,SW=15,C=2*Math.PI*R; let acc=0;
   const donut=sl.map(s=>{const dl=s.p*C,off=-acc*C;acc+=s.p;
     return `<circle cx="70" cy="70" r="${R}" fill="none" stroke="${s.col}" stroke-width="${SW}" stroke-linecap="round" stroke-dasharray="${Math.max(dl-3,.5)} ${C-dl+3}" stroke-dashoffset="${off}" transform="rotate(-90 70 70)"/>`;}).join('');
 
   const bySub={}; o.forEach(t=>{ const k=t.cat+'/'+t.sub; bySub[k]=(bySub[k]||0)+t.amount; });
   const topSub=Object.entries(bySub).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>{
-    const [ci,si]=k.split('/'); const c=CATS.find(x=>x.id===ci)||{n:ci,col:'#8E8E93',subs:[]};
+    const [ci,si]=k.split('/'); const c=DB.cats.find(x=>x.id===ci)||{n:ci,col:'#8E8E93',subs:[]};
     const s=(c.subs||[]).find(x=>x.id===si);
     return `<div class="crow"><div class="crow-t"><span style="width:10px;height:10px;border-radius:50%;background:${c.col};flex-shrink:0"></span>
       <span class="n">${esc(s?s.n:si)} <span style="color:var(--txt3)">· ${esc(c.n)}</span></span><span class="a num">${eur(v,0)}</span></div></div>`;}).join('');
@@ -742,7 +827,7 @@ function insights(y,m){
   if(today<dim&&today>2) out.push({c:N,t:`Al ritmo attuale chiudi a <b>${eur(Math.round(total/today*dim))}</b> su ${eur(budget,0)} di budget.`});
 
   const byCat={}; tx.forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
-  CATS.forEach(c=>{ const b=P.b[c.id]||0, v=byCat[c.id]||0;
+  DB.cats.forEach(c=>{ const b=P.b[c.id]||0, v=byCat[c.id]||0;
     if(b>0&&v>b) out.push({c:R,t:`<b>${esc(c.n)}</b> ha sforato: ${eur(v)} su ${eur(b,0)}.`});
     else if(b>0&&today<dim&&v>b*(today/dim)*1.25) out.push({c:O,t:`<b>${esc(c.n)}</b> corre più veloce del mese: ${eur(v)} su ${eur(b,0)} al giorno ${today}.`});
   });
@@ -750,7 +835,7 @@ function insights(y,m){
   const bySub={}; tx.forEach(t=>{const k=t.cat+'/'+t.sub;bySub[k]=(bySub[k]||0)+t.amount;});
   const top=Object.entries(bySub).sort((a,b)=>b[1]-a[1])[0];
   if(top&&top[1]/total>=.2){
-    const [ci,si]=top[0].split('/'); const c=CATS.find(x=>x.id===ci)||{n:ci,subs:[]};
+    const [ci,si]=top[0].split('/'); const c=DB.cats.find(x=>x.id===ci)||{n:ci,subs:[]};
     const s=(c.subs||[]).find(x=>x.id===si);
     out.push({c:O,t:`<b>${esc(s?s.n:si)}</b> da sola vale il ${Math.round(top[1]/total*100)}% del mese (${eur(top[1])}).`});
   }
@@ -788,7 +873,7 @@ function viewSetup(){
   return `<div class="cols"><div>
     <div class="g card"><div class="card-h"><h3>Budget · ${esc(P.n)}</h3><span class="num" style="font-size:15px;font-weight:600">${eur(tot,0)}</span></div>
       <div class="verdict" style="border:0;padding:0;margin:0 0 16px">Stai vedendo il profilo di ${esc(MESI[M])}. Ad agosto vitto e alloggio sono coperti, da settembre entra Torino: i due profili sono separati e si applicano da soli in base al mese.</div>
-      ${CATS.map(c=>`<div class="row" style="margin-bottom:11px">
+      ${DB.cats.map(c=>`<div class="row" style="margin-bottom:11px">
         <span class="badge" style="background:${c.col}">${ic(c.i)}</span>
         <span style="flex:1;font-size:15px">${esc(c.n)}</span>
         <input type="number" inputmode="decimal" data-b="${c.id}" placeholder="0" style="width:100px;text-align:right;padding:10px 13px" value="${P.b[c.id]?P.b[c.id]/100:''}"></div>`).join('')}
@@ -808,14 +893,115 @@ function viewSetup(){
         <button class="ghost" id="syGo">Sincronizza</button>
         ${syncOn()?`<button class="ghost" id="syCfg">Genera config.js</button><button class="ghost" id="syLink">Copia link</button><button class="ghost dg" id="syOff">Disattiva</button>`:''}</div>
       ${baked()?`<div class="sync-line" style="margin:0"><span class="dt" style="background:var(--green)"></span><span style="color:var(--txt2)">config.js attivo — configurazione permanente</span></div>`:''}</div>
-    <div class="g card"><h3>Categorie automatiche</h3>
-      <div class="verdict" style="border:0;padding:0;margin:0 0 16px">Le keyword partono dai negozi che compaiono davvero nel tuo estratto — IP, Q8, Telepass, Conad, Autogrill — e imparano dalle tue correzioni.${learned?` Finora ha imparato <b>${learned} parole</b>.`:''}</div>
-      ${learned?`<button class="ghost" id="fgt">Azzera memoria</button>`:''}</div>
+    <div class="g card"><div class="card-h"><h3>Categorie</h3>
+        <span style="font-size:13px;color:var(--txt3)">${DB.cats.length} · ${DB.cats.reduce((a,c)=>a+(c.subs||[]).length,0)} sotto</span></div>
+      <div class="verdict" style="border:0;padding:0;margin:0 0 16px">Aggiungi, rinomina ed elimina categorie e sottocategorie, con le parole che le fanno scattare. Le keyword di partenza sono quelle dei negozi del tuo estratto, e il sistema impara dalle tue correzioni.${learned?` Finora ha imparato <b>${learned} parole</b>.`:''}</div>
+      <div class="row" style="flex-wrap:wrap;gap:9px">
+        <button class="ghost" id="mgr">Gestisci categorie</button>
+        ${learned?`<button class="ghost" id="fgt">Azzera memoria</button>`:''}</div></div>
     <div class="g card"><h3>I tuoi dati</h3>
       <div class="row" style="flex-wrap:wrap;gap:9px"><button class="ghost" id="eJ">Backup</button><button class="ghost" id="eC">CSV</button><button class="ghost" id="iB">Importa</button></div>
       <input type="file" id="iF" accept="application/json" class="hidden">
       <div style="margin-top:18px;padding-top:16px;border-top:.5px solid var(--hair)"><button class="ghost dg" id="wp">Cancella tutto</button></div></div>
   </div></div>`;
+}
+
+/* ═══════════ GESTORE CATEGORIE ═══════════ */
+const PALETTE=['#0A84FF','#34C759','#FF3B30','#FF9500','#FFB800','#AF52DE','#FF2D55','#30B0C7','#5856D6','#32ADE6','#BF5AF2','#8E8E93'];
+const ICONSET=['cart','cup','home','car','bus','user','lock','shield','pig','cash','heart','book','plane','gift','tools','phone','star','ticket','scissors','shirt','bolt','swap','dots'];
+let MG=null;
+
+const slug=s=>norm(s).replace(/\s+/g,'-').slice(0,20)||('c'+Math.random().toString(36).slice(2,6));
+function uniqueId(base,list){ let id=slug(base),n=1; while(list.some(x=>x.id===id)) id=slug(base)+'-'+(++n); return id; }
+function usedCount(catId,subId){
+  return DB.tx.filter(t=>t.cat===catId&&(subId===undefined||t.sub===subId)).length;
+}
+function openMgr(side){ MG={view:'list',side:side||'out',cat:null,sub:null}; drawMgr(); }
+function closeMgr(){ MG=null; document.getElementById('sheetHost').innerHTML=''; render(); }
+
+function drawMgr(){
+  const H=document.getElementById('sheetHost');
+  const lst=catList(MG.side);
+  let body='';
+  if(MG.view==='list'){
+    body=`<div class="seg" style="margin-bottom:18px">
+        <button class="${MG.side==='out'?'on':''}" data-mside="out">Uscite</button>
+        <button class="${MG.side==='in'?'on':''}" data-mside="in">Entrate</button></div>
+      ${lst.map(c=>`<div class="mrow" data-mcat="${esc(c.id)}">
+        <span class="badge" style="background:${c.col}">${ic(c.i)}</span>
+        <span class="nm">${esc(c.n)}</span>
+        <span class="ct">${(c.subs||[]).length}</span><span class="ar">›</span></div>`).join('')}
+      <button class="addrow" data-mnew="cat">${ic('plus',2.2)}Nuova categoria</button>`;
+  }
+  else if(MG.view==='cat'){
+    const c=lst.find(x=>x.id===MG.cat)||{subs:[]};
+    body=`<div class="fld"><label>Nome</label><input id="mName" value="${esc(c.n)}" maxlength="24"></div>
+      <div class="fld"><label>Colore</label><div class="swatch">${PALETTE.map(p=>`<button data-mcol="${p}" class="${c.col===p?'on':''}" style="background:${p}" aria-label="colore"></button>`).join('')}</div></div>
+      <div class="fld"><label>Icona</label><div class="icgrid">${ICONSET.map(k=>`<button data-mic="${k}" class="${c.i===k?'on':''}">${ic(k)}</button>`).join('')}</div></div>
+      <div class="fld"><label>Sottocategorie</label>
+        ${(c.subs||[]).map(sb=>`<div class="mrow" data-msub="${esc(sb.id)}">
+          <span class="nm">${esc(sb.n)}</span>
+          <span class="ct">${(sb.kw||[]).length} parole</span><span class="ar">›</span></div>`).join('')}
+        <button class="addrow" data-mnew="sub">${ic('plus',2.2)}Nuova sottocategoria</button></div>
+      <button class="ghost dg" data-mdel="cat" style="width:100%;text-align:center">Elimina categoria</button>`;
+  }
+  else {
+    const c=lst.find(x=>x.id===MG.cat)||{subs:[]};
+    const sb=MG.sub?(c.subs||[]).find(x=>x.id===MG.sub):{n:'',kw:[]};
+    body=`<div class="fld"><label>Nome</label><input id="mName" value="${esc(sb.n)}" maxlength="28" placeholder="es. Barbiere"></div>
+      <div class="fld"><label>Parole che la fanno scattare</label>
+        <input id="mKw" value="${esc((sb.kw||[]).join(', '))}" placeholder="barbiere, parrucchiere, taglio">
+        <div class="verdict" style="border:0;padding:0;margin:10px 0 0;font-size:13px">Separate da virgola. Quando una di queste compare nella nota, la categoria si assegna da sola.</div></div>
+      ${MG.sub?`<button class="ghost dg" data-mdel="sub" style="width:100%;text-align:center">Elimina sottocategoria</button>`:''}`;
+  }
+  const titles={list:'Categorie',cat:'Modifica categoria',sub:MG.sub?'Modifica sottocategoria':'Nuova sottocategoria'};
+  H.innerHTML=`<div class="sheet"><div class="scrim" data-mclose="1"></div>
+    <div class="panel"><div class="grab"></div>
+      <div class="sheet-h">
+        <span class="t">${MG.view!=='list'?'<button class="link" data-mback="1" style="margin-right:8px">‹ Indietro</button>':''}${titles[MG.view]}</span>
+        <button class="x" data-mclose="1" aria-label="Chiudi">✕</button></div>
+      <div style="margin-top:14px">${body}</div>
+      ${MG.view!=='list'?`<button class="save" id="mSave" style="background:var(--blue);margin-top:18px"><span>Salva</span></button>`:''}
+    </div></div>`;
+}
+
+function mgrSave(){
+  const lst=catList(MG.side);
+  const name=(document.getElementById('mName')||{}).value||'';
+  if(!name.trim()){ toast('Serve un nome'); return; }
+  DB.meta.up=Date.now();
+  if(MG.view==='cat'){
+    let c=lst.find(x=>x.id===MG.cat);
+    if(!c){ c={id:uniqueId(name,lst),n:name.trim(),i:MG.tmpIc||'dots',col:MG.tmpCol||PALETTE[0],subs:[]};
+      lst.push(c); Object.values(DB.profili).forEach(P=>P.b[c.id]=P.b[c.id]||0); MG.cat=c.id; }
+    else { c.n=name.trim(); if(MG.tmpIc) c.i=MG.tmpIc; if(MG.tmpCol) c.col=MG.tmpCol; }
+    MG.tmpIc=null; MG.tmpCol=null; MG.view='list';
+  } else {
+    const c=lst.find(x=>x.id===MG.cat); if(!c) return;
+    const kw=((document.getElementById('mKw')||{}).value||'').split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+    let sb=MG.sub?c.subs.find(x=>x.id===MG.sub):null;
+    if(!sb){ sb={id:uniqueId(name,c.subs),n:name.trim(),kw}; c.subs.push(sb); }
+    else { sb.n=name.trim(); sb.kw=kw; }
+    MG.view='cat';
+  }
+  save(); queueSync(); drawMgr(); toast('Salvato');
+}
+function mgrDelete(what){
+  const lst=catList(MG.side), c=lst.find(x=>x.id===MG.cat);
+  if(what==='cat'){
+    const n=usedCount(MG.cat);
+    if(n&&!confirm(`${n} movimenti usano questa categoria. Eliminandola restano senza. Procedere?`)) return;
+    const i=lst.findIndex(x=>x.id===MG.cat); if(i>=0) lst.splice(i,1);
+    Object.values(DB.profili).forEach(P=>delete P.b[MG.cat]);
+    MG.view='list';
+  } else {
+    if(!c) return;
+    const n=usedCount(MG.cat,MG.sub);
+    if(n&&!confirm(`${n} movimenti usano questa sottocategoria. Procedere?`)) return;
+    const i=c.subs.findIndex(x=>x.id===MG.sub); if(i>=0) c.subs.splice(i,1);
+    MG.view='cat';
+  }
+  DB.meta.up=Date.now(); save(); queueSync(); drawMgr(); toast('Eliminato');
 }
 
 /* ═══════════ SHEET ═══════════ */
@@ -909,7 +1095,7 @@ function toast(m){ const h=document.getElementById('toastHost'); if(!h) return;
 
 /* ═══════════ IMPORT / EXPORT ═══════════ */
 function dl(n,t,m){ const u=URL.createObjectURL(new Blob([t],{type:m})); const a=document.createElement('a'); a.href=u;a.download=n;a.click(); setTimeout(()=>URL.revokeObjectURL(u),1500); }
-function expJ(){ dl(`registro-${iso(new Date())}.json`,JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,rules:DB.rules,meta:DB.meta},null,2),'application/json'); toast('Backup esportato'); }
+function expJ(){ dl(`registro-${iso(new Date())}.json`,JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,2),'application/json'); toast('Backup esportato'); }
 function expC(){
   const r=[['data','tipo','nota','categoria','sottocategoria','importo']];
   [...DB.tx].sort((a,b)=>a.date<b.date?-1:1).forEach(t=>r.push([t.date,(KINDS[t.kind]||{}).n||t.kind,(t.note||'').replace(/;/g,','),catObj(t).n,subName(t),(t.amount/100).toFixed(2).replace('.',',')]));
@@ -921,7 +1107,11 @@ function impJ(f){ const rd=new FileReader();
   }catch(e){ toast('File non leggibile'); } }; rd.readAsText(f); }
 
 /* ═══════════ RENDER ═══════════ */
-function render(){
+function render(soft){
+  if(E||MG) return;
+  if(soft&&document.activeElement&&document.activeElement.tagName==='INPUT') return;
+  const v0=document.getElementById('view');
+  if(soft) v0.classList.add('noanim'); else v0.classList.remove('noanim');
   renderNav();
   document.getElementById('syncSlot').innerHTML=chipHTML();
   document.getElementById('mLbl').textContent=MESI[M].slice(0,3)+' '+String(Y).slice(2);
@@ -954,6 +1144,7 @@ function bindSetup(){
   const so=document.getElementById('syOff');
   if(so) so.onclick=()=>{ if(confirm('Disattivare la sincronizzazione su questo dispositivo?')){
     SY={repo:'',path:'registro.json',branch:'main',token:'',sha:null,at:0,state:'off',msg:'',optout:true}; saveSync(); render(); } };
+  document.getElementById('mgr').onclick=()=>openMgr('out');
   const f=document.getElementById('fgt');
   if(f) f.onclick=()=>{ if(confirm('Azzerare le associazioni imparate?')){ DB.rules={}; DB.meta.up=Date.now(); save(); queueSync(); render(); } };
   document.getElementById('eJ').onclick=expJ;
@@ -962,14 +1153,30 @@ function bindSetup(){
   document.getElementById('iF').onchange=e=>{ if(e.target.files[0]) impJ(e.target.files[0]); };
   document.getElementById('wp').onclick=()=>{ if(confirm('Cancellare movimenti e budget?')){
     const T=Date.now(); DB.tomb=[...DB.tomb,...DB.tx.map(t=>({id:t.id,up:T}))];
-    DB.tx=[]; DB.profili=JSON.parse(JSON.stringify(PROFILI)); DB.rules={}; DB.meta.up=T;
+    DB.tx=[]; DB.profili=clone(PROFILI); DB.cats=clone(DEF_CATS); DB.catsIn=clone(DEF_CATS_IN); DB.rules={}; DB.meta.up=T;
     save(); queueSync(); render(); toast('Dati cancellati'); } };
 }
 
 /* ═══════════ EVENTI ═══════════ */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx');
+  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx,[data-mside],[data-mcat],[data-msub],[data-mnew],[data-mback],[data-mclose],[data-mcol],[data-mic],[data-mdel],#mSave');
   if(!t) return;
+  if(MG){
+    if(t.dataset.mclose!==undefined&&t.dataset.mclose){ closeMgr(); return; }
+    if(t.dataset.mback){ MG.view=MG.view==='sub'?'cat':'list'; MG.tmpIc=null; MG.tmpCol=null; drawMgr(); return; }
+    if(t.dataset.mside){ MG.side=t.dataset.mside; MG.view='list'; drawMgr(); return; }
+    if(t.dataset.mcat){ MG.cat=t.dataset.mcat; MG.view='cat'; drawMgr(); return; }
+    if(t.dataset.msub){ MG.sub=t.dataset.msub; MG.view='sub'; drawMgr(); return; }
+    if(t.dataset.mnew==='cat'){ MG.cat=null; MG.view='cat'; MG.tmpIc='dots'; MG.tmpCol=PALETTE[0]; drawMgr(); return; }
+    if(t.dataset.mnew==='sub'){ MG.sub=null; MG.view='sub'; drawMgr(); return; }
+    if(t.dataset.mcol){ MG.tmpCol=t.dataset.mcol;
+      document.querySelectorAll('[data-mcol]').forEach(b=>b.classList.toggle('on',b.dataset.mcol===MG.tmpCol)); return; }
+    if(t.dataset.mic){ MG.tmpIc=t.dataset.mic;
+      document.querySelectorAll('[data-mic]').forEach(b=>b.classList.toggle('on',b.dataset.mic===MG.tmpIc)); return; }
+    if(t.dataset.mdel){ mgrDelete(t.dataset.mdel); return; }
+    if(t.id==='mSave'){ mgrSave(); return; }
+    return;
+  }
   if(t.dataset.sync){ syncNow(); return; }
   if(t.dataset.tab){ TAB=t.dataset.tab; render(); window.scrollTo({top:0,behavior:'smooth'}); return; }
   if(t.dataset.open){ openEntry(t.dataset.open); return; }
@@ -1011,7 +1218,7 @@ if(fromLink){ toast('Dispositivo configurato'); }
 
 if(syncOn()){
   syncNow(true);
-  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E) syncNow(true); },20000);
+  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E&&!MG) syncNow(true); },20000);
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') syncNow(true); });
   window.addEventListener('focus',()=>{ if(Date.now()-lastPull>4000) syncNow(true); });
   window.addEventListener('pageshow',()=>syncNow(true));
