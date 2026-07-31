@@ -244,6 +244,25 @@ svg.ch{width:100%;display:block;overflow:visible}
 .icgrid button:active{transform:scale(.9)}
 .icgrid button.on{background:var(--txt);color:var(--bg)}
 
+/* ---------- menu contestuale ---------- */
+.ctxwrap{position:fixed;inset:0;z-index:150}
+.ctx{position:absolute;min-width:236px;max-width:280px;border-radius:16px;overflow:hidden;
+  background:rgba(40,40,46,.92);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+  box-shadow:0 16px 44px -10px rgba(0,0,0,.65);animation:ctxin .22s var(--spring);transform-origin:top left}
+@media(prefers-color-scheme:light){.ctx{background:rgba(252,252,254,.94);box-shadow:0 16px 40px -12px rgba(0,0,0,.28)}}
+@keyframes ctxin{from{opacity:0;transform:scale(.86)}}
+.ctx button{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;
+  padding:14px 17px;font-size:16px;font-weight:500;letter-spacing:-.018em;text-align:left;
+  border-bottom:.5px solid var(--hair);transition:background .12s}
+.ctx button:last-child{border-bottom:0}
+.ctx button:active{background:rgba(255,255,255,.09)}
+.ctx button svg{width:19px;height:19px;flex-shrink:0;opacity:.85}
+.ctx button.dg{color:var(--red)}
+.ctx .hdr{padding:13px 17px 11px;border-bottom:.5px solid var(--hair);background:rgba(255,255,255,.04)}
+.ctx .hdr .t1{font-size:14.5px;font-weight:700;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctx .hdr .t2{font-size:12.5px;color:var(--txt2);margin-top:2px}
+.press{transform:scale(.97);transition:transform .18s var(--spring)}
+
 /* ---------- animazioni d'ingresso ---------- */
 #view>*{animation:enter .55s var(--spring) both}
 #view>*:nth-child(1){animation-delay:.02s} #view>*:nth-child(2){animation-delay:.06s}
@@ -316,6 +335,7 @@ svg.ch{width:100%;display:block;overflow:visible}
   <div id="view"></div>
 </div>
 <div id="sheetHost"></div>
+<div id="ctxHost"></div>
 <div id="toastHost"></div>
 
 <script src="config.js" onerror="window.RCFG=null"></script>
@@ -382,7 +402,7 @@ const DEF_CATS=[
    {id:'riparaz',   n:'Riparazioni',     kw:['idraulico','elettricista','fabbro','riparazione','manutenzione casa','ferramenta']}
  ]},
  {id:'auto', n:'Auto', i:'car', col:'#FF9500', subs:[
-   {id:'carburante',n:'Carburante',   kw:['ip ','q8','eni','esso','tamoil','agip','api ','repsol','benzina','gasolio','diesel','carburante','rifornimento','pieno','distributore']},
+   {id:'carburante',n:'Carburante',   kw:['ip','q8','eni','esso','tamoil','agip','api','repsol','beyfin','keropetrol','benzina','gasolio','diesel','carburante','rifornimento','pieno','distributore','stazione servizio','area servizio']},
    {id:'pedaggi',   n:'Pedaggi',      kw:['telepass','autostrada','pedaggio','aspi','satap','autostrade']},
    {id:'parcheggio',n:'Parcheggi',    kw:['parcheggio','sosta','easypark','parcometro','garage','strisce blu','park']},
    {id:'tagliando', n:'Tagliando',    kw:['tagliando','cambio olio','filtri','olio motore','service auto']},
@@ -414,26 +434,26 @@ const DEF_CATS=[
    {id:'sharing',  n:'Sharing',           kw:['car sharing','enjoy','share now','lime','bird','dott','monopattino','bike sharing','ridemovi']}
  ]},
  {id:'personale', n:'Personale', i:'user', col:'#FF2D55', subs:[
-   {id:'caffe',     n:'Caffè e bar',    kw:['bar','caffe','caffè','cappuccino','espresso','autogrill','chiosco']},
-   {id:'colazione', n:'Colazione',      kw:['colazione','brioche','cornetto','pasticceria','cappuccino e brioche','croissant']},
-   {id:'pranzo',    n:'Pranzo fuori',   kw:['pranzo','mensa','tavola calda','rosticceria','panino','piadina','poke','insalateria','schiacciata']},
-   {id:'cena',      n:'Cena fuori',     kw:['cena','ristorante','trattoria','osteria','pizzeria','pizza','sushi','giapponese','messicano','hamburgeria','braceria','steakhouse']},
-   {id:'aperitivo', n:'Aperitivo',      kw:['aperitivo','spritz','cocktail','birra','pub','happy hour','drink','vineria','lounge']},
-   {id:'delivery',  n:'Delivery',       kw:['glovo','deliveroo','just eat','uber eats','domicilio','delivery','asporto']},
+   {id:'caffe',     n:'Caffè e bar',    kw:['bar','caffe','caffè','caffetteria','cappuccino','espresso','autogrill','chiosco','bar tabacchi','coffee','starbucks','lavazza','macchinetta']},
+   {id:'colazione', n:'Colazione',      kw:['colazione','brioche','brioches','cornetto','croissant','pasticceria','pasticcere','bakery','forneria']},
+   {id:'pranzo',    n:'Pranzo fuori',   kw:['pranzo','mensa','tavola calda','rosticceria','panino','paninoteca','piadina','piadineria','poke','insalateria','schiacciata','focacceria','self service']},
+   {id:'cena',      n:'Cena fuori',     kw:['cena','ristorante','ristorazione','trattoria','osteria','locanda','taverna','pizzeria','pizza','sushi','giapponese','cinese','messicano','indiano','hamburgeria','braceria','steakhouse','ristopub']},
+   {id:'aperitivo', n:'Aperitivo',      kw:['aperitivo','spritz','cocktail','birra','birreria','pub','happy hour','drink','vineria','lounge','wine bar','tap room']},
+   {id:'delivery',  n:'Delivery',       kw:['glovo','deliveroo','just eat','justeat','uber eats','ubereats','domicilio','delivery','asporto','takeaway']},
    {id:'fastfood',  n:'Fast food',      kw:['mcdonald','burger king','kfc','kebab','old wild west','roadhouse','fast food']},
-   {id:'gelato',    n:'Gelato e dolci', kw:['gelato','gelateria','dolce','pasticcini','crepe','waffle']},
-   {id:'barbiere',  n:'Barbiere',       kw:['barbiere','parrucchiere','taglio','barba','barber']},
+   {id:'gelato',    n:'Gelato e dolci', kw:['gelato','gelateria','dolce','pasticcini','creperia','waffle','yogurteria','cioccolateria']},
+   {id:'barbiere',  n:'Barbiere',       kw:['barbiere','barberia','parrucchiere','taglio capelli','barba','barber','barber shop','coiffeur','hair studio']},
    {id:'cura',      n:'Cura persona',   kw:['rasoio','schiuma da barba','dopobarba','shampoo','bagnoschiuma','deodorante','dentifricio','crema','skincare','tigota','acqua e sapone']},
    {id:'profumi',   n:'Profumeria',     kw:['profumo','profumeria','sephora','douglas','marionnaud','pinalli']},
    {id:'abbigl',    n:'Abbigliamento',  kw:['zara','h&m','uniqlo','pull&bear','bershka','jack jones','maglietta','felpa','jeans','giacca','camicia','pantaloni','cappotto','abbigliamento','ovs','primark']},
    {id:'scarpe',    n:'Scarpe',         kw:['scarpe','sneakers','foot locker','snipes','stivali','scarponi','cisalfa','anfibi']},
    {id:'accessori', n:'Accessori',      kw:['cintura','portafoglio','orologio','occhiali da sole','zaino','borsa','cappello','sciarpa']},
    {id:'intimo',    n:'Intimo e calze', kw:['intimo','calzini','calze','boxer','tezenis','calzedonia','intimissimi']},
-   {id:'palestra',  n:'Palestra',       kw:['palestra','abbonamento palestra','fitness','crossfit','piscina','ingresso palestra','mcfit','virgin active']},
+   {id:'palestra',  n:'Palestra',       kw:['palestra','abbonamento palestra','fitness','crossfit','piscina','mcfit','virgin active','anytime fitness','basic fit','wellness']},
    {id:'integrat',  n:'Integratori',    kw:['integratori','proteine','whey','creatina','multivitaminico','omega 3','magnesio','myprotein','prozis']},
    {id:'attrezz',   n:'Attrezzatura sport',kw:['decathlon','cisalfa','scarpe running','garmin','borraccia','fascia cardio','tappetino','manubri','corda']},
    {id:'gare',      n:'Gare e iscrizioni',kw:['iscrizione gara','pettorale','maratona','trail','corsa iscrizione','tesseramento']},
-   {id:'farmacia',  n:'Farmacia',       kw:['farmacia','parafarmacia','medicinale','antidolorifico','cerotti','tachipirina']},
+   {id:'farmacia',  n:'Farmacia',       kw:['farmacia','parafarmacia','medicinale','antidolorifico','cerotti','tachipirina','antibiotico','sciroppo']},
    {id:'medico',    n:'Visite mediche', kw:['medico','dentista','visita','specialista','analisi del sangue','ecografia','fisioterapia','fisioterapista','ticket']},
    {id:'ottico',    n:'Ottico',         kw:['ottico','occhiali','lenti','lenti a contatto','salmoiraghi','grandvision']},
    {id:'libri',     n:'Libri',          kw:['libro','libri','feltrinelli','mondadori','libreria','ebook','kindle','audible']},
@@ -641,20 +661,59 @@ function statusHTML(){
 }
 
 /* ═══════════ AUTO-CATEGORIA ═══════════ */
-function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s&.]/g,' ').replace(/\s+/g,' ').trim(); }
-function toks(s){ return norm(s).split(' ').filter(t=>t.length>=3); }
+/* rumore tipico degli estratti conto: non dice niente sul negozio */
+const STOP=new Set(['pos','pagamento','pagamenti','pag','acquisto','acquisti','carta','cartasi','contactless','ctls',
+'sumup','satispay','paypal','pp','nexi','stripe','shopify','zettle','iziettle','myp','viva','wallet','apple','google',
+'italia','italy','ita','srl','srls','snc','spa','sas','sagl','group','holding','company','store','shop','online','negozio',
+'punto','vendita','via','viale','corso','piazza','largo','p','za','loc','localita','com','www','http','https','it',
+'eur','euro','addebito','accredito','bonifico','operazione','oper','data','ore','ora','del','della','dei','delle','dello',
+'di','da','il','la','lo','le','gli','un','una','uno','e','ed','al','ai','alla','con','per','su','tra','presso','ss','sn',
+'nr','num','id','ref','rif','trn','auth','tid','mid','cod','codice','n','c','s','r','l','x','pagamnto','transazione']);
+
+function norm(s){
+  return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s&.]/g,' ').replace(/\s+/g,' ').trim();
+}
+function toks(s){
+  return norm(s).split(' ').filter(t=>t.length>=2 && !STOP.has(t) && !/^\d+$/.test(t));
+}
 function catList(side){ return side==='in'?DB.catsIn:DB.cats; }
 
+/* punteggio invece di "la parola più lunga che compare": una frase intera batte
+   una parola, una parola intera batte un pezzo di parola, e l'appreso batte tutto */
 function guess(note,side){
   const n=norm(note); if(n.length<2) return null;
+  const T=toks(note); if(!T.length) return null;
+  const valid=catList(side);
+
   let best=null,bs=0;
-  toks(note).forEach(t=>{ const r=DB.rules[t]; if(!r) return;
-    Object.entries(r).forEach(([k,c])=>{ if(c>bs){ bs=c; best=k; } }); });
-  if(best){ const [c,s]=best.split('/'); if(catList(side).find(x=>x.id===c)) return {cat:c,sub:s,why:'imparato'}; }
-  let m=null,len=0;
-  catList(side).forEach(c=>(c.subs||[]).forEach(s=>(s.kw||[]).forEach(w=>{
-    const nw=norm(w);
-    if(nw&&nw.length>len&&n.includes(nw)){ m={cat:c.id,sub:s.id}; len=nw.length; }
+  T.forEach(t=>{ const r=DB.rules[t]; if(!r) return;
+    Object.entries(r).forEach(([k,c])=>{ const sc=1000+c*10+t.length; if(sc>bs){ bs=sc; best=k; } }); });
+  if(best){
+    const [ci,si]=best.split('/');
+    const c=valid.find(x=>x.id===ci);
+    if(c&&(c.subs||[]).some(x=>x.id===si)) return {cat:ci,sub:si,why:'imparato'};
+  }
+
+  let m=null,score=0;
+  valid.forEach(c=>(c.subs||[]).forEach(sb=>(sb.kw||[]).forEach(w=>{
+    const kw=norm(w); if(!kw) return;
+    let sc=0;
+    if(kw.indexOf(' ')>-1){
+      if(n.indexOf(kw)>-1) sc=300+kw.length*2;             /* frase intera */
+    } else {
+      if(T.indexOf(kw)>-1) sc=200+kw.length*2;             /* parola intera */
+      else {
+        for(const t of T){
+          if(t.length<4||kw.length<4) continue;
+          let cp=0; while(cp<t.length&&cp<kw.length&&t[cp]===kw[cp]) cp++;
+          /* radice in comune: copre singolare/plurale e maschile/femminile */
+          if(cp>=5||(cp>=4&&cp===Math.min(t.length,kw.length))) sc=Math.max(sc,110+cp);
+        }
+        if(!sc&&kw.length>=6&&n.indexOf(kw)>-1) sc=90+kw.length; /* dentro una parola attaccata */
+      }
+    }
+    if(sc>score){ score=sc; m={cat:c.id,sub:sb.id}; }
   })));
   return m?{...m,why:'suggerito'}:null;
 }
@@ -763,9 +822,9 @@ function viewHome(){
   const rows=DB.cats.filter(c=>byCat[c.id]||P.b[c.id]).map(c=>{
     const v=byCat[c.id]||0, b=P.b[c.id]||0, pct=b?v/b*100:0;
     const cc=pct>100?'var(--red)':pct>85?'var(--orange)':c.col;
-    return `<div class="crow">
+    return `<div class="crow" data-catrow="${c.id}" style="cursor:pointer">
       <div class="crow-t"><span class="badge" style="--tc:${c.col}">${ic(c.i)}</span>
-        <span class="n">${esc(c.n)}</span><span class="a num">${eur(v,0)}</span></div>
+        <span class="n">${esc(c.n)}</span><span class="a num">${eur(v,0)}</span><span style="color:var(--txt3);font-size:19px">›</span></div>
       <div class="cbar"><i style="width:${Math.min(pct,100)}%;background:${cc}"></i></div>
       <div class="crow-s">${b?`${Math.round(pct)}% di ${eur(b,0)}`+(v>b?` · sforato di ${eur(v-b,0)}`:''):'senza tetto'}</div>
     </div>`;}).join('');
@@ -782,7 +841,7 @@ function viewHome(){
     ${keyHTML}
     <div class="cols">
       <div><div class="g card"><div class="card-h"><h3>Ultimi movimenti</h3><button class="link" data-tab="mov">Tutti</button></div>${recHTML}</div></div>
-      <div><div class="g card"><h3>Le otto categorie</h3>${rows}</div></div>
+      <div><div class="g card"><div class="card-h"><h3>Categorie</h3><span style="font-size:13px;color:var(--txt3)">tocca per il dettaglio</span></div>${rows}</div></div>
     </div>`;
 }
 
@@ -800,98 +859,282 @@ function txRow(t){
 }
 
 /* ═══════════ ANALISI ═══════════ */
+function prevMonth(k){ const d=new Date(Y,M-k,1); return {y:d.getFullYear(),m:d.getMonth()}; }
+const outOf=(y,m)=>monthTx(y,m).filter(t=>t.kind==='out');
+const subOf=t=>{ const c=DB.cats.find(x=>x.id===t.cat); const sb=c&&(c.subs||[]).find(x=>x.id===t.sub); return sb?sb.n:'—'; };
+function merchantKey(note){
+  const t=toks(note); return t.length?t.slice(0,2).join(' '):norm(note).slice(0,14);
+}
+
 function viewAnalisi(){
-  const tx=monthTx(Y,M), o=tx.filter(t=>t.kind==='out');
+  const dim=daysIn(Y,M), today=curMonth()?now.getDate():dim;
+  const o=outOf(Y,M);
   if(!o.length) return `<div class="g card"><div class="empty">Servono movimenti per fare analisi.</div></div>`;
-  const total=o.reduce((a,t)=>a+t.amount,0), dim=daysIn(Y,M), today=curMonth()?now.getDate():dim;
+  const total=o.reduce((a,t)=>a+t.amount,0);
+  const P=prof(), budget=budgetTot();
+  const pm=prevMonth(1), oPrev=outOf(pm.y,pm.m);
+  const prevSameDay=oPrev.filter(t=>+t.date.slice(8,10)<=today).reduce((a,t)=>a+t.amount,0);
 
-  const byCat={}; o.forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
-  const sl=DB.cats.filter(c=>byCat[c.id]).map(c=>({n:c.n,col:c.col,v:byCat[c.id],p:byCat[c.id]/total})).sort((a,b)=>b.v-a.v);
-  const R=54,SW=15,C=2*Math.PI*R; let acc=0;
-  const donut=sl.map(s=>{const dl=s.p*C,off=-acc*C;acc+=s.p;
-    return `<circle cx="70" cy="70" r="${R}" fill="none" stroke="${s.col}" stroke-width="${SW}" stroke-linecap="round" stroke-dasharray="${Math.max(dl-3,.5)} ${C-dl+3}" stroke-dashoffset="${off}" transform="rotate(-90 70 70)"/>`;}).join('');
+  /* ---- riepilogo ---- */
+  const proj=today>0?Math.round(total/today*dim):0;
+  const perDay=today>0?total/today:0;
+  const days=new Set(o.map(t=>t.date));
+  const zero=today-days.size;
+  const media=o.length?total/o.length:0;
+  const stat=(k,v,d,col)=>`<div class="g stat"><div class="k">${k}</div><div class="v num" ${col?`style="color:${col}"`:''}>${v}</div>${d?`<div class="d">${esc(d)}</div>`:''}</div>`;
+  const riep=`<div class="g2">
+    ${stat('Speso',eur(total,0),`${Math.round(total/budget*100)}% di ${eur(budget,0)}`,total>budget?'var(--red)':'')}
+    ${stat('Proiezione',eur(proj,0),proj>budget?`${eur(proj-budget,0)} oltre il budget`:`${eur(budget-proj,0)} di margine`,proj>budget?'var(--red)':'var(--green)')}
+    ${stat('Media al giorno',eur(perDay,0),`scontrino medio ${eur(media,0)}`)}
+    ${stat('Giorni a zero',String(zero),`su ${today}`,zero>=today*.3?'var(--green)':'')}
+  </div>`;
 
-  const bySub={}; o.forEach(t=>{ const k=t.cat+'/'+t.sub; bySub[k]=(bySub[k]||0)+t.amount; });
-  const topSub=Object.entries(bySub).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([k,v])=>{
-    const [ci,si]=k.split('/'); const c=DB.cats.find(x=>x.id===ci)||{n:ci,col:'#8E8E93',subs:[]};
-    const s=(c.subs||[]).find(x=>x.id===si);
-    return `<div class="crow"><div class="crow-t"><span style="width:10px;height:10px;border-radius:50%;background:${c.col};flex-shrink:0"></span>
-      <span class="n">${esc(s?s.n:si)} <span style="color:var(--txt3)">· ${esc(c.n)}</span></span><span class="a num">${eur(v,0)}</span></div></div>`;}).join('');
+  /* ---- curva cumulata contro il budget ---- */
+  const cum=[]; let run=0;
+  for(let d=1;d<=today;d++){
+    run+=o.filter(t=>+t.date.slice(8,10)===d).reduce((a,t)=>a+t.amount,0);
+    cum.push(run);
+  }
+  const maxY=Math.max(budget,run)*1.06||1;
+  const px=(d)=>(d-1)/(dim-1)*100, py=(v)=>100-v/maxY*100;
+  const line=cum.map((v,i)=>`${px(i+1).toFixed(2)},${py(v).toFixed(2)}`).join(' ');
+  const area=`0,100 ${line} ${px(today).toFixed(2)},100`;
+  const sopra=run>budget*(today/dim);
+  const burn=`<div class="g card"><div class="card-h"><h3>Ritmo di consumo</h3>
+      <span class="num" style="font-size:13.5px;color:${sopra?'var(--red)':'var(--green)'}">${sopra?'sopra':'sotto'} la linea</span></div>
+    <svg class="ch" viewBox="0 0 100 100" preserveAspectRatio="none" style="height:170px">
+      <polygon points="${area}" fill="${sopra?'var(--red)':'var(--green)'}" opacity=".16"/>
+      <polyline points="0,${py(0).toFixed(2)} 100,${py(budget).toFixed(2)}" fill="none"
+        stroke="var(--txt3)" stroke-width=".7" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>
+      <polyline points="${line}" fill="none" stroke="${sopra?'var(--red)':'var(--green)'}" stroke-width="2.2"
+        stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="tleg"><span>1 ${MESI[M].slice(0,3)}</span><span>tratteggio = ritmo che tiene il budget</span><span>${dim}</span></div>
+    <div class="verdict">${sopra
+      ? `Stai spendendo <b>più in fretta</b> di quanto scorra il mese. Al giorno ${today} il ritmo sostenibile sarebbe ${eur(budget*today/dim,0)}, tu sei a ${eur(total,0)}.`
+      : `Sei <b>sotto la linea</b>: al giorno ${today} il ritmo sostenibile è ${eur(budget*today/dim,0)} e tu sei a ${eur(total,0)}.`}</div></div>`;
 
-  const byDay=new Array(dim).fill(0); o.forEach(t=>byDay[+t.date.slice(8,10)-1]+=t.amount);
+  /* ---- categorie, con confronto sul mese scorso ---- */
+  const byCat={}, byCatPrev={};
+  o.forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
+  oPrev.forEach(t=>byCatPrev[t.cat]=(byCatPrev[t.cat]||0)+t.amount);
+  const cats=DB.cats.filter(c=>byCat[c.id]||P.b[c.id]).sort((a,b)=>(byCat[b.id]||0)-(byCat[a.id]||0));
+  const catRows=cats.map(c=>{
+    const v=byCat[c.id]||0, b=P.b[c.id]||0, pv=byCatPrev[c.id]||0;
+    const pct=b?v/b*100:0, col=pct>100?'var(--red)':pct>85?'var(--orange)':c.col;
+    let delta='';
+    if(pv>0){ const d=Math.round((v-pv)/pv*100);
+      if(Math.abs(d)>=10) delta=`<span style="color:${d>0?'var(--red)':'var(--green)'};font-weight:600"> ${d>0?'+':''}${d}%</span> vs ${MESI[pm.m].slice(0,3)}`; }
+    return `<div class="crow" data-catrow="${c.id}" style="cursor:pointer">
+      <div class="crow-t"><span class="badge" style="--tc:${c.col}">${ic(c.i)}</span>
+        <span class="n">${esc(c.n)}</span><span class="a num">${eur(v,0)}</span><span class="ar" style="color:var(--txt3);font-size:19px">›</span></div>
+      <div class="cbar"><i style="width:${Math.min(pct,100)}%;background:${col}"></i></div>
+      <div class="crow-s">${b?`${Math.round(pct)}% di ${eur(b,0)}`:'senza tetto'}${delta}</div></div>`;}).join('');
+
+  /* ---- sottocategorie: quante volte e quanto ---- */
+  const bySub={};
+  o.forEach(t=>{ const k=t.cat+'/'+t.sub; (bySub[k]=bySub[k]||{v:0,n:0,t:t}).v+=t.amount; bySub[k].n++; });
+  const subs=Object.entries(bySub).sort((a,b)=>b[1].v-a[1].v).slice(0,10);
+  const maxSub=subs.length?subs[0][1].v:1;
+  const subRows=subs.map(([k,d])=>{
+    const c=DB.cats.find(x=>x.id===k.split('/')[0])||{col:'#8E8E93',n:'—'};
+    return `<div class="crow"><div class="crow-t">
+        <span style="width:10px;height:10px;border-radius:50%;background:${c.col};flex-shrink:0"></span>
+        <span class="n">${esc(subOf(d.t))} <span style="color:var(--txt3)">· ${esc(c.n)}</span></span>
+        <span class="a num">${eur(d.v,0)}</span></div>
+      <div class="cbar"><i style="width:${d.v/maxSub*100}%;background:${c.col}"></i></div>
+      <div class="crow-s">${d.n} ${d.n===1?'volta':'volte'} · ${eur(d.v/d.n)} a volta</div></div>`;}).join('');
+
+  /* ---- dove torni più spesso ---- */
+  const mer={};
+  o.forEach(t=>{ const k=merchantKey(t.note); if(!k) return; (mer[k]=mer[k]||{v:0,n:0,name:t.note}).v+=t.amount; mer[k].n++; });
+  const merTop=Object.values(mer).filter(m=>m.n>=2).sort((a,b)=>b.v-a.v).slice(0,6);
+  const merHTML=merTop.length?merTop.map(m=>`<div class="tx" style="cursor:default">
+      <div class="tx-m"><div class="tx-n">${esc(m.name)}</div><div class="tx-s">${m.n} volte · ${eur(m.v/m.n)} a volta</div></div>
+      <div class="tx-a num">${eur(m.v,0)}</div></div>`).join('')
+    :`<div class="empty" style="padding:18px 0">Nessun posto ripetuto almeno due volte.</div>`;
+
+  /* ---- giorno per giorno ---- */
+  const byDay=new Array(dim).fill(0);
+  o.forEach(t=>byDay[+t.date.slice(8,10)-1]+=t.amount);
   const maxD=Math.max(...byDay,1), BW=100/dim;
   const bars=byDay.map((v,i)=>{const h=v/maxD*100,td=curMonth()&&i+1===today;
-    return `<rect x="${i*BW+BW*.16}%" y="${100-h}%" width="${BW*.68}%" height="${Math.max(h,1.5)}%" rx="1.2" fill="${v===0?'var(--sunk)':td?'var(--txt)':'var(--red)'}"/>`;}).join('');
-  const zero=byDay.slice(0,today).filter(v=>v===0).length;
+    return `<rect x="${i*BW+BW*.16}%" y="${100-h}%" width="${BW*.68}%" height="${Math.max(h,1.5)}%" rx="1.2" fill="${v===0?'var(--s2)':td?'var(--txt)':'var(--red)'}"/>`;}).join('');
 
-  const ms=[]; for(let i=5;i>=0;i--){const d=new Date(Y,M-i,1);ms.push({l:MESI[d.getMonth()].slice(0,3),o:spese(monthTx(d.getFullYear(),d.getMonth())),c:i===0});}
+  /* ---- giorni della settimana ---- */
+  const dw=new Array(7).fill(0), dwN=new Array(7).fill(0);
+  o.forEach(t=>{const g=new Date(t.date+'T12:00:00').getDay(); dw[g]+=t.amount; dwN[g]++;});
+  const maxW=Math.max(...dw,1);
+  const dwH=[1,2,3,4,5,6,0].map(i=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px">
+    <div style="width:100%;height:64px;display:flex;align-items:flex-end">
+      <div style="width:100%;height:${Math.max(dw[i]/maxW*100,3)}%;background:${dw[i]===maxW&&maxW>1?'var(--orange)':'var(--s2)'};border-radius:6px 6px 2px 2px"></div></div>
+    <div class="num" style="font-size:11px;color:var(--txt3)">${dw[i]?eurS(dw[i]):'—'}</div>
+    <div style="font-size:11.5px;color:var(--txt3)">${GIORNI[i].slice(0,3)}</div></div>`).join('');
+
+  /* ---- sei mesi ---- */
+  const ms=[]; for(let i=5;i>=0;i--){const d=prevMonth(i);ms.push({l:MESI[d.m].slice(0,3),o:spese(monthTx(d.y,d.m)),c:i===0});}
   const maxM=Math.max(...ms.map(m=>m.o),1);
   const msH=ms.map(m=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px">
-    <div style="width:100%;height:84px;display:flex;align-items:flex-end"><div style="width:100%;height:${Math.max(m.o/maxM*100,3)}%;background:${m.c?'var(--blue)':'var(--sunk)'};border-radius:7px 7px 3px 3px"></div></div>
+    <div style="width:100%;height:80px;display:flex;align-items:flex-end"><div style="width:100%;height:${Math.max(m.o/maxM*100,3)}%;background:${m.c?'var(--blue)':'var(--s2)'};border-radius:7px 7px 3px 3px"></div></div>
     <div class="num" style="font-size:11.5px;font-weight:600;color:${m.c?'var(--txt)':'var(--txt3)'}">${m.o?eurS(m.o):'—'}</div>
     <div style="font-size:11.5px;color:var(--txt3)">${m.l}</div></div>`).join('');
 
-  return `<div class="cols"><div>
-    <div class="g card"><h3>Ripartizione</h3>
-      <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
-        <svg viewBox="0 0 140 140" style="width:136px;height:136px;flex-shrink:0">${donut}
-          <text x="70" y="68" text-anchor="middle" fill="var(--txt)" font-size="19" font-weight="700" font-family="-apple-system,system-ui,sans-serif" letter-spacing="-.5">${eurS(total)}</text>
-          <text x="70" y="84" text-anchor="middle" fill="var(--txt3)" font-size="10.5" font-family="-apple-system,system-ui,sans-serif">totale</text></svg>
-        <div style="flex:1;min-width:158px">${sl.slice(0,8).map(s=>`<div style="display:flex;align-items:center;gap:10px;font-size:14px;padding:5px 0">
-          <i style="width:10px;height:10px;border-radius:50%;background:${s.col};flex-shrink:0;display:block"></i>
-          <span style="flex:1;color:var(--txt2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.n)}</span>
-          <span class="num" style="font-weight:600">${Math.round(s.p*100)}%</span></div>`).join('')}</div></div></div>
-    <div class="g card"><h3>Le sottocategorie che pesano</h3>${topSub}</div>
+  return `${riep}
+  <div class="cols"><div>
+    ${burn}
+    <div class="g card"><div class="card-h"><h3>Categorie</h3><span style="font-size:13px;color:var(--txt3)">tocca per il dettaglio</span></div>${catRows}</div>
     <div class="g card"><div class="card-h"><h3>Giorno per giorno</h3><span class="num" style="font-size:13px;color:var(--txt2)">picco ${eur(maxD,0)}</span></div>
       <svg class="ch" viewBox="0 0 100 100" preserveAspectRatio="none" style="height:106px">${bars}</svg>
-      <div class="tleg"><span>1 ${MESI[M].slice(0,3)}</span><span>${dim} ${MESI[M].slice(0,3)}</span></div>
-      <div class="verdict"><b>${zero}</b> ${zero===1?'giorno':'giorni'} a spesa zero su ${today}.</div></div>
+      <div class="tleg"><span>1 ${MESI[M].slice(0,3)}</span><span>${dim} ${MESI[M].slice(0,3)}</span></div></div>
   </div><div>
-    <div class="g card"><h3>Ultimi sei mesi</h3><div style="display:flex;gap:8px;align-items:flex-end">${msH}</div></div>
     <div class="g card"><h3>Cosa dicono i numeri</h3>${insights(Y,M).map(i=>`<div class="ins"><span class="dot" style="background:${i.c}"></span><div>${i.t}</div></div>`).join('')}</div>
+    <div class="g card"><h3>Quanto spesso e quanto</h3>${subRows}</div>
+    <div class="g card"><h3>Dove torni più spesso</h3>${merHTML}</div>
+    <div class="g card"><h3>Quali giorni ti costano</h3><div style="display:flex;gap:6px;align-items:flex-end">${dwH}</div></div>
+    <div class="g card"><h3>Ultimi sei mesi</h3><div style="display:flex;gap:8px;align-items:flex-end">${msH}</div></div>
   </div></div>`;
+}
+
+/* ═══════════ DETTAGLIO DI UNA CATEGORIA ═══════════ */
+let CD=null;
+function openCat(id){ CD={id}; lockScroll(); drawCat(); }
+function closeCat(){ CD=null; document.getElementById('sheetHost').innerHTML=''; unlockScroll(); render(); }
+
+function drawCat(){
+  const c=DB.cats.find(x=>x.id===CD.id); if(!c) return closeCat();
+  const P=prof(), b=P.b[c.id]||0, dim=daysIn(Y,M), today=curMonth()?now.getDate():dim;
+  const tx=outOf(Y,M).filter(t=>t.cat===c.id).sort((a,b2)=>a.date<b2.date?1:-1);
+  const tot=tx.reduce((a,t)=>a+t.amount,0);
+  const pct=b?tot/b*100:0, col=pct>100?'var(--red)':pct>85?'var(--orange)':c.col;
+
+  const trend=[]; for(let i=5;i>=0;i--){const d=prevMonth(i);
+    trend.push({l:MESI[d.m].slice(0,3),v:outOf(d.y,d.m).filter(t=>t.cat===c.id).reduce((a,t)=>a+t.amount,0),cur:i===0});}
+  const maxT=Math.max(...trend.map(t=>t.v),1);
+  const media6=trend.filter(t=>!t.cur&&t.v>0);
+  const avg=media6.length?media6.reduce((a,t)=>a+t.v,0)/media6.length:0;
+
+  const bySub={};
+  tx.forEach(t=>{ (bySub[t.sub]=bySub[t.sub]||{v:0,n:0}).v+=t.amount; bySub[t.sub].n++; });
+  const subs=Object.entries(bySub).sort((a,b2)=>b2[1].v-a[1].v);
+  const maxS=subs.length?subs[0][1].v:1;
+
+  const body=`
+    <div class="g tint" style="--tc:${col};padding:20px;margin-bottom:16px">
+      <div class="eyebrow">${esc(c.n)} · ${esc(MESI[M])}</div>
+      <div class="pace-amt num" style="color:${col};font-size:38px">${eur(tot)}</div>
+      <div class="pace-sub">${b?`di ${eur(b,0)} a budget · ${Math.round(pct)}%`:'nessun tetto impostato'}</div>
+      ${b?`<div class="track" style="margin-top:16px"><div class="fill" style="width:${Math.min(pct,100)}%;background:${col}"></div>
+        ${curMonth()?`<div class="now" style="left:${today/dim*100}%"></div>`:''}</div>`:''}
+      <div class="verdict">${
+        b&&tot>b ? `Sforato di <b>${eur(tot-b)}</b>.`
+        : b&&curMonth()&&tot>b*(today/dim)*1.15 ? `Corre più veloce del mese: al giorno ${today} dovresti essere a ${eur(b*today/dim,0)}.`
+        : avg>0 ? `Media degli ultimi mesi: <b>${eur(avg,0)}</b>. ${tot>avg*1.15?'Questo mese sei sopra.':tot<avg*.85?'Questo mese sei sotto.':'Sei in linea.'}`
+        : `${tx.length} ${tx.length===1?'movimento':'movimenti'}, ${eur(tx.length?tot/tx.length:0)} a volta.`}</div>
+    </div>
+
+    <div class="g card"><h3>Sei mesi</h3>
+      <div style="display:flex;gap:8px;align-items:flex-end">${trend.map(t=>`
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="width:100%;height:74px;display:flex;align-items:flex-end">
+            <div style="width:100%;height:${Math.max(t.v/maxT*100,3)}%;background:${t.cur?c.col:'var(--s2)'};border-radius:6px 6px 3px 3px"></div></div>
+          <div class="num" style="font-size:11px;color:${t.cur?'var(--txt)':'var(--txt3)'}">${t.v?eurS(t.v):'—'}</div>
+          <div style="font-size:11px;color:var(--txt3)">${t.l}</div></div>`).join('')}</div></div>
+
+    ${subs.length?`<div class="g card"><h3>Come si divide</h3>
+      ${subs.map(([sid,d])=>{const sb=(c.subs||[]).find(x=>x.id===sid);
+        return `<div class="crow"><div class="crow-t"><span class="n">${esc(sb?sb.n:sid)}</span><span class="a num">${eur(d.v,0)}</span></div>
+        <div class="cbar"><i style="width:${d.v/maxS*100}%;background:${c.col}"></i></div>
+        <div class="crow-s">${d.n} ${d.n===1?'volta':'volte'} · ${eur(d.v/d.n)} a volta · ${Math.round(d.v/tot*100)}% della categoria</div></div>`;}).join('')}</div>`:''}
+
+    <div class="g card"><h3>I movimenti</h3>
+      ${tx.length?tx.map(txRow).join(''):`<div class="empty" style="padding:20px 0">Nessun movimento.</div>`}</div>`;
+
+  document.getElementById('sheetHost').innerHTML=`
+  <div class="sheet"><div class="scrim" data-cdclose="1"></div>
+   <div class="panel"><div class="grab"></div>
+    <div class="sheet-h"><button class="hbtn" data-cdclose="1">Chiudi</button>
+      <span class="t" style="color:${c.col}">${esc(c.n)}</span><span></span></div>
+    <div style="margin-top:16px;padding-bottom:calc(20px + var(--sab))">${body}</div>
+   </div></div>`;
+  bindDrag(closeCat);
 }
 
 /* ═══════════ INSIGHT ═══════════ */
 function insights(y,m){
-  const R='var(--red)',G='var(--green)',O='var(--orange)',N='var(--gray)';
+  const R='var(--red)',G='var(--green)',O='var(--orange)',N='var(--gray)',B='var(--blue)';
   const out=[], all=monthTx(y,m), tx=all.filter(t=>t.kind==='out');
   if(!tx.length) return [{c:N,t:'Nessuna uscita in questo mese.'}];
   const total=tx.reduce((a,t)=>a+t.amount,0), dim=daysIn(y,m);
   const today=(y===now.getFullYear()&&m===now.getMonth())?now.getDate():dim;
   const P=DB.profili[profileKey(y,m)], budget=Object.values(P.b).reduce((a,b)=>a+b,0);
+  const pd=new Date(y,m-1,1), pm={y:pd.getFullYear(),m:pd.getMonth()};
 
-  const ex=extras(all);
-  if(ex.length) out.push({c:R,t:`<b>${ex.length} ricariche extra</b> per ${eur(ex.reduce((a,t)=>a+t.amount,0))}. Ogni ricarica è uno sforamento del sistema, non un movimento neutro.`});
-  else out.push({c:G,t:`<b>Zero ricariche extra.</b> Il sistema a pocket ha retto tutto il mese.`});
+  const ex=all.filter(t=>t.kind==='extra');
+  if(ex.length) out.push({c:R,t:`<b>${ex.length} ${ex.length===1?'ricarica extra':'ricariche extra'}</b> per ${eur(ex.reduce((a,t)=>a+t.amount,0))}. Ogni ricarica è il sistema che cede, non un movimento neutro.`});
+  else out.push({c:G,t:`<b>Zero ricariche extra.</b> I pocket hanno retto tutto il mese.`});
 
-  if(today<dim&&today>2) out.push({c:N,t:`Al ritmo attuale chiudi a <b>${eur(Math.round(total/today*dim))}</b> su ${eur(budget,0)} di budget.`});
-
-  const byCat={}; tx.forEach(t=>byCat[t.cat]=(byCat[t.cat]||0)+t.amount);
-  DB.cats.forEach(c=>{ const b=P.b[c.id]||0, v=byCat[c.id]||0;
-    if(b>0&&v>b) out.push({c:R,t:`<b>${esc(c.n)}</b> ha sforato: ${eur(v)} su ${eur(b,0)}.`});
-    else if(b>0&&today<dim&&v>b*(today/dim)*1.25) out.push({c:O,t:`<b>${esc(c.n)}</b> corre più veloce del mese: ${eur(v)} su ${eur(b,0)} al giorno ${today}.`});
-  });
-
-  const bySub={}; tx.forEach(t=>{const k=t.cat+'/'+t.sub;bySub[k]=(bySub[k]||0)+t.amount;});
-  const top=Object.entries(bySub).sort((a,b)=>b[1]-a[1])[0];
-  if(top&&top[1]/total>=.2){
-    const [ci,si]=top[0].split('/'); const c=DB.cats.find(x=>x.id===ci)||{n:ci,subs:[]};
-    const s=(c.subs||[]).find(x=>x.id===si);
-    out.push({c:O,t:`<b>${esc(s?s.n:si)}</b> da sola vale il ${Math.round(top[1]/total*100)}% del mese (${eur(top[1])}).`});
+  if(today<dim&&today>2){
+    const proj=Math.round(total/today*dim);
+    out.push({c:proj>budget?R:N,t:`Al ritmo attuale chiudi a <b>${eur(proj)}</b> su ${eur(budget,0)}.${proj>budget?` Sono ${eur(proj-budget)} di troppo.`:''}`});
   }
+
+  const prev=monthTx(pm.y,pm.m).filter(t=>t.kind==='out'&&+t.date.slice(8,10)<=today).reduce((a,t)=>a+t.amount,0);
+  if(prev>0){ const d=total-prev, p=Math.round(Math.abs(d)/prev*100);
+    /* oltre il raddoppio una percentuale non dice più niente: meglio "quante volte" */
+    const quanto = p>=100 ? `<b>${(total/prev).toFixed(1).replace('.',',')} volte</b> quanto` : `<b>${p}% ${d>0?'sopra':'sotto'}</b>`;
+    if(p>=8) out.push({c:d>0?R:G,t:d>0
+      ? `Allo stesso punto di ${MESI[pm.m]} eri a ${eur(prev)}: ora sei ${p>=100?quanto+' allora':quanto}.`
+      : `Sei ${quanto} ${MESI[pm.m]} allo stesso punto.`}); }
+
+  const bc={},bp={};
+  tx.forEach(t=>bc[t.cat]=(bc[t.cat]||0)+t.amount);
+  monthTx(pm.y,pm.m).filter(t=>t.kind==='out').forEach(t=>bp[t.cat]=(bp[t.cat]||0)+t.amount);
+  let worst=null;
+  Object.keys(bc).forEach(k=>{ const p=bp[k]||0; if(p<2000) return;
+    const d=(bc[k]-p)/p; if(d>=.25&&(!worst||d>worst.d)) worst={k,d,v:bc[k],p}; });
+  if(worst){ const c=DB.cats.find(x=>x.id===worst.k)||{n:worst.k};
+    out.push({c:O,t:`<b>${esc(c.n)}</b> è la voce cresciuta di più: ${eur(worst.p,0)} → ${eur(worst.v,0)}, cioè +${Math.round(worst.d*100)}%.`}); }
+
+  DB.cats.forEach(c=>{ const b=P.b[c.id]||0, v=bc[c.id]||0;
+    if(b>0&&v>b) out.push({c:R,t:`<b>${esc(c.n)}</b> ha sforato: ${eur(v)} su ${eur(b,0)}.`});
+    else if(b>0&&today<dim&&v>b*(today/dim)*1.3) out.push({c:O,t:`<b>${esc(c.n)}</b> corre più veloce del mese: ${eur(v)} su ${eur(b,0)} al giorno ${today}.`}); });
+
+  const sorted=[...tx].sort((a,b)=>b.amount-a.amount);
+  let acc=0,k=0; while(k<sorted.length&&acc<total*.8){ acc+=sorted[k].amount; k++; }
+  if(tx.length>=8) out.push({c:N,t:`<b>${k} movimenti su ${tx.length}</b> fanno l'80% della spesa. Se vuoi incidere agisci su quei ${k}: il resto è rumore.`});
 
   const mic=tx.filter(t=>t.amount<=1000);
   if(mic.length>=5){ const mt=mic.reduce((a,t)=>a+t.amount,0);
-    out.push({c:O,t:`<b>${mic.length} spese sotto i 10 €</b> per ${eur(mt)}, il ${Math.round(mt/total*100)}% del mese.`}); }
+    out.push({c:O,t:`<b>${mic.length} spese sotto i 10 €</b> per ${eur(mt)}, il ${Math.round(mt/total*100)}% del mese. Nessuna sembra niente, insieme sono ${eur(mt,0)}.`}); }
 
-  const rimb=all.filter(t=>t.kind==='rimb'||t.kind==='reso');
-  if(rimb.length) out.push({c:N,t:`${rimb.length} tra rimborsi e resi per ${eur(rimb.reduce((a,t)=>a+t.amount,0))}, tenuti fuori dal conteggio delle spese.`});
+  const perDay={}; tx.forEach(t=>(perDay[t.date]=perDay[t.date]||[]).push(t));
+  const raffica=Object.entries(perDay).filter(([d,l])=>l.length>=4);
+  if(raffica.length){ const peggio=raffica.sort((a,b)=>b[1].length-a[1].length)[0];
+    const gg=new Date(peggio[0]+'T12:00:00');
+    out.push({c:O,t:`${raffica.length} ${raffica.length===1?'giornata':'giornate'} con almeno 4 spese. La più fitta è <b>${GIORNI[gg.getDay()]} ${gg.getDate()}</b>: ${peggio[1].length} movimenti per ${eur(peggio[1].reduce((a,t)=>a+t.amount,0))}.`}); }
 
-  const z=today-new Set(tx.map(t=>t.date)).size;
-  if(z>=5) out.push({c:G,t:`<b>${z} giorni a spesa zero</b> su ${today}.`});
+  const we=tx.filter(t=>{const g=new Date(t.date+'T12:00:00').getDay();return g===0||g===6;});
+  const weV=we.reduce((a,t)=>a+t.amount,0);
+  if(total>0&&weV/total>=.35){ const p=Math.round(weV/total*100);
+    out.push({c:O,t:`${/^(8|11)/.test(''+p)?"L'":'Il '}<b>${p}%</b> esce nel fine settimana: due giorni su sette che pesano come tre.`}); }
 
-  return out.slice(0,7);
+  const mer={};
+  tx.forEach(t=>{ const key=merchantKey(t.note); if(!key) return; (mer[key]=mer[key]||{v:0,n:0,name:t.note}).v+=t.amount; mer[key].n++; });
+  const top=Object.values(mer).filter(x=>x.n>=3).sort((a,b)=>b.v-a.v)[0];
+  if(top) out.push({c:B,t:`<b>${esc(top.name)}</b> ${top.n} volte questo mese, ${eur(top.v)} in tutto: ${eur(top.v/top.n)} a volta.`});
+
+  const giorni=new Set(tx.map(t=>t.date));
+  const z=today-giorni.size;
+  if(z>=5) out.push({c:G,t:`<b>${z} giorni a spesa zero</b> su ${today}. È la leva più efficace che hai.`});
+  let streak=0,maxStreak=0;
+  for(let d=1;d<=today;d++){ const key=`${y}-${pad(m+1)}-${pad(d)}`;
+    if(giorni.has(key)){ streak++; maxStreak=Math.max(maxStreak,streak); } else streak=0; }
+  if(maxStreak>=6) out.push({c:O,t:`<b>${maxStreak} giorni di fila</b> con almeno una spesa. Le serie lunghe sono abitudine, non necessità.`});
+
+  const neu=all.filter(t=>t.kind==='rimb'||t.kind==='reso'||t.kind==='giro');
+  if(neu.length) out.push({c:N,t:`${neu.length} tra giroconti, rimborsi e resi per ${eur(neu.reduce((a,t)=>a+t.amount,0))}, tenuti fuori dal conteggio.`});
+
+  return out.slice(0,10);
 }
 
 /* ═══════════ MOVIMENTI ═══════════ */
@@ -949,6 +1192,83 @@ function viewSetup(){
       <div style="margin-top:18px;padding-top:16px;border-top:.5px solid var(--hair)"><button class="ghost dg" id="wp">Cancella tutto</button></div></div>
   </div></div>`;
 }
+
+/* ═══════════ MENU CONTESTUALE ═══════════ */
+let CTX=null, lpTimer=null, lpStart=null, lpFired=false;
+
+function closeCtx(){ CTX=null; const h=document.getElementById('ctxHost'); if(h) h.innerHTML=''; }
+
+function openCtx(x,y,title,sub,items){
+  CTX={items};
+  const h=document.getElementById('ctxHost');
+  const W=252, H=64+items.length*49;
+  const px=Math.max(10,Math.min(x, window.innerWidth-W-10));
+  const py=Math.max(10,Math.min(y, window.innerHeight-H-10));
+  h.innerHTML=`<div class="ctxwrap" data-ctxclose="1">
+    <div class="ctx" style="left:${px}px;top:${py}px">
+      ${title?`<div class="hdr"><div class="t1">${esc(title)}</div>${sub?`<div class="t2">${esc(sub)}</div>`:''}</div>`:''}
+      ${items.map((it,i)=>`<button data-ctxi="${i}" class="${it.danger?'dg':''}">${esc(it.n)}${it.i?ic(it.i,1.9):''}</button>`).join('')}
+    </div></div>`;
+}
+
+function txMenu(id,x,y){
+  const t=DB.tx.find(z=>z.id===id); if(!t) return;
+  const c=catObj(t), K=KINDS[t.kind]||KINDS.out;
+  openCtx(x,y, t.note||c.n, `${K.spend?c.n+(subName(t)?' · '+subName(t):''):K.n} · ${eur(t.amount)}`,[
+    {n:'Modifica', i:'wand', do:()=>openEntry(side(t),t)},
+    {n:'Duplica oggi', i:'plus', do:()=>{
+       const T=Date.now();
+       DB.tx.push({...t,id:uid(),date:iso(now),src:null,ts:T,up:T});
+       save(); queueSync(); render(); toast('Duplicato su oggi'); }},
+    ...(K.spend&&t.cat!=='_neutro'?[{n:'Vedi la categoria', i:'n_chart', do:()=>openCat(t.cat)}]:[]),
+    {n:'Elimina', i:'minus', danger:true, do:()=>{
+       DB.tx=DB.tx.filter(z=>z.id!==t.id); DB.tomb.push({id:t.id,up:Date.now()});
+       save(); queueSync(); render(); toast('Movimento eliminato'); }}
+  ]);
+}
+function catMenu(id,x,y){
+  const c=DB.cats.find(x2=>x2.id===id); if(!c) return;
+  const tx=monthTx(Y,M).filter(t=>t.kind==='out'&&t.cat===id);
+  const tot=tx.reduce((a,t)=>a+t.amount,0);
+  openCtx(x,y, c.n, `${tx.length} movimenti · ${eur(tot)}`,[
+    {n:'Apri il dettaglio', i:'n_chart', do:()=>openCat(id)},
+    {n:'Modifica la categoria', i:'n_gear', do:()=>{ openMgr('out'); MG.cat=id; MG.view='cat'; drawMgr(); }},
+    {n:'Imposta il tetto', i:'wand', do:()=>{ TAB='set'; render(); window.scrollTo({top:0,behavior:'smooth'}); }}
+  ]);
+}
+
+/* clic destro su computer */
+document.addEventListener('contextmenu',e=>{
+  const tr=e.target.closest('[data-tx]'), cr=e.target.closest('[data-catrow]');
+  if(!tr&&!cr) return;
+  e.preventDefault();
+  if(tr) txMenu(tr.dataset.tx,e.clientX,e.clientY); else catMenu(cr.dataset.catrow,e.clientX,e.clientY);
+});
+
+/* pressione prolungata su telefono */
+document.addEventListener('touchstart',e=>{
+  const el=e.target.closest('[data-tx],[data-catrow]');
+  if(!el||CTX) return;
+  const t=e.touches[0]; lpStart={x:t.clientX,y:t.clientY,el}; lpFired=false;
+  el.classList.add('press');
+  clearTimeout(lpTimer);
+  lpTimer=setTimeout(()=>{
+    if(!lpStart) return;
+    lpFired=true; el.classList.remove('press');
+    if(navigator.vibrate) navigator.vibrate(9);
+    if(el.dataset.tx) txMenu(el.dataset.tx,lpStart.x,lpStart.y); else catMenu(el.dataset.catrow,lpStart.x,lpStart.y);
+  },460);
+},{passive:true});
+document.addEventListener('touchmove',e=>{
+  if(!lpStart) return;
+  const t=e.touches[0];
+  if(Math.abs(t.clientX-lpStart.x)>12||Math.abs(t.clientY-lpStart.y)>12){
+    clearTimeout(lpTimer); lpStart.el.classList.remove('press'); lpStart=null;
+  }
+},{passive:true});
+['touchend','touchcancel'].forEach(ev=>document.addEventListener(ev,()=>{
+  clearTimeout(lpTimer); if(lpStart) lpStart.el.classList.remove('press'); lpStart=null;
+}));
 
 /* ═══════════ IMPORTAZIONE ═══════════ */
 let IM=null;
@@ -1425,7 +1745,7 @@ function impJ(f){ const rd=new FileReader();
 
 /* ═══════════ RENDER ═══════════ */
 function render(soft){
-  if(E||MG||IM) return;
+  if(E||MG||IM||CD) return;
   if(soft&&document.activeElement&&document.activeElement.tagName==='INPUT') return;
   const v0=document.getElementById('view');
   v0.className='v-'+TAB+(soft?' noanim':'');
@@ -1477,8 +1797,17 @@ function bindSetup(){
 
 /* ═══════════ EVENTI ═══════════ */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx,[data-mside],[data-mcat],[data-msub],[data-mnew],[data-mback],[data-mclose],[data-mcol],[data-mic],[data-mdel],#mSave,[data-imclose],[data-imback],[data-imrow],#imGo');
+  if(lpFired){ lpFired=false; e.preventDefault(); e.stopPropagation(); return; }
+  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx,[data-mside],[data-mcat],[data-msub],[data-mnew],[data-mback],[data-mclose],[data-mcol],[data-mic],[data-mdel],#mSave,[data-imclose],[data-imback],[data-imrow],#imGo,[data-ctxclose],[data-ctxi],[data-catrow],[data-cdclose]');
   if(!t) return;
+  if(CTX){
+    if(t.dataset.ctxi!==undefined){ const it=CTX.items[+t.dataset.ctxi]; closeCtx(); if(it&&it.do) it.do(); return; }
+    closeCtx(); return;
+  }
+  if(CD){ if(t.dataset.cdclose){ closeCat(); return; }
+    if(t.dataset.tx){ const x=DB.tx.find(z=>z.id===t.dataset.tx); if(x){ closeCat(); openEntry(side(x),x); } return; }
+    return; }
+  if(t.dataset.catrow){ openCat(t.dataset.catrow); return; }
   if(IM){
     if(t.dataset.imclose){ closeImport(); return; }
     if(t.dataset.imback){ IM.step='in'; drawImport(); return; }
@@ -1525,7 +1854,7 @@ document.addEventListener('click',e=>{
   if(t.dataset.tx){ const x=DB.tx.find(z=>z.id===t.dataset.tx); if(x) openEntry(side(x),x); return; }
 });
 document.addEventListener('touchmove',e=>{
-  if(!(E||MG||IM)) return;
+  if(!(E||MG||IM||CD)) return;
   const p=e.target.closest&&e.target.closest('.panel');
   if(!p) e.preventDefault();
 },{passive:false});
@@ -1549,7 +1878,7 @@ if(fromLink){ toast('Dispositivo configurato'); }
 
 if(syncOn()){
   syncNow(true);
-  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E&&!MG&&!IM) syncNow(true); },20000);
+  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E&&!MG&&!IM&&!CD) syncNow(true); },20000);
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') syncNow(true); });
   window.addEventListener('focus',()=>{ if(Date.now()-lastPull>4000) syncNow(true); });
   window.addEventListener('pageshow',()=>syncNow(true));
