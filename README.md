@@ -4,16 +4,10 @@ Tracker di entrate e uscite, tarato sul budget di Torino da settembre 2026.
 
 ## Com'è configurata
 
-### Otto macrocategorie
-Corrispondono uno a uno ai pocket Revolut, così app e conto raccontano la stessa storia:
-**Fisse · Casa · Auto · Spesa · Trasporti · Personale · Accantonamenti · Risparmio**
+### Dodici macrocategorie
 
-Sotto ognuna ci sono **80 sottocategorie**, ciascuna con le sue keyword. Scrivi la nota e
-categoria e sottocategoria si assegnano da sole al primo inserimento: barbiere, Glovo,
-spritz, Foot Locker, multa ZTL, revisione, lenti a contatto, Ticketone, Airbnb, SMAT.
-
-Il livello di dettaglio serve a rispondere a "dove sono finiti i soldi": non *Personale
-480*, ma quanto di quei 480 è aperitivo, quanto delivery, quanto barbiere.
+Il cibo fuori casa è la voce più pesante, quindi ha una categoria sua invece di stare
+dentro un generico "Personale":
 
 | Categoria | Sottocategorie |
 |---|---|
@@ -22,21 +16,36 @@ Il livello di dettaglio serve a rispondere a "dove sono finiti i soldi": non *Pe
 | Auto | 12 — carburante, pedaggi, parcheggi, tagliando, gomme, meccanico, RC, bollo, revisione, multe, lavaggio, accessori |
 | Spesa | 7 — supermercato, panetteria, macelleria, frutta e verdura, pescheria, bevande, alimentari |
 | Trasporti | 7 — treno, abbonamento urbano, biglietti, bus extraurbano, taxi, aereo, sharing |
-| Personale | 33 — dal caffè al barbiere all'ottico ai concerti |
+| **Cibo fuori** | **8 — caffè e bar, colazione, pranzo, cena, aperitivo, delivery, fast food, gelato** |
+| Cura e look | 7 — barbiere, cura persona, profumeria, abbigliamento, scarpe, accessori, intimo |
+| Sport e salute | 7 — palestra, integratori, attrezzatura, gare, farmacia, visite, ottico |
+| Svago | 7 — libri, cinema, concerti, videogiochi, serate, viaggi, alloggi |
+| Varie | 4 — elettronica, cancelleria, regali, altro |
 | Accantonamenti | 4 — fondo auto, imprevisti, salute, tecnologia |
 | Risparmio | 3 — fondo trasloco, risparmio, investimenti |
+
+Ottanta sottocategorie in tutto, ciascuna con le sue keyword. Scrivi la nota e categoria e
+sottocategoria si assegnano da sole: barbiere, Glovo, spritz, Foot Locker, multa ZTL,
+revisione, lenti a contatto, Ticketone, Airbnb, SMAT, pasticceria.
+
+Il livello di dettaglio serve a rispondere a "dove sono finiti i soldi": non *Personale 480*,
+ma quanto di quei 480 è aperitivo, quanto delivery, quanto barbiere.
+
+### Aggiornare da una versione precedente
+
+Se avevi già dei movimenti con la vecchia categoria *Personale*, la migrazione è automatica
+al primo avvio: ogni sottocategoria va nella sua nuova casa, il vocabolario appreso viene
+riscritto di conseguenza e i 480 € di budget si ripartiscono su cibo, cura, sport, svago e
+varie mantenendo lo stesso totale. Non serve fare niente.
 
 ### Aggiungere e modificare categorie
 
 **Setup → Gestisci categorie.** Puoi creare macrocategorie nuove (nome, colore tra dodici,
 icona tra ventitré), rinominarle, eliminarle, e fare lo stesso con le sottocategorie.
+Per ognuna imposti le parole che la fanno scattare, separate da virgola.
 
-Per ogni sottocategoria imposti le **parole che la fanno scattare**, separate da virgola:
-appena una compare nella nota, la categoria si assegna da sola.
-
-Le categorie viaggiano nel sync e nel backup, quindi quello che crei sul telefono lo trovi
-sul computer. Una macrocategoria nuova nasce con budget zero in entrambi i profili: il
-tetto lo metti tu in Setup.
+Le categorie viaggiano nel sync e nel backup. Una macrocategoria nuova nasce con budget zero
+in entrambi i profili: il tetto lo metti tu in Setup.
 
 ### Due profili di budget
 
@@ -47,7 +56,11 @@ tetto lo metti tu in Setup.
 | Auto | 170 | 170 |
 | Spesa | 200 | 0 |
 | Trasporti | 100 | 100 |
-| Personale | 480 | 300 |
+| Cibo fuori | 220 | 150 |
+| Cura e look | 60 | 40 |
+| Sport e salute | 70 | 50 |
+| Svago | 80 | 40 |
+| Varie | 50 | 20 |
 | Accantonamenti | 125 | 125 |
 | **Totale** | **2.095** | **1.135** |
 

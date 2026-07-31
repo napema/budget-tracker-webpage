@@ -383,14 +383,14 @@ const ic=(k,s=1.75)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const KEY='registro.v4', SKEY='registro.sync', CUR='€';
 
 const DEF_CATS=[
- {id:'fisse', n:'Fisse', i:'lock', col:'#5856D6', subs:[
+ {id:'fisse', n:'Fisse', i:'lock', col:'#5E5CE6', subs:[
    {id:'prestito',  n:'Prestito',           kw:['prestito','rata','finanziamento','mutuo']},
    {id:'affitto',   n:'Affitto',            kw:['affitto','canone','locazione','pigione']},
    {id:'digitali',  n:'Abbonamenti digitali',kw:['netflix','spotify','icloud','apple one','disney','prime video','youtube','dazn','chatgpt','claude','dropbox','adobe','crunchyroll','now tv','sky']},
    {id:'telefono',  n:'Telefono e SIM',     kw:['iliad','vodafone','tim ','windtre','ho.','very mobile','kena','fastweb mobile','ricarica sim','telefono']},
    {id:'assicuraz', n:'Assicurazioni',      kw:['polizza','assicurazione vita','assicurazione sanitaria','infortuni']}
  ]},
- {id:'casa', n:'Casa', i:'home', col:'#AF52DE', subs:[
+ {id:'casa', n:'Casa', i:'home', col:'#BF5AF2', subs:[
    {id:'luce-gas',  n:'Luce e gas',      kw:['luce','gas','enel','eni plenitude','a2a','hera','iren','bolletta luce','bolletta gas']},
    {id:'acqua',     n:'Acqua',           kw:['acqua','smat','bolletta acqua','acquedotto']},
    {id:'internet',  n:'Internet',        kw:['internet','wifi','fibra','tim casa','vodafone casa','fastweb','wind casa']},
@@ -401,7 +401,7 @@ const DEF_CATS=[
    {id:'stoviglie', n:'Cucina e stoviglie',kw:['pentola','padella','piatti','bicchieri','posate','tupperware','stoviglie']},
    {id:'riparaz',   n:'Riparazioni',     kw:['idraulico','elettricista','fabbro','riparazione','manutenzione casa','ferramenta']}
  ]},
- {id:'auto', n:'Auto', i:'car', col:'#FF9500', subs:[
+ {id:'auto', n:'Auto', i:'car', col:'#FF9F0A', subs:[
    {id:'carburante',n:'Carburante',   kw:['ip','q8','eni','esso','tamoil','agip','api','repsol','beyfin','keropetrol','benzina','gasolio','diesel','carburante','rifornimento','pieno','distributore','stazione servizio','area servizio']},
    {id:'pedaggi',   n:'Pedaggi',      kw:['telepass','autostrada','pedaggio','aspi','satap','autostrade']},
    {id:'parcheggio',n:'Parcheggi',    kw:['parcheggio','sosta','easypark','parcometro','garage','strisce blu','park']},
@@ -424,7 +424,7 @@ const DEF_CATS=[
    {id:'bevande',   n:'Bevande',      kw:['bevande','acqua minerale','birre','vino','enoteca','cantina']},
    {id:'etnico',    n:'Alimentari vari',kw:['alimentari','salumeria','gastronomia','biologico','naturasi']}
  ]},
- {id:'trasporti', n:'Trasporti', i:'bus', col:'#30B0C7', subs:[
+ {id:'trasporti', n:'Trasporti', i:'bus', col:'#64D2FF', subs:[
    {id:'treno',    n:'Treno',            kw:['trenitalia','italo','treno','frecciarossa','frecciargento','intercity','regionale','biglietto treno']},
    {id:'abbo-urb', n:'Abbonamento urbano',kw:['abbonamento urbano','abbonamento gtt','abbonamento bus','abbonamento mensile','tessera trasporti']},
    {id:'urbano',   n:'Biglietti urbani',  kw:['gtt','atm ','bus','metro','tram','biglietto bus','tper','seta','urbano']},
@@ -433,7 +433,7 @@ const DEF_CATS=[
    {id:'aereo',    n:'Aereo',             kw:['ryanair','easyjet','wizz','ita airways','volo','aereo','aeroporto','skyscanner','bagaglio']},
    {id:'sharing',  n:'Sharing',           kw:['car sharing','enjoy','share now','lime','bird','dott','monopattino','bike sharing','ridemovi']}
  ]},
- {id:'personale', n:'Personale', i:'user', col:'#FF2D55', subs:[
+ {id:'cibo', n:'Cibo fuori', i:'cup', col:'#FF375F', subs:[
    {id:'caffe',     n:'Caffè e bar',    kw:['bar','caffe','caffè','caffetteria','cappuccino','espresso','autogrill','chiosco','bar tabacchi','coffee','starbucks','lavazza','macchinetta']},
    {id:'colazione', n:'Colazione',      kw:['colazione','brioche','brioches','cornetto','croissant','pasticceria','pasticcere','bakery','forneria']},
    {id:'pranzo',    n:'Pranzo fuori',   kw:['pranzo','mensa','tavola calda','rosticceria','panino','paninoteca','piadina','piadineria','poke','insalateria','schiacciata','focacceria','self service']},
@@ -441,34 +441,42 @@ const DEF_CATS=[
    {id:'aperitivo', n:'Aperitivo',      kw:['aperitivo','spritz','cocktail','birra','birreria','pub','happy hour','drink','vineria','lounge','wine bar','tap room']},
    {id:'delivery',  n:'Delivery',       kw:['glovo','deliveroo','just eat','justeat','uber eats','ubereats','domicilio','delivery','asporto','takeaway']},
    {id:'fastfood',  n:'Fast food',      kw:['mcdonald','burger king','kfc','kebab','old wild west','roadhouse','fast food']},
-   {id:'gelato',    n:'Gelato e dolci', kw:['gelato','gelateria','dolce','pasticcini','creperia','waffle','yogurteria','cioccolateria']},
+   {id:'gelato',    n:'Gelato e dolci', kw:['gelato','gelateria','dolce','pasticcini','creperia','waffle','yogurteria','cioccolateria']}
+ ]},
+ {id:'cura', n:'Cura e look', i:'scissors', col:'#FFD60A', subs:[
    {id:'barbiere',  n:'Barbiere',       kw:['barbiere','barberia','parrucchiere','taglio capelli','barba','barber','barber shop','coiffeur','hair studio']},
-   {id:'cura',      n:'Cura persona',   kw:['rasoio','schiuma da barba','dopobarba','shampoo','bagnoschiuma','deodorante','dentifricio','crema','skincare','tigota','acqua e sapone']},
+   {id:'curapers',  n:'Cura persona',   kw:['rasoio','schiuma da barba','dopobarba','shampoo','bagnoschiuma','deodorante','dentifricio','crema','skincare','tigota','acqua e sapone']},
    {id:'profumi',   n:'Profumeria',     kw:['profumo','profumeria','sephora','douglas','marionnaud','pinalli']},
-   {id:'abbigl',    n:'Abbigliamento',  kw:['zara','h&m','uniqlo','pull&bear','bershka','jack jones','maglietta','felpa','jeans','giacca','camicia','pantaloni','cappotto','abbigliamento','ovs','primark']},
+   {id:'abbigl',    n:'Abbigliamento',  kw:['zara','h&m','hm','uniqlo','pull&bear','bershka','stradivarius','jack jones','levis','maglietta','felpa','jeans','giacca','camicia','pantaloni','cappotto','abbigliamento','ovs','primark','terranova','piazza italia','celio','springfield']},
    {id:'scarpe',    n:'Scarpe',         kw:['scarpe','sneakers','foot locker','snipes','stivali','scarponi','cisalfa','anfibi']},
    {id:'accessori', n:'Accessori',      kw:['cintura','portafoglio','orologio','occhiali da sole','zaino','borsa','cappello','sciarpa']},
-   {id:'intimo',    n:'Intimo e calze', kw:['intimo','calzini','calze','boxer','tezenis','calzedonia','intimissimi']},
+   {id:'intimo',    n:'Intimo e calze', kw:['intimo','calzini','calze','boxer','tezenis','calzedonia','intimissimi']}
+ ]},
+ {id:'sport', n:'Sport e salute', i:'heart', col:'#66D4CF', subs:[
    {id:'palestra',  n:'Palestra',       kw:['palestra','abbonamento palestra','fitness','crossfit','piscina','mcfit','virgin active','anytime fitness','basic fit','wellness']},
    {id:'integrat',  n:'Integratori',    kw:['integratori','proteine','whey','creatina','multivitaminico','omega 3','magnesio','myprotein','prozis']},
-   {id:'attrezz',   n:'Attrezzatura sport',kw:['decathlon','cisalfa','scarpe running','garmin','borraccia','fascia cardio','tappetino','manubri','corda']},
+   {id:'attrezz',   n:'Attrezzatura',   kw:['decathlon','cisalfa','scarpe running','garmin','borraccia','fascia cardio','tappetino','manubri','corda']},
    {id:'gare',      n:'Gare e iscrizioni',kw:['iscrizione gara','pettorale','maratona','trail','corsa iscrizione','tesseramento']},
    {id:'farmacia',  n:'Farmacia',       kw:['farmacia','parafarmacia','medicinale','antidolorifico','cerotti','tachipirina','antibiotico','sciroppo']},
    {id:'medico',    n:'Visite mediche', kw:['medico','dentista','visita','specialista','analisi del sangue','ecografia','fisioterapia','fisioterapista','ticket']},
-   {id:'ottico',    n:'Ottico',         kw:['ottico','occhiali','lenti','lenti a contatto','salmoiraghi','grandvision']},
+   {id:'ottico',    n:'Ottico',         kw:['ottico','occhiali','lenti','lenti a contatto','salmoiraghi','grandvision']}
+ ]},
+ {id:'svago', n:'Svago', i:'ticket', col:'#A78BFA', subs:[
    {id:'libri',     n:'Libri',          kw:['libro','libri','feltrinelli','mondadori','libreria','ebook','kindle','audible']},
    {id:'cinema',    n:'Cinema e teatro',kw:['cinema','teatro','film','biglietto cinema','uci','the space']},
    {id:'eventi',    n:'Concerti ed eventi',kw:['concerto','festival','ticketone','evento','biglietto concerto','dice','museo','mostra']},
    {id:'gaming',    n:'Videogiochi',    kw:['steam','playstation','xbox','nintendo','gioco','videogioco','epic games','gamestop']},
    {id:'serate',    n:'Serate e uscite',kw:['discoteca','ingresso','serata','club','bowling','biliardo','sala giochi','karaoke']},
    {id:'viaggi',    n:'Viaggi',         kw:['viaggio','vacanza','escursione','gita','tour','guida turistica','noleggio auto']},
-   {id:'alloggi',   n:'Hotel e alloggi',kw:['hotel','airbnb','booking','ostello','bnb','albergo','agriturismo','pernottamento']},
+   {id:'alloggi',   n:'Hotel e alloggi',kw:['hotel','airbnb','booking','ostello','bnb','albergo','agriturismo','pernottamento']}
+ ]},
+ {id:'varie', n:'Varie', i:'dots', col:'#AC8E68', subs:[
    {id:'elettr',    n:'Elettronica',    kw:['mediaworld','unieuro','amazon','cuffie','caricatore','cavo','powerbank','mouse','tastiera','hard disk','apple store']},
    {id:'studio',    n:'Cancelleria e studio',kw:['cancelleria','quaderno','penne','stampe','fotocopie','libri universitari','materiale']},
    {id:'regali',    n:'Regali',         kw:['regalo','regali','compleanno','fiori','anniversario','natale','bomboniera','laurea']},
-   {id:'varie',     n:'Varie',          kw:['varie','altro','imprevisto']}
+   {id:'altro',     n:'Altro',          kw:['varie','altro','imprevisto']}
  ]},
- {id:'accanton', n:'Accantonamenti', i:'shield', col:'#FFB800', subs:[
+ {id:'accanton', n:'Accantonamenti', i:'shield', col:'#8E8E93', subs:[
    {id:'f-auto',  n:'Fondo auto',       kw:['fondo auto','accantonamento auto']},
    {id:'f-impr',  n:'Fondo imprevisti', kw:['imprevisti','fondo imprevisti']},
    {id:'f-salute',n:'Fondo salute',     kw:['fondo salute']},
@@ -509,20 +517,75 @@ const IN_KINDS=['in','rimb','reso','extra','giro'];
 /* profili di budget, in centesimi */
 const PROFILI={
  settembre:{ n:'Settembre', entrata:210000, casaAllIn:58000, b:{
-   fisse:94000, casa:8000, auto:17000, spesa:20000, trasporti:10000, personale:48000, accanton:12500, risparmio:0 }},
+   fisse:94000, casa:8000, auto:17000, spesa:20000, trasporti:10000,
+   cibo:22000, cura:6000, sport:7000, svago:8000, varie:5000,
+   accanton:12500, risparmio:0 }},
  agosto:{ n:'Agosto (ferie)', entrata:210000, casaAllIn:0, b:{
-   fisse:44000, casa:0, auto:17000, spesa:0, trasporti:10000, personale:30000, accanton:12500, risparmio:0 }}
+   fisse:44000, casa:0, auto:17000, spesa:0, trasporti:10000,
+   cibo:15000, cura:4000, sport:5000, svago:4000, varie:2000,
+   accanton:12500, risparmio:0 }}
 };
+
+/* Personale è stato spaccato: ecco dove è finita ogni sottocategoria */
+const MIGRA={
+ caffe:'cibo',colazione:'cibo',pranzo:'cibo',cena:'cibo',aperitivo:'cibo',delivery:'cibo',fastfood:'cibo',gelato:'cibo',
+ barbiere:'cura',cura:'cura',curapers:'cura',profumi:'cura',abbigl:'cura',scarpe:'cura',accessori:'cura',intimo:'cura',
+ palestra:'sport',integrat:'sport',attrezz:'sport',gare:'sport',farmacia:'sport',medico:'sport',ottico:'sport',
+ libri:'svago',cinema:'svago',eventi:'svago',gaming:'svago',serate:'svago',viaggi:'svago',alloggi:'svago',
+ elettr:'varie',studio:'varie',regali:'varie',altro:'varie'
+};
+const SUB_RINOMINATE={cura:'curapers',varie:'altro'};
 function profileKey(y,m){ return (y<2026 || (y===2026 && m<=7)) ? 'agosto' : 'settembre'; }
 
 /* ═══════════ ARCHIVIO ═══════════ */
 const clone=o=>JSON.parse(JSON.stringify(o));
+const CATS_V=2;   /* si alza quando cambia l'impianto delle categorie */
 function blank(){
-  return {v:4, tx:[], tomb:[], cats:clone(DEF_CATS), catsIn:clone(DEF_CATS_IN),
+  return {v:4, catsV:CATS_V, tx:[], tomb:[], cats:clone(DEF_CATS), catsIn:clone(DEF_CATS_IN),
     profili:clone(PROFILI), rules:{}, meta:{up:0}};
+}
+
+/* porta un archivio vecchio al nuovo impianto senza perdere niente */
+function migra(o){
+  if((o.catsV||1)>=CATS_V) return o;
+  const nuove=clone(DEF_CATS), ids=new Set(nuove.map(c=>c.id));
+  (o.cats||[]).forEach(c=>{ if(!ids.has(c.id)&&c.id!=='personale') nuove.push(c); });
+  o.cats=nuove;
+
+  o.tx=(o.tx||[]).map(t=>{
+    if(t.cat!=='personale') return t;
+    const sub=SUB_RINOMINATE[t.sub]||t.sub;
+    return {...t, cat:MIGRA[sub]||'varie', sub};
+  });
+
+  const r={};
+  Object.entries(o.rules||{}).forEach(([tok,cats])=>{
+    r[tok]={};
+    Object.entries(cats).forEach(([k,n])=>{
+      let [ci,si]=k.split('/');
+      if(ci==='personale'){ si=SUB_RINOMINATE[si]||si; ci=MIGRA[si]||'varie'; }
+      const nk=ci+'/'+si; r[tok][nk]=Math.max(r[tok][nk]||0,n);
+    });
+  });
+  o.rules=r;
+
+  Object.keys(o.profili||{}).forEach(k=>{
+    const P=o.profili[k], base=PROFILI[k];
+    if(!P||!P.b||!base) return;
+    const vecchio=P.b.personale;
+    if(vecchio!==undefined){
+      const q=['cibo','cura','sport','svago','varie'];
+      const somma=q.reduce((a,x)=>a+base.b[x],0)||1;
+      q.forEach(x=>{ if(P.b[x]===undefined) P.b[x]=Math.round(vecchio*base.b[x]/somma); });
+      delete P.b.personale;
+    }
+  });
+  o.catsV=CATS_V;
+  return o;
 }
 function normalize(d){
   const o=blank(); if(!d) return o;
+  o.catsV=d.catsV||1;
   o.tx=(Array.isArray(d.tx)?d.tx:[]).map(t=>({...t, kind:t.kind||t.type||'out', up:t.up||t.ts||0}));
   o.tomb=Array.isArray(d.tomb)?d.tomb:[];
   if(Array.isArray(d.cats)&&d.cats.length) o.cats=d.cats;
@@ -530,8 +593,9 @@ function normalize(d){
   o.cats.forEach(c=>{ c.subs=Array.isArray(c.subs)?c.subs:[]; });
   o.catsIn.forEach(c=>{ c.subs=Array.isArray(c.subs)?c.subs:[]; });
   if(d.profili){ Object.keys(o.profili).forEach(k=>{ if(d.profili[k]) o.profili[k]={...o.profili[k],...d.profili[k],b:{...o.profili[k].b,...(d.profili[k].b||{})}}; }); }
-  o.cats.forEach(c=>Object.values(o.profili).forEach(P=>{ if(P.b[c.id]===undefined) P.b[c.id]=0; }));
   o.rules=d.rules||{}; o.meta={up:(d.meta&&d.meta.up)||0};
+  migra(o);
+  o.cats.forEach(c=>Object.values(o.profili).forEach(P=>{ if(P.b[c.id]===undefined) P.b[c.id]=0; }));
   return o;
 }
 function load(){
@@ -549,7 +613,8 @@ function merge(a,b){
   o.tx=Object.values(map).filter(t=>!(gr[t.id]>=(t.up||0)));
   o.tomb=Object.entries(gr).map(([id,up])=>({id,up})).filter(g=>Date.now()-g.up<1000*60*60*24*120);
   const S=(A.meta.up>=B.meta.up)?A:B;
-  o.profili=S.profili; o.cats=S.cats; o.catsIn=S.catsIn; o.meta={up:Math.max(A.meta.up,B.meta.up)};
+  o.profili=S.profili; o.cats=S.cats; o.catsIn=S.catsIn; o.catsV=Math.max(A.catsV||1,B.catsV||1);
+  o.meta={up:Math.max(A.meta.up,B.meta.up)};
   o.rules={}; [A.rules,B.rules].forEach(src=>Object.entries(src||{}).forEach(([tk,cs])=>{
     o.rules[tk]=o.rules[tk]||{}; Object.entries(cs).forEach(([c,n])=>{ o.rules[tk][c]=Math.max(o.rules[tk][c]||0,n); });
   }));
@@ -621,8 +686,8 @@ async function syncNow(silent){
     const before=sig();
     if(remote) DB=merge(DB,remote);
     save();
-    const payload=JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,1);
-    const remotePayload=remote?JSON.stringify({v:4,tx:remote.tx||[],tomb:remote.tomb||[],profili:remote.profili,cats:remote.cats,catsIn:remote.catsIn,rules:remote.rules,meta:remote.meta},null,1):null;
+    const payload=JSON.stringify({v:4,catsV:DB.catsV,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,1);
+    const remotePayload=remote?JSON.stringify({v:4,catsV:remote.catsV||CATS_V,tx:remote.tx||[],tomb:remote.tomb||[],profili:remote.profili,cats:remote.cats,catsIn:remote.catsIn,rules:remote.rules,meta:remote.meta},null,1):null;
 
     if(payload!==remotePayload){
       const p=await gh('PUT',{message:'registro '+new Date().toISOString().slice(0,16).replace('T',' '),
@@ -1732,7 +1797,7 @@ function toast(m){ const h=document.getElementById('toastHost'); if(!h) return;
 
 /* ═══════════ IMPORT / EXPORT ═══════════ */
 function dl(n,t,m){ const u=URL.createObjectURL(new Blob([t],{type:m})); const a=document.createElement('a'); a.href=u;a.download=n;a.click(); setTimeout(()=>URL.revokeObjectURL(u),1500); }
-function expJ(){ dl(`registro-${iso(new Date())}.json`,JSON.stringify({v:4,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,2),'application/json'); toast('Backup esportato'); }
+function expJ(){ dl(`registro-${iso(new Date())}.json`,JSON.stringify({v:4,catsV:DB.catsV,tx:DB.tx,tomb:DB.tomb,profili:DB.profili,cats:DB.cats,catsIn:DB.catsIn,rules:DB.rules,meta:DB.meta},null,2),'application/json'); toast('Backup esportato'); }
 function expC(){
   const r=[['data','tipo','nota','categoria','sottocategoria','importo']];
   [...DB.tx].sort((a,b)=>a.date<b.date?-1:1).forEach(t=>r.push([t.date,(KINDS[t.kind]||{}).n||t.kind,(t.note||'').replace(/;/g,','),catObj(t).n,subName(t),(t.amount/100).toFixed(2).replace('.',',')]));
@@ -1791,7 +1856,7 @@ function bindSetup(){
   document.getElementById('iF').onchange=e=>{ if(e.target.files[0]) impJ(e.target.files[0]); };
   document.getElementById('wp').onclick=()=>{ if(confirm('Cancellare movimenti e budget?')){
     const T=Date.now(); DB.tomb=[...DB.tomb,...DB.tx.map(t=>({id:t.id,up:T}))];
-    DB.tx=[]; DB.profili=clone(PROFILI); DB.cats=clone(DEF_CATS); DB.catsIn=clone(DEF_CATS_IN); DB.rules={}; DB.meta.up=T;
+    DB.tx=[]; DB.profili=clone(PROFILI); DB.cats=clone(DEF_CATS); DB.catsIn=clone(DEF_CATS_IN); DB.rules={}; DB.catsV=CATS_V; DB.meta.up=T;
     save(); queueSync(); render(); toast('Dati cancellati'); } };
 }
 
