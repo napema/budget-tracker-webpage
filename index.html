@@ -940,11 +940,242 @@ function viewSetup(){
       <div class="row" style="flex-wrap:wrap;gap:9px">
         <button class="ghost" id="mgr">Gestisci categorie</button>
         ${learned?`<button class="ghost" id="fgt">Azzera memoria</button>`:''}</div></div>
+    <div class="g card"><h3>Importa movimenti</h3>
+      <div class="verdict" style="border:0;padding:0;margin:0 0 16px">Carica il CSV dell'estratto Revolut e li prende da solo: le ricariche da altre carte diventano <b>sforamenti</b>, i giroconti tra pocket restano fuori dalle spese, il resto si categorizza dalla descrizione. Oppure incolla le righe a mano. Prima di scrivere niente ti mostra l'anteprima e scarta i doppioni.</div>
+      <button class="ghost" id="imp" style="width:100%;text-align:center">Importa da CSV o incolla</button></div>
     <div class="g card"><h3>I tuoi dati</h3>
-      <div class="row" style="flex-wrap:wrap;gap:9px"><button class="ghost" id="eJ">Backup</button><button class="ghost" id="eC">CSV</button><button class="ghost" id="iB">Importa</button></div>
+      <div class="row" style="flex-wrap:wrap;gap:9px"><button class="ghost" id="eJ">Backup</button><button class="ghost" id="eC">CSV</button><button class="ghost" id="iB">Ripristina backup</button></div>
       <input type="file" id="iF" accept="application/json" class="hidden">
       <div style="margin-top:18px;padding-top:16px;border-top:.5px solid var(--hair)"><button class="ghost dg" id="wp">Cancella tutto</button></div></div>
   </div></div>`;
+}
+
+/* ═══════════ IMPORTAZIONE ═══════════ */
+let IM=null;
+
+/* --- lettura numeri e date tolleranti --- */
+function parseAmount(t){
+  if(t==null) return null;
+  let x=String(t).replace(/[€$£\s\u00a0]/g,'').trim();
+  if(!x) return null;
+  const neg=/^\(.*\)$/.test(x)||x.indexOf('-')===0;
+  x=x.replace(/[()+-]/g,'');
+  if(x.indexOf(',')>-1&&x.indexOf('.')>-1){
+    x = x.lastIndexOf(',')>x.lastIndexOf('.') ? x.replace(/\./g,'').replace(',','.') : x.replace(/,/g,'');
+  } else if(x.indexOf(',')>-1){
+    x = /,\d{3}$/.test(x) ? x.replace(/,/g,'') : x.replace(',','.');
+  }
+  if(!/^\d*\.?\d+$/.test(x)) return null;
+  const v=Math.round(parseFloat(x)*100);
+  if(!isFinite(v)||v===0) return null;
+  return neg?-v:v;
+}
+function parseDate(t){
+  if(!t) return null;
+  const x=String(t).trim();
+  let m=x.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(m) return m[1]+'-'+m[2]+'-'+m[3];
+  m=x.match(/\b(\d{1,2})[\/.](\d{1,2})(?:[\/.](\d{2,4}))?\b/);
+  if(m){
+    let y=m[3]?(m[3].length===2?'20'+m[3]:m[3]):String(now.getFullYear());
+    return y+'-'+pad(+m[2])+'-'+pad(+m[1]);
+  }
+  return null;
+}
+function splitCSV(line,d){
+  const out=[]; let cur='',q=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){ if(q&&line[i+1]==='"'){cur+='"';i++;} else q=!q; }
+    else if(c===d&&!q){ out.push(cur); cur=''; }
+    else cur+=c;
+  }
+  out.push(cur); return out.map(x=>x.trim());
+}
+
+/* --- deriva il tipo di movimento dal tipo Revolut --- */
+function kindFrom(type,amount,desc){
+  const t=norm(type), d=norm(desc);
+  if(/topup|top up|ricarica/.test(t)) return 'extra';
+  if(/refund|reso/.test(t)) return 'reso';
+  if(/exchange|cambio valuta/.test(t)) return 'giro';
+  /* spostamenti fra conti propri: non sono spese */
+  if(/to pocket|from pocket|to vault|from vault|to savings|pocket|salvadanaio|giroconto|to my|between accounts|to eur|to usd/.test(d)) return 'giro';
+  if(/transfer/.test(t)&&amount>0&&/rimborso|refund|reso|restituz/.test(d)) return 'rimb';
+  return amount<0?'out':'in';
+}
+
+/* --- CSV di banca o Revolut --- */
+function parseCSV(text){
+  const lines=text.split(/\r?\n/).filter(l=>l.trim());
+  if(!lines.length) return [];
+  const d=(lines[0].split(';').length>lines[0].split(',').length)?';':',';
+  const head=splitCSV(lines[0],d).map(h=>norm(h));
+  const find=(...names)=>{ for(const n of names){ const i=head.findIndex(h=>h===n); if(i>=0) return i; }
+    for(const n of names){ const i=head.findIndex(h=>h.indexOf(n)>-1); if(i>=0) return i; } return -1; };
+  const iDate=find('completed date','data contabile','data valuta','started date','data operazione','data','date');
+  const iAmt =find('amount','importo','ammontare','entrate uscite');
+  const iDesc=find('description','descrizione','causale','merchant','beneficiario','dettagli');
+  const iType=find('type','tipo','tipologia');
+  const iState=find('state','stato');
+  const iCur =find('currency','valuta','divisa');
+  const hasHeader = iDate>=0 && iAmt>=0;
+  const rows=[];
+  (hasHeader?lines.slice(1):lines).forEach(l=>{
+    const c=splitCSV(l,d);
+    let date,amt,desc,type,state,cur;
+    if(hasHeader){
+      date=parseDate(c[iDate]); amt=parseAmount(c[iAmt]);
+      desc=iDesc>=0?c[iDesc]:''; type=iType>=0?c[iType]:'';
+      state=iState>=0?norm(c[iState]):''; cur=iCur>=0?norm(c[iCur]):'';
+    } else {
+      date=parseDate(c.find(x=>parseDate(x)));
+      const nums=c.map(parseAmount).filter(x=>x!==null);
+      amt=nums.length?nums[0]:null;
+      desc=c.filter(x=>!parseDate(x)&&parseAmount(x)===null).join(' ');
+    }
+    if(!amt) return;
+    if(state&&/declin|revert|fail|annull|rifiut/.test(state)) return;
+    if(cur&&cur!=='eur') return;
+    rows.push({date:date||iso(now), amount:Math.abs(amt), kind:kindFrom(type,amt,desc), note:(desc||'Movimento').slice(0,60)});
+  });
+  return rows;
+}
+
+/* --- testo incollato: una riga per movimento --- */
+function parsePaste(text){
+  const rows=[];
+  text.split(/\r?\n/).forEach(raw=>{
+    const l=raw.trim(); if(!l||/^[-=_#]+$/.test(l)) return;
+    if(l.indexOf(';')>-1||l.indexOf('\t')>-1){
+      const d=l.indexOf(';')>-1?';':'\t';
+      const c=l.split(d).map(x=>x.trim());
+      const date=parseDate(c.find(x=>parseDate(x)));
+      let amt=null,ai=-1;
+      for(let i=c.length-1;i>=0;i--){ const v=parseAmount(c[i]); if(v!==null){ amt=v; ai=i; break; } }
+      if(amt===null) return;
+      const desc=c.filter((x,i)=>i!==ai&&!parseDate(x)).join(' ').trim();
+      const plus=/^\+/.test(c[ai].trim());
+      rows.push({date:date||iso(now),amount:Math.abs(amt),kind:(amt>0&&plus)?'in':(amt<0?'out':'out'),note:(desc||'Movimento').slice(0,60)});
+      return;
+    }
+    const date=parseDate(l);
+    const m=l.match(/([+-]?\s?\d{1,3}(?:[.\s]\d{3})*(?:[.,]\d{1,2})?|[+-]?\s?\d+(?:[.,]\d{1,2})?)\s*€?\s*$/);
+    if(!m) return;
+    const amt=parseAmount(m[1]); if(amt===null) return;
+    let desc=l.slice(0,m.index).trim();
+    if(date) desc=desc.replace(/\b\d{1,2}[\/.]\d{1,2}(?:[\/.]\d{2,4})?\b/,'').replace(/\d{4}-\d{2}-\d{2}/,'').trim();
+    desc=desc.replace(/^[-–•·\s]+/,'').trim();
+    rows.push({date:date||iso(now),amount:Math.abs(amt),kind:/^\+/.test(m[1].trim())?'in':'out',note:(desc||'Movimento').slice(0,60)});
+  });
+  return rows;
+}
+
+const srcKey=r=>r.date+'|'+r.amount+'|'+norm(r.note).slice(0,24);
+function prepare(rows){
+  const seen=new Set(DB.tx.map(t=>t.src||srcKey({date:t.date,amount:t.amount,note:t.note})));
+  const batch=new Set();
+  return rows.map(r=>{
+    const k=srcKey(r);
+    const dup=seen.has(k)||batch.has(k); batch.add(k);
+    const sd=KINDS[r.kind].spend?(r.kind==='in'?'in':'out'):null;
+    let cat='_neutro',sub=r.kind,auto=false;
+    if(sd){
+      const g=guess(r.note,sd);
+      if(g){ cat=g.cat; sub=g.sub; auto=true; }
+      else if(sd==='out'){ cat='personale'; sub='varie'; }
+      else { cat='altre-in'; sub='altro'; }
+    }
+    return {...r,cat,sub,auto,dup,ok:!dup,src:k};
+  });
+}
+
+function openImport(){ IM={step:'in',rows:[],text:''}; lockScroll(); drawImport(); }
+function closeImport(){ IM=null; document.getElementById('sheetHost').innerHTML=''; unlockScroll(); render(); }
+
+function drawImport(){
+  let body;
+  if(IM.step==='in'){
+    body=`<div class="fld"><label>File dell'estratto conto</label>
+        <button class="ghost" id="imFileBtn" style="width:100%;text-align:center">Scegli un CSV</button>
+        <input type="file" id="imFile" accept=".csv,text/csv,application/json,.json" class="hidden">
+        <div class="verdict" style="border:0;padding:0;margin:10px 0 0">Esporta da Revolut: <b>Conto → Estratto conto → Excel/CSV</b>, poi carica il file qui. Riconosce anche i CSV di altre banche.</div></div>
+      <div class="fld"><label>Oppure incolla le righe</label>
+        <textarea id="imText" rows="7" placeholder="27/07 Barbiere 15,00&#10;26/07 Conad 45,20&#10;25/07 IP 70,00&#10;01/07 Stipendio +2100,00"
+          style="font:inherit;font-size:16px;width:100%;padding:15px 16px;background:var(--s2);border:0;border-radius:var(--r-s);color:var(--txt);resize:vertical;line-height:1.6"></textarea>
+        <div class="verdict" style="border:0;padding:0;margin:10px 0 0">Una riga per movimento: data, descrizione, importo. Il <b>+</b> davanti all'importo lo rende un'entrata. La data può mancare.</div></div>`;
+  } else {
+    const ok=IM.rows.filter(r=>r.ok);
+    const tot=ok.filter(r=>r.kind==='out').reduce((a,r)=>a+r.amount,0);
+    const dups=IM.rows.filter(r=>r.dup).length;
+    const noAuto=ok.filter(r=>!r.auto&&KINDS[r.kind].spend).length;
+    body=`<div class="sync-line" style="margin-bottom:14px"><span class="dt" style="background:var(--green)"></span>
+        <span style="color:var(--txt2)"><b style="color:var(--txt)">${ok.length}</b> da importare · ${eur(tot,0)} di spese${dups?` · ${dups} già presenti, esclusi`:''}</span></div>
+      ${noAuto?`<div class="sync-line" style="margin-bottom:14px"><span class="dt" style="background:var(--orange)"></span>
+        <span style="color:var(--txt2)">${noAuto} senza categoria riconosciuta, finiscono in Personale · Varie</span></div>`:''}
+      ${IM.rows.map((r,i)=>{
+        const c=(catList(KINDS[r.kind].side==='in'?'in':'out')||[]).find(x=>x.id===r.cat)||{n:'—',col:'#8E8E93',i:'dots'};
+        const K=KINDS[r.kind];
+        return `<div class="tx" data-imrow="${i}" style="opacity:${r.ok?1:.34}">
+          <span class="badge" style="--tc:${K.spend?c.col:K.col}">${ic(K.spend?c.i:K.i)}</span>
+          <div class="tx-m"><div class="tx-n">${esc(r.note)}</div>
+            <div class="tx-s">${K.spend?esc(c.n):esc(K.n)}${r.auto?'':' · da rivedere'} · ${r.date.slice(8)}/${r.date.slice(5,7)}${r.dup?' · doppione':''}</div></div>
+          <div class="tx-a num" style="color:${r.kind==='in'?'var(--green)':K.spend?'var(--txt)':'var(--txt2)'}">${r.kind==='out'?'−':r.kind==='in'?'+':''}${eur(r.amount)}</div>
+        </div>`;}).join('')}
+      <div class="verdict">Tocca una riga per escluderla. Le categorie sbagliate si correggono dopo in Movimenti, e ogni correzione insegna all'app la parola giusta.</div>`;
+  }
+  document.getElementById('sheetHost').innerHTML=`
+  <div class="sheet"><div class="scrim" data-imclose="1"></div>
+   <div class="panel">
+    <div class="grab"></div>
+    <div class="sheet-h">
+      ${IM.step==='prev'?`<button class="hbtn" data-imback="1">‹ Indietro</button>`:`<button class="hbtn" data-imclose="1">Annulla</button>`}
+      <span class="t">${IM.step==='in'?'Importa':'Conferma'}</span><span></span></div>
+    <div style="margin-top:16px">${body}</div>
+    <div class="foot"><button class="save" id="imGo"
+      style="background:color-mix(in srgb,var(--blue) 20%,#fff);color:color-mix(in srgb,var(--blue) 72%,#000)">
+      <span>${IM.step==='in'?'Analizza':'Importa '+IM.rows.filter(r=>r.ok).length+' movimenti'}</span></button></div>
+   </div></div>`;
+  bindDrag(closeImport);
+  const fb=document.getElementById('imFileBtn');
+  if(fb){
+    fb.onclick=()=>document.getElementById('imFile').click();
+    document.getElementById('imFile').onchange=e=>{
+      const f=e.target.files[0]; if(!f) return;
+      const rd=new FileReader();
+      rd.onload=()=>{
+        let rows=[];
+        try{
+          if(/\.json$/i.test(f.name)){ const d=JSON.parse(rd.result);
+            rows=(d.tx||[]).map(t=>({date:t.date,amount:t.amount,kind:t.kind||'out',note:t.note||''})); }
+          else rows=parseCSV(rd.result);
+        }catch(err){ toast('File non leggibile'); return; }
+        if(!rows.length){ toast('Nessun movimento riconosciuto'); return; }
+        IM.rows=prepare(rows); IM.step='prev'; drawImport();
+      };
+      rd.readAsText(f);
+    };
+    const ta=document.getElementById('imText');
+    if(ta){ ta.value=IM.text; ta.addEventListener('input',()=>IM.text=ta.value); }
+  }
+}
+function importGo(){
+  if(IM.step==='in'){
+    const ta=document.getElementById('imText');
+    const txt=ta?ta.value:'';
+    if(!txt.trim()){ toast('Incolla le righe o scegli un file'); return; }
+    const rows=parsePaste(txt);
+    if(!rows.length){ toast('Nessuna riga riconosciuta'); return; }
+    IM.rows=prepare(rows); IM.step='prev'; drawImport(); return;
+  }
+  const ok=IM.rows.filter(r=>r.ok);
+  if(!ok.length){ toast('Niente da importare'); return; }
+  const T=Date.now();
+  ok.forEach((r,i)=>{
+    DB.tx.push({id:uid()+i,kind:r.kind,amount:r.amount,cat:r.cat,sub:r.sub,note:r.note,date:r.date,src:r.src,ts:T+i,up:T+i});
+    if(r.auto) learn(r.note,r.cat,r.sub);
+  });
+  save(); queueSync(); closeImport(); toast(`Importati ${ok.length} movimenti`);
 }
 
 /* ═══════════ GESTORE CATEGORIE ═══════════ */
@@ -1194,7 +1425,7 @@ function impJ(f){ const rd=new FileReader();
 
 /* ═══════════ RENDER ═══════════ */
 function render(soft){
-  if(E||MG) return;
+  if(E||MG||IM) return;
   if(soft&&document.activeElement&&document.activeElement.tagName==='INPUT') return;
   const v0=document.getElementById('view');
   v0.className='v-'+TAB+(soft?' noanim':'');
@@ -1231,6 +1462,7 @@ function bindSetup(){
   if(so) so.onclick=()=>{ if(confirm('Disattivare la sincronizzazione su questo dispositivo?')){
     SY={repo:'',path:'registro.json',branch:'main',token:'',sha:null,at:0,state:'off',msg:'',optout:true}; saveSync(); render(); } };
   document.getElementById('mgr').onclick=()=>openMgr('out');
+  document.getElementById('imp').onclick=()=>openImport();
   const f=document.getElementById('fgt');
   if(f) f.onclick=()=>{ if(confirm('Azzerare le associazioni imparate?')){ DB.rules={}; DB.meta.up=Date.now(); save(); queueSync(); render(); } };
   document.getElementById('eJ').onclick=expJ;
@@ -1245,8 +1477,15 @@ function bindSetup(){
 
 /* ═══════════ EVENTI ═══════════ */
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx,[data-mside],[data-mcat],[data-msub],[data-mnew],[data-mback],[data-mclose],[data-mcol],[data-mic],[data-mdel],#mSave');
+  const t=e.target.closest('[data-tab],[data-sync],[data-open],[data-close],[data-key],[data-kind],[data-cat],[data-sub],[data-tx],#saveTx,#delTx,[data-mside],[data-mcat],[data-msub],[data-mnew],[data-mback],[data-mclose],[data-mcol],[data-mic],[data-mdel],#mSave,[data-imclose],[data-imback],[data-imrow],#imGo');
   if(!t) return;
+  if(IM){
+    if(t.dataset.imclose){ closeImport(); return; }
+    if(t.dataset.imback){ IM.step='in'; drawImport(); return; }
+    if(t.dataset.imrow!==undefined){ const r=IM.rows[+t.dataset.imrow]; r.ok=!r.ok; drawImport(); return; }
+    if(t.id==='imGo'){ importGo(); return; }
+    return;
+  }
   if(MG){
     if(t.dataset.mclose!==undefined&&t.dataset.mclose){ closeMgr(); return; }
     if(t.dataset.mback){ MG.view=MG.view==='sub'?'cat':'list'; MG.tmpIc=null; MG.tmpCol=null; drawMgr(); return; }
@@ -1286,7 +1525,7 @@ document.addEventListener('click',e=>{
   if(t.dataset.tx){ const x=DB.tx.find(z=>z.id===t.dataset.tx); if(x) openEntry(side(x),x); return; }
 });
 document.addEventListener('touchmove',e=>{
-  if(!(E||MG)) return;
+  if(!(E||MG||IM)) return;
   const p=e.target.closest&&e.target.closest('.panel');
   if(!p) e.preventDefault();
 },{passive:false});
@@ -1310,7 +1549,7 @@ if(fromLink){ toast('Dispositivo configurato'); }
 
 if(syncOn()){
   syncNow(true);
-  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E&&!MG) syncNow(true); },20000);
+  pullTimer=setInterval(()=>{ if(document.visibilityState==='visible'&&!E&&!MG&&!IM) syncNow(true); },20000);
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') syncNow(true); });
   window.addEventListener('focus',()=>{ if(Date.now()-lastPull>4000) syncNow(true); });
   window.addEventListener('pageshow',()=>syncNow(true));
