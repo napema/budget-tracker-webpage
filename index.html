@@ -366,6 +366,7 @@ body.touch .keypad{display:grid}
 /* =================================================================
    REGISTRO v3 — pocket + sync GitHub
    ================================================================= */
+const APP_V = "v4";
 const KEY = "registro2.v3";
 const KEY_OLD2 = "registro2.v2";
 
@@ -1512,8 +1513,12 @@ function renderSettings(root){
     <div class="chips wrap">${DB.cats.map(c => `<button class="chip" data-subcat="${c.id}">${esc(c.nome)}</button>`).join("")}</div>
     <div id="subEditor"></div>`;
   html += `<div class="sectitle">Sync GitHub</div>
-    <div class="sub2">${CFG.token ? `Configurato su ${esc(CFG.owner)}/${esc(CFG.repo)} · ${esc(CFG.path)}` : "Non configurato: compila config.js con owner, repo e il token in tre parti base64."}</div>
-    <button class="mini" id="btnSyncNow">Sincronizza ora</button>`;
+    <div class="sub2">${CFG.token
+      ? `Configurato su ${esc(CFG.owner)}/${esc(CFG.repo)} · ${esc(CFG.path)} — token caricato.`
+      : `Token NON caricato. Se config.js sul repo è già compilato, quasi sicuramente stai vedendo una copia in cache: usa «Svuota cache e ricarica» qui sotto.`}</div>
+    <button class="mini" id="btnSyncNow">Sincronizza ora</button>
+    <button class="mini" id="btnPurge">Svuota cache e ricarica</button>
+    <div class="sub2" style="margin-top:8px">Build ${APP_V} · i movimenti restano al sicuro in locale e su GitHub.</div>`;
   html += `<div class="sectitle">Import estratto conto</div>
     <div class="sub2">CSV Revolut (TOPUP → extra, refund → reso, pocket → giro; DECLINED e non-EUR scartati), CSV italiani con punto e virgola, oppure righe incollate tipo «27/07 Barbiere 15,00» (+ davanti = entrata). I doppioni vengono riconosciuti e scartati; la categoria si assegna da sola dalle note.</div>
     <button class="mini" id="impFileBtn">Carica CSV</button>
@@ -1556,6 +1561,20 @@ function renderSettings(root){
   });
   if(IMPORT.items.length) renderImportPreview(root);
   $("btnSyncNow").addEventListener("click", () => { syncNow(); toast(CFG.token ? "Sincronizzo…" : "Configura prima config.js"); });
+  $("btnPurge").addEventListener("click", async () => {
+    toast("Svuoto la cache…");
+    try{
+      if("serviceWorker" in navigator){
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+      }
+      if(window.caches){
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+    }catch(e){}
+    location.reload();
+  });
   $("btnExport").addEventListener("click", doExport);
   $("btnImport").addEventListener("click", () => $("fileImport").click());
   $("fileImport").addEventListener("change", doImport);

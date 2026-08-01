@@ -1,5 +1,5 @@
 /* Registro — service worker. ALZA LA VERSIONE a ogni modifica dei file. */
-const CACHE = "registro2-v3";
+const CACHE = "registro2-v4";
 const ASSETS = ["./", "./index.html", "./config.js", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
@@ -17,18 +17,33 @@ self.addEventListener("activate", e => {
   );
 });
 self.addEventListener("fetch", e => {
-  const url = new URL(e.request.url);
-  if(e.request.method !== "GET") return;                 // le PUT del sync passano dirette
-  if(url.hostname === "api.github.com") return;          // il sync non va mai in cache
-  if(url.origin !== location.origin){                    // font e risorse esterne: rete, cache di riserva
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+  const req = e.request;
+  if(req.method !== "GET") return;                      // le PUT del sync passano dirette
+  const url = new URL(req.url);
+  if(url.hostname === "api.github.com") return;         // il sync non va MAI in cache
+  if(url.origin !== location.origin){                   // font e risorse esterne
+    e.respondWith(fetch(req).catch(() => caches.match(req)));
     return;
   }
-  // app shell: cache-first con aggiornamento in background
+  const isCritical = req.mode === "navigate"
+    || url.pathname.endsWith("config.js")
+    || url.pathname.endsWith("index.html")
+    || url.pathname.endsWith("/");
+  if(isCritical){
+    // NETWORK-FIRST: config e pagina sempre freschi, cache solo offline.
+    e.respondWith(
+      fetch(req).then(res => {
+        if(res && res.ok) caches.open(CACHE).then(c => c.put(req, res.clone()));
+        return res;
+      }).catch(() => caches.match(req))
+    );
+    return;
+  }
+  // resto della shell (icone, manifest): cache-first con aggiornamento in background
   e.respondWith(
-    caches.match(e.request).then(hit => {
-      const net = fetch(e.request).then(res => {
-        if(res && res.ok) caches.open(CACHE).then(c => c.put(e.request, res.clone()));
+    caches.match(req).then(hit => {
+      const net = fetch(req).then(res => {
+        if(res && res.ok) caches.open(CACHE).then(c => c.put(req, res.clone()));
         return res;
       }).catch(() => hit);
       return hit || net;
