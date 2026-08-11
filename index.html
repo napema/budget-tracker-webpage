@@ -20,7 +20,9 @@
   --green:#0A7B5C; --green-soft:#E3F1EC; --red:#C43D2B; --red-soft:#F7E8E4;
   --amber:#9A6A00; --amber-soft:#F6EDD8;
   --press:#EDEFF2; --sheet-shadow:0 -12px 40px rgba(20,22,28,.18);
-  --radius:16px;
+  --glass:rgba(255,255,255,.72); --glass-line:rgba(255,255,255,.55); --glass-head:rgba(255,255,255,.65);
+  --card-shadow:0 8px 32px rgba(0,0,0,.05);
+  --radius:20px;
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -28,15 +30,40 @@
     --green:#4FD3A5; --green-soft:#12352B; --red:#FF7A64; --red-soft:#3B1F1A;
     --amber:#F0C25E; --amber-soft:#33290F;
     --press:#232329; --sheet-shadow:0 -12px 40px rgba(0,0,0,.6);
+    --glass:rgba(24,24,28,.80); --glass-line:rgba(255,255,255,.12); --glass-head:rgba(24,24,28,.72);
+    --card-shadow:0 8px 32px rgba(0,0,0,.28);
   }
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+/* Livello 0 — canvas: gradiente morbido + aloni sfocati (flussi di liquidità).
+   Sta dietro a tutto, non tocca mai il contrasto del testo. */
+body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:linear-gradient(to top right, #F4F4F7, #E7EBF1 55%, #F1F5F9)}
+body::after{content:""; position:fixed; inset:-15%; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(38% 32% at 12% 8%, rgba(99,102,241,.16), transparent 70%),
+    radial-gradient(34% 30% at 88% 22%, rgba(16,185,129,.14), transparent 70%),
+    radial-gradient(40% 34% at 50% 96%, rgba(56,189,248,.12), transparent 70%);
+  filter:blur(120px)}
+@media (prefers-color-scheme: dark){
+  body::before{background:linear-gradient(to top right, #09090B, #121214 55%, #18181B)}
+  body::after{background:
+    radial-gradient(38% 32% at 12% 8%, rgba(99,102,241,.20), transparent 70%),
+    radial-gradient(34% 30% at 88% 22%, rgba(16,185,129,.16), transparent 70%),
+    radial-gradient(40% 34% at 50% 96%, rgba(56,189,248,.12), transparent 70%)}
+}
+html{background:var(--bg)}
+body{margin:0; padding:0; background:transparent; color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
-  font-size:16px; -webkit-font-smoothing:antialiased; overscroll-behavior-y:none}
+  font-size:16px; -webkit-font-smoothing:antialiased; overscroll-behavior-y:none; min-height:100dvh}
 button{font:inherit; color:inherit; background:none; border:0; cursor:pointer; padding:0}
 input,select{font:inherit; color:inherit}
-.num{font-family:"Space Grotesk",-apple-system,sans-serif; font-feature-settings:"tnum"; letter-spacing:-.01em}
+.num{font-family:"Space Grotesk",-apple-system,sans-serif; font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum"; letter-spacing:-.01em}
+.cts{font-size:.8em; vertical-align:.28em; opacity:.85; letter-spacing:0}
+/* micro-incremento: il numero non appare di colpo */
+@keyframes valIn{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:translateY(0)}}
+.big,.tile .big,.statgrid .v{animation:valIn .34s cubic-bezier(0.16, 1, 0.3, 1)}
 
 /* ================= shell ================= */
 #app{max-width:560px; margin:0 auto; padding:0 16px calc(122px + env(safe-area-inset-bottom))}
@@ -63,7 +90,7 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .seg button.on{background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.10)}
 
 /* ================= cards ================= */
-.card{background:var(--card); border-radius:var(--radius); border:1px solid var(--line); padding:17px; margin-top:12px}
+.card{background:var(--card); border-radius:var(--radius); border:1px solid var(--line); padding:17px; margin-top:12px; box-shadow:var(--card-shadow)}
 .lbl{font-size:15px; font-weight:600; color:var(--ink2); letter-spacing:0}
 .big{font-size:32px; font-weight:700; margin-top:4px; line-height:1.1}
 .big.pos{color:var(--green)} .big.neg{color:var(--red)} .big.warn{color:var(--amber)}
@@ -73,7 +100,7 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 
 /* home: griglia at-a-glance */
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
-.tile{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:15px; min-width:0}
+.tile{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:15px; min-width:0; box-shadow:var(--card-shadow)}
 .tile .big{font-size:28px}
 .tile.good{border-color:var(--green); background:var(--green-soft)}
 .tile.good .lbl,.tile.good .big{color:var(--green)}
@@ -136,6 +163,10 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .mov.tin .imp{color:var(--green)} .mov.textra .imp{color:var(--red)}
 .mov.isecc{background:var(--amber-soft)} .mov.isecc .dot{background:var(--amber); color:#fff}
 .mov.isecc .imp{color:var(--amber)}
+.cbadge{display:inline-flex; align-items:center; gap:6px; padding:2px 9px 2px 7px; border-radius:999px;
+  background:rgba(0,0,0,.05); color:var(--cc); font-weight:600}
+.cbadge i{width:6px; height:6px; border-radius:50%; background:var(--cc); flex:none}
+@media (prefers-color-scheme: dark){ .cbadge{background:rgba(255,255,255,.06)} }
 .tag{display:inline-block; margin-left:8px; padding:3px 9px; border-radius:999px; font-size:15px; font-weight:700; vertical-align:middle}
 .tag.ecc{background:var(--amber); color:#fff} .tag.ext{background:var(--red); color:#fff}
 .mov .nota{display:flex; align-items:center; gap:0}
@@ -157,8 +188,8 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .actions{position:fixed; left:0; right:0; bottom:0; display:flex; gap:10px; justify-content:center;
   padding:12px 16px calc(14px + env(safe-area-inset-bottom));
   background:linear-gradient(to top, var(--bg) 62%, transparent); z-index:10}
-.actions button,.side-actions button{padding:16px 0; border-radius:18px; font-size:17px; font-weight:700; transition:transform .1s}
-.actions button:active,.side-actions button:active{transform:scale(.97)}
+.actions button,.side-actions button{padding:16px 0; border-radius:14px; font-size:17px; font-weight:700; transition:all .4s cubic-bezier(0.16, 1, 0.3, 1)}
+.actions button:active,.side-actions button:active{transform:scale(.98); transition-duration:.12s}
 .btn-out{flex:1; max-width:220px; background:var(--red); color:#fff}
 .btn-in{flex:1; max-width:220px; background:var(--green); color:#fff}
 .btn-more{flex:none; width:56px; background:var(--card); border:1px solid var(--line); font-size:22px; color:var(--ink2)}
@@ -167,13 +198,18 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 /* ================= sheet ================= */
 .backdrop{position:fixed; inset:0; background:rgba(10,12,16,.45); opacity:0; pointer-events:none; transition:opacity .22s; z-index:20}
 .backdrop.show{opacity:1; pointer-events:auto}
-.sheet{position:fixed; left:0; right:0; bottom:0; z-index:21; background:var(--card);
+.sheet{position:fixed; left:0; right:0; bottom:0; z-index:21; background:var(--glass);
   border-radius:22px 22px 0 0; box-shadow:var(--sheet-shadow); max-width:560px; margin:0 auto;
-  transform:translateY(105%); transition:transform .28s cubic-bezier(.32,.72,.24,1);
+  border-top:1px solid var(--glass-line);
+  transform:translateY(105%); transition:transform .4s cubic-bezier(0.16, 1, 0.3, 1);
   padding:10px 18px calc(18px + env(safe-area-inset-bottom)); max-height:92dvh; overflow-y:auto}
 .sheet.show{transform:translateY(0)}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .sheet{-webkit-backdrop-filter:blur(40px) saturate(210%); backdrop-filter:blur(40px) saturate(210%)}
+}
 .grab{width:38px; height:5px; border-radius:3px; background:var(--line); margin:0 auto 10px}
-.shead{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; position:sticky; top:0; background:var(--card); z-index:2; padding:4px 0}
+.shead{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; position:sticky; top:0; background:var(--glass-head); z-index:2; padding:6px 0;
+  -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px)}
 .shead h2{font-size:19px; font-weight:700; margin:0}
 .shead .close,.shead .danger{font-weight:600; padding:8px 4px}
 .shead .close{color:var(--ink2)} .shead .danger{color:var(--red)}
@@ -190,16 +226,20 @@ body.touch .keypad{display:grid}
 .field label{display:block; font-size:15px; font-weight:600;
   color:var(--ink2); margin-bottom:6px; padding-left:2px}
 .field label .hint{font-weight:600; text-transform:none; letter-spacing:0; color:var(--green)}
-.field input[type=text],.field input[type=date],.field input[type=number]{width:100%; background:var(--press); border:0; border-radius:12px;
-  padding:13px 14px; outline:none; -webkit-appearance:none; appearance:none; min-height:48px}
+.field input[type=text],.field input[type=date],.field input[type=number]{width:100%; background:rgba(0,0,0,.05); border:1px solid transparent; border-radius:10px;
+  padding:13px 14px; outline:none; -webkit-appearance:none; appearance:none; min-height:48px;
+  transition:all .3s cubic-bezier(0.16, 1, 0.3, 1)}
+.field input:focus{background:var(--card); border-color:var(--line)}
+@media (prefers-color-scheme: dark){ .field input[type=text],.field input[type=date],.field input[type=number]{background:rgba(255,255,255,.06)} }
 .chips{display:flex; gap:8px; overflow-x:auto; padding:2px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
 .chips.wrap{flex-wrap:wrap; overflow:visible}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none; padding:10px 16px; border-radius:999px; background:var(--press); font-weight:600; font-size:15px; color:var(--ink2); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .chip.on{background:var(--ink); color:var(--bg)}
 .chip.auto{outline:2px solid var(--green)}
-.save{width:100%; margin-top:18px; padding:16px 0; border-radius:16px; font-size:17px; font-weight:700; color:#fff; background:var(--ink)}
+.save{width:100%; margin-top:18px; padding:16px 0; border-radius:12px; transition:all .4s cubic-bezier(0.16, 1, 0.3, 1); font-size:17px; font-weight:700; color:#fff; background:var(--ink)}
 .save:disabled{opacity:.35}
+.save:active{transform:scale(.98); transition-duration:.12s}
 .save.as-out{background:var(--red)} .save.as-in{background:var(--green)}
 .dualsave{display:none; gap:10px; margin-top:18px}
 .dualsave.show{display:flex}
@@ -273,7 +313,7 @@ body.touch .keypad{display:grid}
   .anagrid .span2{grid-column:1/-1}
   .seg button{font-size:15px}
   .sheet{left:50%; right:auto; bottom:auto; top:50%; transform:translate(-50%,-46%) scale(.97); opacity:0;
-    width:520px; max-height:84vh; border-radius:22px; transition:transform .22s cubic-bezier(.32,.72,.24,1), opacity .18s;
+    width:520px; max-height:84vh; border-radius:22px; transition:transform .4s cubic-bezier(0.16, 1, 0.3, 1), opacity .25s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events:none; padding-bottom:20px}
   .sheet.show{transform:translate(-50%,-50%) scale(1); opacity:1; pointer-events:auto}
   .grab{display:none}
@@ -388,7 +428,7 @@ body.touch .keypad{display:grid}
 /* =================================================================
    REGISTRO v3 — pocket + sync GitHub
    ================================================================= */
-const APP_V = "v5";
+const APP_V = "v6";
 const KEY = "registro2.v3";
 const KEY_OLD2 = "registro2.v2";
 
@@ -560,6 +600,13 @@ function eur(cents, sign){
   const s = n.toLocaleString("it-IT",{minimumFractionDigits:2, maximumFractionDigits:2}) + " €";
   if(!sign) return s;
   return (cents < 0 ? "−" : "+") + s;
+}
+/* Stile Apple Wallet: euro a peso pieno, centesimi rimpiccioliti e allineati in alto. */
+function eurRich(cents, sign){
+  const s = eur(cents, sign);
+  const i = s.lastIndexOf(",");
+  if(i < 0) return esc(s);
+  return esc(s.slice(0, i)) + `<span class="cts">${esc(s.slice(i))}</span>`;
 }
 function eur0(cents){ return Math.round(Math.abs(cents)/100).toLocaleString("it-IT") + " €"; }
 function parseImp(str){
@@ -1039,13 +1086,13 @@ function renderHome(){
   html += `<div class="grid2">
     <div class="tile">
       <div class="lbl">Spesa ordinaria</div>
-      <div class="big num">${eur(st.ord)}</div>
+      <div class="big num">${eurRich(st.ord)}</div>
       <div class="track thin"><div class="bar ${pctO >= 100 ? "over" : pctO >= 90 ? "warn" : ""}" style="width:${pctO}%"></div></div>
       <div class="sub2">${pctO}% del budget ${eur0(bt)}</div>
     </div>
     <div class="tile">
       <div class="lbl">Straordinari</div>
-      <div class="big num">${eur(st.ecc)}</div>
+      <div class="big num">${eurRich(st.ecc)}</div>
       <div class="sub2">${st.ecc > 0 ? `${st.eccMovs.length} ${st.eccMovs.length === 1 ? "voce una tantum" : "voci una tantum"}, fuori dal budget` : "nessuna spesa una tantum"}</div>
     </div>
   </div>`;
@@ -1091,7 +1138,7 @@ function renderHome(){
   const proj = (isCur && day >= 3) ? Math.round(st.ord/day*dim) : null;
   html += `<section class="card">
     <div class="rowline"><span class="lbl">Mese · spesa ordinaria</span><span class="lbl num">budget ${eur0(bt)}</span></div>
-    <div class="rowline"><div class="big num">${eur(st.ord)}</div><div class="sub2 num" style="text-align:right">entrate<br><b style="color:var(--green)">${eur(st.entrate)}</b></div></div>
+    <div class="rowline"><div class="big num">${eurRich(st.ord)}</div><div class="sub2 num" style="text-align:right">entrate<br><b style="color:var(--green)">${eur(st.entrate)}</b></div></div>
     <div class="track"><div class="bar ${pct >= 1 ? "over" : pct >= .9 ? "warn" : ""}" style="width:${Math.min(100, Math.round(pct*100))}%"></div><div class="mark" style="left:${timePct}%"></div></div>
     <div class="sub2">${Math.round(pct*100)}% speso · ${timePct}% del mese passato (la tacca)${proj !== null ? ` · proiezione ${eur0(proj)}` : ""}</div>
   </section>`;
@@ -1175,7 +1222,7 @@ function movRow(m){
     : m.tipo === "extra" ? `<span class="tag ext">Sforamento</span>` : "";
   return `<button class="mov t${m.tipo}${ecc ? " isecc" : ""}" data-mov="${m.id}">
     <span class="dot">${ecc ? "★" : icon}</span>
-    <span class="mid"><span class="nota">${esc(m.nota || TIPO_LBL[m.tipo])}${tag}</span><span class="cat">${esc(catTxt)}</span></span>
+    <span class="mid"><span class="nota">${esc(m.nota || TIPO_LBL[m.tipo])}${tag}</span><span class="cat">${m.tipo === "out" ? `<span class="cbadge" style="--cc:${CAT_COLORS[m.cat]||"#8A8F98"}"><i></i>${esc(catTxt)}</span>` : esc(catTxt)}</span></span>
     <span class="imp num">${sign}${eur(m.tipo === "out" ? eff : m.imp)}${netted ? `<small>lordo ${eur(m.imp)}</small>` : ""}</span>
   </button>`;
 }
@@ -1308,21 +1355,35 @@ function renderAna(){
 }
 function cumChart(cum, budget, todayIdx, dim){
   const W = 520, H = 150, padL = 4, padR = 4;
+  const uid = "g" + (cumChart._n = (cumChart._n||0) + 1);
   const max = Math.max(budget || 0, cum[cum.length-1] || 0, 1) * 1.05;
   const x = i => padL + i/(dim-1)*(W-padL-padR);
   const y = v => H - v/max*H;
-  let s = `<svg viewBox="0 0 ${W} ${H+20}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cumulato del mese">`;
-  if(budget > 0) s += `<line x1="${x(0)}" y1="${y(0)}" x2="${x(dim-1)}" y2="${y(budget)}" stroke="var(--ink2)" stroke-width="1.5" stroke-dasharray="5 5" opacity=".55"/>`;
   const upto = todayIdx !== null ? Math.min(todayIdx, dim) : dim;
-  const pts = [];
-  for(let i = 0; i < upto; i++) pts.push(x(i) + "," + y(cum[i]));
   const over = budget > 0 && todayIdx !== null && cum[upto-1] > budget*upto/dim;
   const col = over ? "var(--red)" : "var(--green)";
+  let s = `<svg viewBox="0 0 ${W} ${H+22}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Andamento del mese">`;
+  /* gradienti: linea sfumata e area quasi trasparente, per non appesantire la superficie */
+  s += `<defs>
+    <linearGradient id="${uid}l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${col}" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="${col}" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="${uid}a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${col}" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="${col}" stop-opacity="0"/>
+    </linearGradient>
+  </defs>`;
+  /* niente griglia verticale; orizzontali quasi invisibili */
+  for(const f of [0.25, 0.5, 0.75, 1])
+    s += `<line x1="${padL}" y1="${H-f*H}" x2="${W-padR}" y2="${H-f*H}" stroke="var(--ink2)" stroke-width="1" opacity=".07"/>`;
+  if(budget > 0) s += `<line x1="${x(0)}" y1="${y(0)}" x2="${x(dim-1)}" y2="${y(budget)}" stroke="var(--ink2)" stroke-width="1.5" stroke-dasharray="5 5" opacity=".45"/>`;
+  const pts = [];
+  for(let i = 0; i < upto; i++) pts.push(x(i) + "," + y(cum[i]));
   if(pts.length){
-    s += `<polyline points="${x(0)},${y(0)} ${pts.join(" ")}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
-    s += `<polygon points="${x(0)},${H} ${x(0)},${y(0)} ${pts.join(" ")} ${x(upto-1)},${H}" fill="${col}" opacity=".10"/>`;
-    const lx = x(upto-1), ly = y(cum[upto-1]);
-    s += `<circle cx="${lx}" cy="${ly}" r="4.5" fill="${col}"/>`;
+    s += `<polygon points="${x(0)},${H} ${x(0)},${y(0)} ${pts.join(" ")} ${x(upto-1)},${H}" fill="url(#${uid}a)"/>`;
+    s += `<polyline points="${x(0)},${y(0)} ${pts.join(" ")}" fill="none" stroke="url(#${uid}l)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s += `<circle cx="${x(upto-1)}" cy="${y(cum[upto-1])}" r="4.5" fill="${col}"/>`;
   }
   for(const g of [1, 10, 20, dim])
     s += `<text x="${x(g-1)}" y="${H+15}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink2)" font-family="-apple-system,sans-serif">${g}</text>`;
@@ -1364,7 +1425,7 @@ function barChart(vals, labels, hiIndex, refLine, color){
   vals.forEach((v,i) => {
     const h = Math.max(2, v/max*H);
     const x = pad + i*bw + bw*0.15, w = bw*0.7;
-    s += `<rect x="${x}" y="${H-h}" width="${w}" height="${h}" rx="6" fill="${i === hiIndex ? (color || "var(--green)") : "var(--press)"}" stroke="${i === hiIndex ? "none" : "var(--line)"}"/>`;
+    s += `<rect x="${x}" y="${H-h}" width="${w}" height="${h}" rx="7" fill="${i === hiIndex ? (color || "var(--green)") : "var(--ink2)"}" opacity="${i === hiIndex ? 1 : .18}"/>`;
     s += `<text x="${pad + i*bw + bw/2}" y="${H+15}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink2)" font-family="-apple-system,sans-serif">${labels[i].toUpperCase()}</text>`;
   });
   return s + `</svg>`;

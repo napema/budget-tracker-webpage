@@ -1,5 +1,5 @@
 /* Registro — service worker. ALZA LA VERSIONE a ogni modifica dei file. */
-const CACHE = "registro2-v5";
+const CACHE = "registro2-v6";
 const ASSETS = ["./", "./index.html", "./config.js", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
