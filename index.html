@@ -85,12 +85,12 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
   background:var(--press); color:var(--ink2); padding:5px 10px; border-radius:999px}
 
 #side{display:none}
-.seg{display:flex; background:var(--press); border-radius:12px; padding:3px; margin:12px 0 4px}
+.seg{display:flex; background:var(--press); border-radius:12px; padding:3px; margin:14px 0 4px}
 .seg button{flex:1; padding:10px 0; border-radius:9px; font-weight:600; color:var(--ink2); transition:background .15s; font-size:15px}
 .seg button.on{background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.10)}
 
 /* ================= cards ================= */
-.card{background:var(--card); border-radius:var(--radius); border:1px solid var(--line); padding:17px; margin-top:12px; box-shadow:var(--card-shadow)}
+.card{background:var(--card); border-radius:var(--radius); border:1px solid var(--line); padding:18px; margin-top:14px; box-shadow:var(--card-shadow)}
 .lbl{font-size:15px; font-weight:600; color:var(--ink2); letter-spacing:0}
 .big{font-size:32px; font-weight:700; margin-top:4px; line-height:1.1}
 .big.pos{color:var(--green)} .big.neg{color:var(--red)} .big.warn{color:var(--amber)}
@@ -99,7 +99,7 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .rowline{display:flex; justify-content:space-between; align-items:baseline; gap:8px}
 
 /* home: griglia at-a-glance */
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px}
 .tile{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:15px; min-width:0; box-shadow:var(--card-shadow)}
 .tile .big{font-size:28px}
 .tile.good{border-color:var(--green); background:var(--green-soft)}
@@ -132,23 +132,23 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .alert .ic{flex:none; font-size:15px; margin-top:1px}
 
 .toprow3{display:flex; justify-content:space-between; align-items:baseline}
-.catmini{width:100%; text-align:left; padding:9px 0 2px; display:block}
-.catmini:active{opacity:.7}
+.catmini{width:100%; text-align:left; padding:10px 0 3px; display:block; transition:opacity .3s cubic-bezier(0.16,1,0.3,1)}
+.catmini:active{opacity:.55}
 .catmini .top{display:flex; justify-content:space-between; align-items:baseline; gap:8px}
 .catmini .n{font-weight:600; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .catmini .a{font-weight:700; font-size:16px; flex:none}
 
 /* ================= movimenti ================= */
-.filters{display:flex; gap:8px; overflow-x:auto; padding:12px 2px 2px; scrollbar-width:none}
+.filters{display:flex; gap:8px; overflow-x:auto; padding:14px 2px 2px; scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
 .fchip{flex:none; padding:8px 15px; border-radius:999px; background:var(--press); font-weight:600; font-size:15px; color:var(--ink2)}
 .fchip.on{background:var(--ink); color:var(--bg)}
 .day{margin-top:16px}
-.dayhead{display:flex; justify-content:space-between; align-items:baseline; padding:0 4px 6px; border-bottom:1px dashed var(--line)}
+.dayhead{display:flex; justify-content:space-between; align-items:baseline; padding:0 4px 7px; border-bottom:1px solid var(--line)}
 .dayhead .d{font-size:15px; font-weight:600; color:var(--ink2)}
 .dayhead .t{font-size:15px; font-weight:700}
 .dayhead .t.pos{color:var(--green)} .dayhead .t.neg{color:var(--red)}
-.mov{width:100%; text-align:left; display:flex; align-items:center; gap:12px; padding:12px 4px; border-bottom:1px solid var(--line)}
+.mov{width:100%; text-align:left; display:flex; align-items:center; gap:13px; padding:13px 4px; border-bottom:1px solid var(--line); transition:background .3s cubic-bezier(0.16,1,0.3,1)}
 .mov:last-child{border-bottom:0}
 .mov:active{background:var(--press)}
 .mov .dot{width:36px; height:36px; border-radius:11px; display:grid; place-items:center; font-size:16px; flex:none; background:var(--press); color:var(--ink2); font-weight:700}
@@ -170,11 +170,11 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .tag{display:inline-block; margin-left:8px; padding:3px 9px; border-radius:999px; font-size:15px; font-weight:700; vertical-align:middle}
 .tag.ecc{background:var(--amber); color:#fff} .tag.ext{background:var(--red); color:#fff}
 .mov .nota{display:flex; align-items:center; gap:0}
-.empty{text-align:center; color:var(--ink2); padding:52px 20px; line-height:1.5}
+.empty{text-align:center; color:var(--ink2); padding:56px 20px; line-height:1.55}
 .empty b{color:var(--ink)}
 
 /* ================= analisi ================= */
-.arow{width:100%; text-align:left; margin-top:14px; display:block}
+.arow{width:100%; text-align:left; margin-top:16px; display:block; transition:opacity .3s cubic-bezier(0.16,1,0.3,1)}
 .arow:active{opacity:.7}
 .arow .top{display:flex; justify-content:space-between; align-items:baseline; padding:0 2px 6px}
 .arow .name{font-weight:600}
@@ -182,7 +182,7 @@ h1{font-size:32px; font-weight:800; letter-spacing:-.02em; margin:0}
 .arow .sub{font-size:15px; color:var(--ink2); margin-top:5px; padding:0 2px}
 .chart{margin-top:12px}
 .chart svg{display:block; width:100%}
-.sectitle{font-size:15px; font-weight:700; color:var(--ink2); margin:22px 0 6px; padding-left:2px}
+.sectitle{font-size:15px; font-weight:600; color:var(--ink2); margin:24px 0 6px; padding-left:2px; letter-spacing:.01em}
 
 /* ================= azioni ================= */
 .actions{position:fixed; left:0; right:0; bottom:0; display:flex; gap:10px; justify-content:center;
@@ -251,6 +251,11 @@ body.touch .keypad{display:grid}
 /* analisi ricca */
 .anagrid{display:grid; grid-template-columns:1fr; gap:0}
 .statgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+.cfrrow{display:flex; gap:10px; margin:10px 0 4px}
+.cfr{flex:1; background:var(--press); border-radius:12px; padding:11px 12px; display:flex; flex-direction:column; gap:3px}
+.cfr .k{font-size:15px; color:var(--ink2); font-weight:600}
+.cfr .v{font-size:20px; font-weight:700}
+.cfr.now{background:var(--card); border:1px solid var(--line)}
 .statgrid .box{background:var(--press); border-radius:12px; padding:11px 12px}
 .statgrid .k{font-size:15px; font-weight:600; color:var(--ink2)}
 .statgrid .v{font-size:20px; font-weight:700; margin-top:3px}
@@ -263,15 +268,52 @@ body.touch .keypad{display:grid}
 .dlegend .ln{flex:1; min-width:0; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .dlegend .lp{color:var(--ink2); flex:none}
 .dlegend .la{font-weight:700; flex:none}
-.verdict{margin-top:14px; padding:14px 15px; border-radius:14px; background:var(--card); border:1.5px solid var(--line); font-size:16px; display:flex; align-items:center; gap:11px; line-height:1.4}
+.verdict{margin-top:14px; padding:14px 16px; border-radius:var(--radius); background:var(--card); border:1px solid var(--line); font-size:16px; display:flex; align-items:center; gap:12px; line-height:1.35; box-shadow:var(--card-shadow)}
+.verdict .vmain{flex:1; display:flex; flex-direction:column; gap:2px; min-width:0}
+.verdict .vmain b{font-weight:700; color:var(--ink)}
+.verdict .vsub{font-size:15px; color:var(--ink2); font-weight:500}
+.verdict .vmore{width:30px; height:30px; border-radius:50%; background:var(--press); color:var(--ink2); font-weight:700; font-size:15px; flex:none; transition:all .3s cubic-bezier(0.16,1,0.3,1)}
+.verdict .vmore.on{background:var(--ink); color:var(--bg)}
+.verdict.r .vmore{background:var(--red); color:#fff}
+.alertbox{max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(0.16,1,0.3,1)}
+.alertbox.open{max-height:420px}
+.segmini{display:inline-flex; background:var(--press); border-radius:10px; padding:3px; margin-bottom:12px}
+.segmini button{padding:6px 14px; border-radius:8px; font-size:15px; font-weight:600; color:var(--ink2); transition:all .3s cubic-bezier(0.16,1,0.3,1)}
+.segmini button.on{background:var(--card); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.hrow{display:flex; justify-content:space-between; align-items:flex-end; gap:12px}
+.hstat{display:flex; flex-direction:column; align-items:flex-end; gap:2px; font-size:15px; color:var(--ink2); text-align:right}
+.cdot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px; vertical-align:1px}
+.sidecard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin-top:12px; box-shadow:var(--card-shadow)}
+.sidetop{display:flex; align-items:center; gap:9px; margin-bottom:10px}
+.sidetop .vd{width:10px; height:10px; border-radius:50%}
+.sidetop .vd.g{background:var(--green)} .sidetop .vd.a{background:var(--amber)} .sidetop .vd.r{background:var(--red)}
+.siderow{display:flex; justify-content:space-between; align-items:baseline; padding:7px 0; font-size:15px; color:var(--ink2)}
+.siderow b{color:var(--ink); font-size:16px}
+.siderow.alertline b{color:var(--red)}
 .verdict.g{border-color:var(--green)} .verdict.a{border-color:var(--amber)} .verdict.r{border-color:var(--red)}
+
+/* dettaglio movimento */
+.shead .edit{width:38px; height:38px; border-radius:50%; display:grid; place-items:center; color:var(--ink2); transition:all .3s cubic-bezier(0.16,1,0.3,1)}
+.shead .edit:active{background:var(--press); transform:scale(.94)}
+.vhero{text-align:center; padding:10px 0 18px}
+.vamount{font-size:44px; font-weight:700; line-height:1.05}
+.vnota{font-size:19px; font-weight:600; margin-top:8px}
+.cbadge.big{margin-top:10px; font-size:15px; padding:6px 13px 6px 10px}
+.vrows{border-top:1px solid var(--line)}
+.vrow{display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding:13px 2px; border-bottom:1px solid var(--line); font-size:15px}
+.vrow span{color:var(--ink2); flex:none}
+.vrow b{font-weight:600; text-align:right}
 
 /* dettaglio categoria */
 .dstat{display:flex; gap:10px; margin-top:10px}
 .dstat .box{flex:1; background:var(--press); border-radius:12px; padding:10px 12px}
 .dstat .k{font-size:15px; font-weight:600; color:var(--ink2)}
 .dstat .v{font-size:19px; font-weight:700; margin-top:3px}
-.subrow{display:flex; justify-content:space-between; align-items:baseline; padding:11px 2px; border-bottom:1px solid var(--line)}
+.subrow{display:flex; justify-content:space-between; align-items:center; padding:12px 2px; border-bottom:1px solid var(--line); width:100%; text-align:left; gap:12px}
+.subrow.tappable{transition:opacity .3s cubic-bezier(0.16,1,0.3,1)}
+.subrow.tappable:active{opacity:.55}
+.subrow .right{display:flex; align-items:center; gap:8px; flex:none}
+.subrow .chev{color:var(--ink2); font-size:20px; line-height:1}
 .subrow .n{font-weight:600}
 .subrow .meta{font-size:15px; color:var(--ink2); margin-top:3px}
 .subrow .a{font-weight:700}
@@ -295,13 +337,12 @@ body.touch .keypad{display:grid}
 
 /* ================= DESKTOP ================= */
 @media (min-width:1000px){
-  #app{max-width:1180px; display:grid; grid-template-columns:400px minmax(0,1fr); column-gap:28px; padding:0 28px 48px; align-items:start}
+  #app{max-width:1140px; display:grid; grid-template-columns:320px minmax(0,1fr); column-gap:32px; padding:0 28px 48px; align-items:start}
   header{grid-column:1/-1; padding-top:22px}
   h1{font-size:36px}
   #side{display:block; position:sticky; top:18px}
   #mainCol{min-width:0}
   .actions{display:none}
-  .seg [data-tab=home]{display:none}
   .seg{margin-top:12px}
   .seg button{padding:10px 0}
   .big{font-size:34px}
@@ -409,6 +450,19 @@ body.touch .keypad{display:grid}
   </div>
 </section>
 
+<!-- sheet dettaglio movimento (sola lettura) -->
+<section class="sheet" id="sheetView" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="shead">
+    <button class="close" id="viewClose">Chiudi</button>
+    <h2 id="viewTitle">Movimento</h2>
+    <button class="edit" id="viewEdit" aria-label="Modifica">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+    </button>
+  </div>
+  <div id="viewBody"></div>
+</section>
+
 <!-- sheet dettaglio categoria -->
 <section class="sheet" id="sheetCat" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -428,7 +482,7 @@ body.touch .keypad{display:grid}
 /* =================================================================
    REGISTRO v3 — pocket + sync GitHub
    ================================================================= */
-const APP_V = "v6";
+const APP_V = "v7";
 const KEY = "registro2.v3";
 const KEY_OLD2 = "registro2.v2";
 
@@ -541,6 +595,8 @@ let DB = load();
 let cur = monthKey(new Date());
 let tab = "home";
 let movFilter = "tutti";
+let homeChart = "sett";
+let alertsOpen = false;
 let edit = null;
 let F = { tipo:"out", cat:null, sub:null, rif:null, autoApplied:false, manual:false };
 const IS_TOUCH = matchMedia("(pointer:coarse)").matches || "ontouchstart" in window;
@@ -624,6 +680,10 @@ function toast(msg){
   const el = document.getElementById("toast");
   el.textContent = msg; el.classList.add("show");
   clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("show"), 2000);
+}
+function shortDate(iso){
+  const d = new Date(iso+"T12:00:00");
+  return d.getDate() + " " + MESI_S[d.getMonth()];
 }
 function dayLabel(iso){
   if(iso === todayISO()) return "Oggi";
@@ -1043,26 +1103,41 @@ const isDesktop = () => matchMedia("(min-width:1000px)").matches;
 
 function render(){
   SYNC.pendingRender = false;
-  if(isDesktop() && tab === "home") tab = "mov";
+
   const [y, mo] = cur.split("-").map(Number);
   $("mLabel").textContent = MESI[mo-1] + " " + y;
   $("mProf").textContent = profFor(cur).nome;
   document.querySelectorAll("#seg button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
-  $("sideHome").innerHTML = renderHome();
+  $("sideHome").innerHTML = renderSide();
   if(tab === "set"){ $("view").innerHTML = ""; renderSettings($("view")); }
   else $("view").innerHTML = tab === "home" ? renderHome() : tab === "mov" ? renderMovs() : renderAna();
   bindView();
 }
+function bindSubs(root){
+  root.querySelectorAll("[data-sub]").forEach(el =>
+    el.addEventListener("click", () => openSub(el.dataset.subcat, el.dataset.sub)));
+}
 function bindView(){
   document.querySelectorAll("[data-mov]").forEach(el =>
-    el.addEventListener("click", () => openMov(LIVE().find(m => m.id === el.dataset.mov))));
+    el.addEventListener("click", () => openView(el.dataset.mov)));
   document.querySelectorAll("[data-cat]").forEach(el =>
     el.addEventListener("click", () => openCat(el.dataset.cat)));
   document.querySelectorAll("[data-filter]").forEach(el =>
     el.addEventListener("click", () => { movFilter = el.dataset.filter; render(); }));
+  const hcs = document.getElementById("homeChartSeg");
+  if(hcs) hcs.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { homeChart = b.dataset.hc; render(); }));
+  const at = document.getElementById("alertToggle"), ab = document.getElementById("alertBox");
+  if(at && ab){
+    ab.classList.toggle("open", alertsOpen);
+    at.classList.toggle("on", alertsOpen);
+    at.addEventListener("click", () => { alertsOpen = !alertsOpen; ab.classList.toggle("open", alertsOpen); at.classList.toggle("on", alertsOpen); });
+  }
+  bindSubs(document);
 }
 
-/* ---------- HOME (at a glance) ---------- */
+/* ---------- HOME ---------- */
+/* Regola: la home risponde a "come sto andando", non elenca movimenti.
+   Un colpo d'occhio, un grafico, quattro numeri. Il resto sta nelle sezioni. */
 function renderHome(){
   const st = stats(cur);
   const p = profFor(cur);
@@ -1070,114 +1145,114 @@ function renderHome(){
   const t = todayISO();
   const isCur = t.slice(0,7) === cur;
   const al = alerts(cur);
+  const dim = daysInMonth(cur);
+  const day = isCur ? Number(t.slice(8,10)) : dim;
+  const pct = bt > 0 ? st.ord/bt : 0;
+  const proj = (isCur && day >= 3) ? Math.round(st.ord/day*dim) : null;
   let html = "";
 
-  /* verdetto: la prima cosa da leggere */
-  const hasRed0 = st.extraN > 0 || al.some(a => a.lv === "red");
-  const hasAmber0 = al.some(a => a.lv === "amber");
-  const v0 = hasRed0 ? ["r","Qualcosa non va","guarda i segnali qui sotto."]
-    : hasAmber0 ? ["a","Da tenere d'occhio","un segnale sotto controllo."]
-    : ["g","Tutto in regola","niente sforamenti, cassa e budget reggono."];
-  html += `<div class="verdict ${v0[0]}"><span class="vd"></span><span><b>${v0[1]}.</b> ${v0[2]}</span></div>`;
-  if(al.length) html += al.map(a => `<div class="alert ${a.lv}"><span class="ic">${a.lv === "red" ? "●" : "▲"}</span><div><b>${esc(a.t)}</b>${esc(a.d)}</div></div>`).join("");
+  /* 1 — la riga che dice tutto */
+  const lvl = st.extraN > 0 || al.some(a => a.lv === "red") ? "r" : al.some(a => a.lv === "amber") ? "a" : "g";
+  const vTxt = { g:"Tutto in regola", a:"Da tenere d'occhio", r:"Qualcosa non va" }[lvl];
+  html += `<div class="verdict ${lvl}">
+    <span class="vd"></span>
+    <span class="vmain"><b>${vTxt}</b><span class="vsub">${eur(st.ord)} di ${eur0(bt)} · giorno ${day} di ${dim}</span></span>
+    ${al.length ? `<button class="vmore" id="alertToggle">${al.length}</button>` : ""}
+  </div>`;
+  if(al.length) html += `<div id="alertBox" class="alertbox">${al.map(a =>
+    `<div class="alert ${a.lv}"><span class="ic">${a.lv === "red" ? "●" : "▲"}</span><div><b>${esc(a.t)}</b>${esc(a.d)}</div></div>`).join("")}</div>`;
 
-  /* due numeri distinti: spesa ordinaria e straordinari */
-  const pctO = bt > 0 ? Math.min(100, Math.round(st.ord/bt*100)) : 0;
+  /* 2 — il grafico: settimana o mese */
+  const cw = isCur ? cassaWeek(cur, t) : { active:false };
+  html += `<section class="card">
+    <div class="segmini" id="homeChartSeg">
+      <button data-hc="sett" class="${homeChart === "sett" ? "on" : ""}">Settimana</button>
+      <button data-hc="mese" class="${homeChart === "mese" ? "on" : ""}">Mese</button>
+    </div>`;
+  if(homeChart === "sett" && cw.active){
+    const res = cw.cassa - cw.spent;
+    const dow = (new Date(t+"T12:00:00").getDay()+6)%7;
+    const left = 7 - dow;
+    const maxSp = Math.max(cw.cassa/5, ...cw.perDay.map(d => d.sp));
+    html += `<div class="hrow"><div><div class="lbl">Resta in cassa</div><div class="big num">${eurRich(res, false)}</div></div>
+      <div class="hstat"><span>${res > 0 ? eur(Math.floor(res/left)) : "0,00 €"}/giorno</span><span>${left} ${left === 1 ? "giorno" : "giorni"} alla ricarica</span></div></div>
+    <div class="weekbars">${cw.perDay.map((d,i) => `
+      <div class="wb ${d.iso === t ? "today" : ""}">
+        <div class="col"><div class="fill" style="height:${maxSp > 0 ? Math.min(100, Math.round(d.sp/maxSp*100)) : 0}%"></div></div>
+        <div class="g">${GIORNI_S[i]}</div>
+      </div>`).join("")}</div>
+    <div class="sub3">${eur(cw.spent)} di ${eur(cw.cassa)} · copre Spesa, Cibo fuori, Personale</div>`;
+  } else {
+    const daily = Array(dim).fill(0);
+    for(const m of movsOf(cur)) if(m.tipo === "out" && !m.ecc) daily[Number(m.data.slice(8,10))-1] += effOf(m);
+    let acc = 0; const cum = daily.map(v => acc += v);
+    html += `<div class="hrow"><div><div class="lbl">Spesa ordinaria</div><div class="big num">${eurRich(st.ord)}</div></div>
+      <div class="hstat"><span>${Math.round(pct*100)}% di ${eur0(bt)}</span>${proj !== null ? `<span>proiezione ${eur0(proj)}</span>` : ""}</div></div>
+    <div class="chart">${cumChart(cum, bt, isCur ? day : null, dim)}</div>`;
+  }
+  html += `</section>`;
+
+  /* 3 — quattro numeri, niente di più */
   html += `<div class="grid2">
-    <div class="tile">
-      <div class="lbl">Spesa ordinaria</div>
-      <div class="big num">${eurRich(st.ord)}</div>
-      <div class="track thin"><div class="bar ${pctO >= 100 ? "over" : pctO >= 90 ? "warn" : ""}" style="width:${pctO}%"></div></div>
-      <div class="sub2">${pctO}% del budget ${eur0(bt)}</div>
+    <div class="tile ${st.extraN ? "bad" : "good"}">
+      <div class="lbl">Sforamenti</div>
+      <div class="big num">${st.extraN === 0 ? "0" : st.extraN + " · " + eur0(st.extraTot)}</div>
+      <div class="sub3">${st.extraN === 0 ? "target rispettato" : "ricariche da fuori"}</div>
     </div>
     <div class="tile">
       <div class="lbl">Straordinari</div>
       <div class="big num">${eurRich(st.ecc)}</div>
-      <div class="sub2">${st.ecc > 0 ? `${st.eccMovs.length} ${st.eccMovs.length === 1 ? "voce una tantum" : "voci una tantum"}, fuori dal budget` : "nessuna spesa una tantum"}</div>
+      <div class="sub3">${st.ecc > 0 ? `${st.eccMovs.length} una tantum, fuori budget` : "nessuna una tantum"}</div>
     </div>
   </div>`;
 
-  /* sforamenti */
-  html += st.extraN === 0
-    ? `<div class="grid2"><div class="tile good" style="grid-column:1/-1"><div class="lbl">Sforamenti · target 0</div><div class="big num">0</div><div class="sub2">Nessuna ricarica extra questo mese.</div></div></div>`
-    : `<div class="grid2"><div class="tile bad" style="grid-column:1/-1"><div class="lbl">Sforamenti · target 0</div><div class="big num">${st.extraN} · ${eur0(st.extraTot)}</div><div class="sub2">${eur(st.extraTot)} entrati da fuori: non previsti dall'allocazione.</div></div></div>`;
-
-  /* questa settimana */
-  const cw = isCur ? cassaWeek(cur, t) : { active:false };
-  if(cw.active){
-    const res = cw.cassa - cw.spent;
-    const dow = (new Date(t+"T12:00:00").getDay()+6)%7;
-    const left = 7 - dow;                         // giorni rimanenti, oggi incluso
-    const perDay = res > 0 ? Math.floor(res/left) : 0;
-    const pctC = Math.min(100, Math.round(cw.spent/cw.cassa*100));
-    const names = cw.cats.map(c => catById(c)?.nome).filter(Boolean).join(", ");
-    const maxSp = Math.max(cw.cassa/5, ...cw.perDay.map(d => d.sp));
-    html += `<section class="card">
-      <div class="rowline"><span class="lbl">Questa settimana</span><span class="lbl num">${eur(cw.spent)} / ${eur(cw.cassa)}</span></div>
-      <div class="sub3">copre: ${esc(names)}</div>
-      <div class="statgrid" style="grid-template-columns:1fr 1fr 1fr">
-        <div class="box"><div class="k">Residuo</div><div class="v num" style="color:${res < 0 ? "var(--amber)" : "inherit"}">${res < 0 ? "−" : ""}${eur(Math.abs(res))}</div></div>
-        <div class="box"><div class="k">Al giorno</div><div class="v num">${res > 0 ? eur(perDay) : "0,00 €"}</div></div>
-        <div class="box"><div class="k">Alla ricarica</div><div class="v num">${left} <small>${left === 1 ? "giorno" : "giorni"}</small></div></div>
-      </div>
-      <div class="track thin"><div class="bar ${pctC >= 100 ? "over" : pctC >= 75 ? "warn" : ""}" style="width:${pctC}%"></div></div>
-      <div class="weekbars">${cw.perDay.map((d,i) => `
-        <div class="wb ${d.iso === t ? "today" : ""}">
-          <div class="col"><div class="fill" style="height:${maxSp > 0 ? Math.min(100, Math.round(d.sp/maxSp*100)) : 0}%"></div></div>
-          <div class="g">${GIORNI_S[i]}</div>
-        </div>`).join("")}
-      </div>
-    </section>`;
-  }
-
-  /* mese vs budget — solo ordinaria, con la tacca del tempo */
-  const pct = bt > 0 ? st.ord/bt : 0;
-  const dim = daysInMonth(cur);
-  const day = isCur ? Number(t.slice(8,10)) : dim;
-  const timePct = Math.round(day/dim*100);
-  const proj = (isCur && day >= 3) ? Math.round(st.ord/day*dim) : null;
-  html += `<section class="card">
-    <div class="rowline"><span class="lbl">Mese · spesa ordinaria</span><span class="lbl num">budget ${eur0(bt)}</span></div>
-    <div class="rowline"><div class="big num">${eurRich(st.ord)}</div><div class="sub2 num" style="text-align:right">entrate<br><b style="color:var(--green)">${eur(st.entrate)}</b></div></div>
-    <div class="track"><div class="bar ${pct >= 1 ? "over" : pct >= .9 ? "warn" : ""}" style="width:${Math.min(100, Math.round(pct*100))}%"></div><div class="mark" style="left:${timePct}%"></div></div>
-    <div class="sub2">${Math.round(pct*100)}% speso · ${timePct}% del mese passato (la tacca)${proj !== null ? ` · proiezione ${eur0(proj)}` : ""}</div>
-  </section>`;
-
-  /* straordinari del mese, in blocco separato */
-  if(st.ecc > 0){
-    html += `<section class="card">
-      <div class="rowline"><span class="lbl">Straordinari del mese</span><span class="lbl num">${eur(st.ecc)}</span></div>
-      <div class="sub3">Spese una tantum: restano fuori da budget, cassa e proiezione.</div>
-      ${st.eccMovs.slice(0,6).map(m => `<button class="catmini" data-mov="${m.id}"><div class="top"><span class="n">${esc(m.nota)}</span><span class="a num">${eur(effOf(m))}</span></div><div class="sub3">${esc(catById(m.cat)?.nome || "—")}${m.sub ? " · " + esc(m.sub) : ""} · ${m.data.slice(8,10)}/${m.data.slice(5,7)}</div></button>`).join("")}
-    </section>`;
-  }
-
-  /* dove stanno andando (ordinaria) */
+  /* 4 — dove stanno andando */
   const rows = DB.cats.map(c => ({ c, sp: st.perCat[c.id].ord, b: Math.round((p.b[c.id]||0)*100) }))
     .filter(r => r.sp > 0).sort((a,b) => b.sp - a.sp).slice(0,4);
   if(rows.length){
     const maxSp = rows[0].sp;
-    html += `<section class="card"><div class="toprow3"><span class="lbl">Dove stanno andando</span><span class="lbl">tocca →</span></div>`;
+    html += `<section class="card"><div class="lbl" style="margin-bottom:2px">Dove stanno andando</div>`;
     for(const r of rows){
       const pc = r.b > 0 ? r.sp/r.b : 0;
       html += `<button class="catmini" data-cat="${r.c.id}">
-        <div class="top"><span class="n">${esc(r.c.nome)}</span><span class="a num">${eur(r.sp)}</span></div>
+        <div class="top"><span class="n"><i class="cdot" style="background:${CAT_COLORS[r.c.id]||"#8A8F98"}"></i>${esc(r.c.nome)}</span><span class="a num">${eur(r.sp)}</span></div>
         <div class="track thin"><div class="bar ${r.b && pc >= 1 ? "over" : r.b && pc >= .9 ? "warn" : ""}" style="width:${Math.max(4, Math.round(r.sp/maxSp*100))}%"></div></div>
       </button>`;
     }
     html += `</section>`;
   }
 
-  /* costo casa */
+  /* 5 — costo casa */
   const affitto = Math.round((DB.config.affitto||0)*100);
   const utenze = Math.max(st.perCat.casa.ord, Math.round((p.b.casa||0)*100));
   const risp = Math.round((DB.config.casaBase||0)*100) - affitto - utenze;
   html += `<section class="card">
-    <div class="rowline"><span class="lbl">Costo casa → risparmio reale</span>
-    <span class="big num ${risp < 0 ? "neg" : "pos"}" style="font-size:22px; margin:0">${risp < 0 ? "−" : ""}${eur(Math.abs(risp))}</span></div>
-    <div class="sub2">${eur0(Math.round(DB.config.casaBase*100))} − affitto ${eur0(affitto)} − utenze ${eur0(utenze)}. Ogni 100 € di affitto in più mangiano il margine.</div>
+    <div class="rowline"><span class="lbl">Risparmio reale</span>
+    <span class="num ${risp < 0 ? "neg" : "pos"}" style="font-size:22px; font-weight:700">${risp < 0 ? "−" : ""}${eur(Math.abs(risp))}</span></div>
+    <div class="sub3">${eur0(Math.round(DB.config.casaBase*100))} − affitto ${eur0(affitto)} − utenze ${eur0(utenze)}</div>
   </section>`;
 
+  return html;
+}
+/* sidebar desktop: digest compatto, non una seconda home */
+function renderSide(){
+  const st = stats(cur);
+  const bt = budgetTot(cur);
+  const t = todayISO();
+  const isCur = t.slice(0,7) === cur;
+  const al = alerts(cur);
+  const lvl = st.extraN > 0 || al.some(a => a.lv === "red") ? "r" : al.some(a => a.lv === "amber") ? "a" : "g";
+  const pct = bt > 0 ? Math.min(100, Math.round(st.ord/bt*100)) : 0;
+  const cw = isCur ? cassaWeek(cur, t) : { active:false };
+  let html = `<div class="sidecard">
+    <div class="sidetop"><span class="vd ${lvl}"></span><span class="lbl">${{g:"Tutto in regola",a:"Da tenere d'occhio",r:"Qualcosa non va"}[lvl]}</span></div>
+    <div class="siderow"><span>Ordinaria</span><b class="num">${eur(st.ord)}</b></div>
+    <div class="track thin"><div class="bar ${pct >= 100 ? "over" : pct >= 90 ? "warn" : ""}" style="width:${pct}%"></div></div>
+    <div class="siderow"><span>${pct}% di ${eur0(bt)}</span><span></span></div>`;
+  if(cw.active) html += `<div class="siderow"><span>In cassa</span><b class="num">${eur(cw.cassa - cw.spent)}</b></div>`;
+  if(st.ecc > 0) html += `<div class="siderow"><span>Straordinari</span><b class="num">${eur(st.ecc)}</b></div>`;
+  if(st.extraN > 0) html += `<div class="siderow alertline"><span>Sforamenti</span><b class="num">${st.extraN} · ${eur0(st.extraTot)}</b></div>`;
+  html += `</div>`;
   return html;
 }
 
@@ -1197,12 +1272,12 @@ function renderMovs(){
   for(const [iso, list] of byDay){
     const dt = list.reduce((s,m) => s + (m.tipo === "in" ? m.imp : (m.tipo === "out" && !m.ecc) ? -effOf(m) : 0), 0);
     html += `<section class="day"><div class="dayhead"><span class="d">${dayLabel(iso)}</span><span class="t num ${dt < 0 ? "neg" : "pos"}">${eur(dt, true)}</span></div>`;
-    for(const m of list) html += movRow(m);
+    for(const m of list) html += movRow(m, false);
     html += `</section>`;
   }
   return html;
 }
-function movRow(m){
+function movRow(m, showDate){
   const eff = effOf(m);
   const netted = m.tipo === "out" && eff !== m.imp;
   let catTxt = "";
@@ -1223,7 +1298,7 @@ function movRow(m){
   return `<button class="mov t${m.tipo}${ecc ? " isecc" : ""}" data-mov="${m.id}">
     <span class="dot">${ecc ? "★" : icon}</span>
     <span class="mid"><span class="nota">${esc(m.nota || TIPO_LBL[m.tipo])}${tag}</span><span class="cat">${m.tipo === "out" ? `<span class="cbadge" style="--cc:${CAT_COLORS[m.cat]||"#8A8F98"}"><i></i>${esc(catTxt)}</span>` : esc(catTxt)}</span></span>
-    <span class="imp num">${sign}${eur(m.tipo === "out" ? eff : m.imp)}${netted ? `<small>lordo ${eur(m.imp)}</small>` : ""}</span>
+    <span class="imp num">${sign}${eur(m.tipo === "out" ? eff : m.imp)}<small>${netted ? `lordo ${eur(m.imp)} · ` : ""}${showDate === false ? "" : shortDate(m.data)}</small></span>
   </button>`;
 }
 
@@ -1244,15 +1319,22 @@ function renderAna(){
 
   /* dati */
   const daily = Array(dim).fill(0);
-  for(const m of outs) daily[Number(m.data.slice(8,10))-1] += effOf(m);
+  for(const m of outs) if(!m.ecc) daily[Number(m.data.slice(8,10))-1] += effOf(m);
   let acc = 0; const cum = daily.map(v => acc += v);
   const nOut = outs.length;
-  const mediaG = dayN ? Math.round(st.usciteNette/dayN) : 0;
+  const mediaG = dayN ? Math.round(st.ord/dayN) : 0;
   const scontrino = nOut ? Math.round(outs.reduce((s,m) => s + effOf(m), 0)/nOut) : 0;
   let topDay = null;
   daily.forEach((v,i) => { if(v > 0 && (!topDay || v > topDay.v)) topDay = { g:i+1, v }; });
-  const prev = stats(shiftMonth(cur,-1));
-  const delta = prev.usciteNette > 0 ? Math.round((st.usciteNette - prev.usciteNette)/prev.usciteNette*100) : null;
+  const prevMk = shiftMonth(cur,-1);
+  const prev = stats(prevMk);
+  const delta = prev.ord > 0 ? Math.round((st.ord - prev.ord)/prev.ord*100) : null;
+  /* confronto allo stesso giorno del mese scorso: l'unico paragone onesto a metà mese */
+  const prevDim = daysInMonth(prevMk);
+  const cutoff = Math.min(dayN, prevDim);
+  const prevAtDay = LIVE().filter(m => m.tipo === "out" && !m.ecc && m.data.slice(0,7) === prevMk
+    && Number(m.data.slice(8,10)) <= cutoff).reduce((s,m) => s + effOf(m), 0);
+  const gap = st.ord - prevAtDay;
   const wdTot = Array(7).fill(0), wdN = Array(7).fill(0);
   for(let i = 0; i < dayN; i++){
     const d = new Date(cur + "-" + String(i+1).padStart(2,"0") + "T12:00:00");
@@ -1270,7 +1352,7 @@ function renderAna(){
   const subAll = [];
   for(const c of DB.cats)
     for(const [s,v] of Object.entries(st.perCat[c.id].subs))
-      subAll.push({ cat:c.nome, s, tot:v.tot, n:v.n });
+      subAll.push({ cat:c.nome, cid:c.id, s, tot:v.tot, n:v.n });
   subAll.sort((a,b) => b.tot - a.tot);
   const top5 = subAll.slice(0,5);
   const pace = isCur && bt > 0 ? st.usciteNette - Math.round(bt*dayN/dim) : null;
@@ -1292,7 +1374,24 @@ function renderAna(){
     </section>`;
   }
 
-  /* 3 — statistiche del mese */
+  /* 3 — stesso giorno del mese scorso */
+  if(prevAtDay > 0 || st.ord > 0){
+    const meglio = gap <= 0;
+    html += `<section class="card">
+      <div class="lbl">Oggi, un mese fa</div>
+      <div class="cfrrow">
+        <div class="cfr"><span class="k">${esc(MESI[Number(prevMk.slice(5,7))-1])} al giorno ${cutoff}</span><span class="v num">${eur(prevAtDay)}</span></div>
+        <div class="cfr now"><span class="k">${esc(MESI[Number(cur.slice(5,7))-1])} al giorno ${dayN}</span><span class="v num">${eur(st.ord)}</span></div>
+      </div>
+      <div class="track thin"><div class="bar" style="width:${prevAtDay > 0 ? Math.min(100, Math.round(st.ord/Math.max(prevAtDay, st.ord)*100)) : 100}%; background:${meglio ? "var(--green)" : "var(--red)"}"></div></div>
+      <div class="sub3">${prevAtDay === 0 ? "Nessun termine di paragone: il mese scorso a questo punto non avevi speso nulla." :
+        gap === 0 ? "Stesso identico ritmo del mese scorso." :
+        meglio ? `Stai spendendo <b style="color:var(--green)">${eur0(-gap)} in meno</b> rispetto allo stesso giorno del mese scorso.` :
+        `Stai spendendo <b style="color:var(--red)">${eur0(gap)} in più</b> rispetto allo stesso giorno del mese scorso.`}</div>
+    </section>`;
+  }
+
+  /* 4 — statistiche del mese */
   html += `<section class="card">
     <div class="lbl">Statistiche del mese</div>
     <div class="statgrid">
@@ -1330,7 +1429,7 @@ function renderAna(){
   if(top5.length){
     html += `<section class="card">
       <div class="lbl">Top sottocategorie</div>
-      ${top5.map(x => `<div class="subrow"><div><div class="n">${esc(x.s)}</div><div class="meta">${esc(x.cat)} · ${x.n} ${x.n === 1 ? "volta" : "volte"}</div></div><div class="a num">${eur(x.tot)}</div></div>`).join("")}
+      ${top5.map(x => `<button class="subrow tappable" data-subcat="${esc(x.cid)}" data-sub="${esc(x.s)}"><div><div class="n">${esc(x.s)}</div><div class="meta">${esc(x.cat)} · ${x.n} ${x.n === 1 ? "volta" : "volte"}</div></div><div class="right"><div class="a num">${eur(x.tot)}</div><span class="chev">›</span></div></button>`).join("")}
     </section>`;
   }
 
@@ -1342,7 +1441,7 @@ function renderAna(){
   for(const r of rows){
     const pct = r.b > 0 ? r.sp/r.b : (r.sp > 0 ? 1.01 : 0);
     html += `<button class="arow" data-cat="${r.c.id}">
-      <div class="top"><span class="name"><span class="dotc" style="display:inline-block;width:9px;height:9px;border-radius:3px;background:${CAT_COLORS[r.c.id]||"#999"};margin-right:7px"></span>${esc(r.c.nome)}</span><span class="amt num">${eur(r.sp)}</span></div>
+      <div class="top"><span class="name"><i class="cdot" style="background:${CAT_COLORS[r.c.id]||"#8A8F98"}"></i>${esc(r.c.nome)}</span><span class="amt num">${eur(r.sp)} <span class="chev">›</span></span></div>
       <div class="track"><div class="bar ${pct >= 1 ? "over" : pct >= .9 ? "warn" : ""}" style="width:${Math.min(100, Math.round(pct*100))}%"></div></div>
       <div class="sub">${r.b > 0 ? `${Math.round(pct*100)}% di ${eur0(r.b)} di pocket` : "senza budget nel profilo"} · ${Math.round(r.sp/tot*100)}% delle uscite · ${st.perCat[r.c.id].movs.length} mov.</div>
     </button>`;
@@ -1460,7 +1559,7 @@ function openCat(cid){
   if(subs.length){
     html += `<div class="sectitle">Sottocategorie</div>`;
     for(const [name, v] of subs){
-      html += `<div class="subrow"><div><div class="n">${esc(name)}</div><div class="meta">${v.n} ${v.n === 1 ? "volta" : "volte"} · medio ${eur(Math.round(v.tot/v.n))}</div></div><div class="a num">${eur(v.tot)}</div></div>`;
+      html += `<button class="subrow tappable" data-subcat="${esc(cid)}" data-sub="${esc(name)}"><div><div class="n">${esc(name)}</div><div class="meta">${v.n} ${v.n === 1 ? "volta" : "volte"} · medio ${eur(Math.round(v.tot/v.n))}</div></div><div class="right"><div class="a num">${eur(v.tot)}</div><span class="chev">›</span></div></button>`;
     }
   }
   if(d.movs.length){
@@ -1471,8 +1570,90 @@ function openCat(cid){
   }
   $("catBody").innerHTML = html;
   $("catBody").querySelectorAll("[data-mov]").forEach(el =>
-    el.addEventListener("click", () => { hideSheets(); openMov(LIVE().find(m => m.id === el.dataset.mov)); }));
+    el.addEventListener("click", () => { hideSheets(); setTimeout(() => openView(el.dataset.mov), 120); }));
+  bindSubs($("catBody"));
   showSheet("sheetCat");
+}
+
+/* ---------- SOTTOCATEGORIA: quali transazioni ci stanno sotto ---------- */
+function openSub(cid, sub){
+  const c = catById(cid); if(!c) return;
+  const all = LIVE().filter(m => m.tipo === "out" && m.cat === cid && (m.sub || "Altro") === sub);
+  const mese = all.filter(m => m.data.slice(0,7) === cur).sort((a,b) => b.data.localeCompare(a.data));
+  const altri = all.filter(m => m.data.slice(0,7) !== cur).sort((a,b) => b.data.localeCompare(a.data)).slice(0, 12);
+  const totM = mese.reduce((s,m) => s + effOf(m), 0);
+  const totA = all.reduce((s,m) => s + effOf(m), 0);
+  $("catTitle").textContent = sub;
+  let html = `<div class="sub3" style="margin:-2px 0 10px">${esc(c.nome)}</div>
+    <div class="statgrid" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="box"><div class="k">Questo mese</div><div class="v num">${eur(totM)}</div></div>
+      <div class="box"><div class="k">Volte</div><div class="v num">${mese.length}</div></div>
+      <div class="box"><div class="k">Medio</div><div class="v num">${mese.length ? eur(Math.round(totM/mese.length)) : "—"}</div></div>
+    </div>`;
+  html += `<div class="sectitle">Movimenti di ${MESI[Number(cur.slice(5,7))-1]}</div>`;
+  html += mese.length ? mese.map(m => movRow(m)).join("") : `<div class="empty">Nessun movimento questo mese.</div>`;
+  if(altri.length){
+    html += `<div class="sectitle">Prima di questo mese</div>` + altri.map(m => movRow(m)).join("");
+    html += `<div class="sub3" style="margin-top:10px">In archivio: ${all.length} movimenti per ${eur(totA)} in totale.</div>`;
+  }
+  $("catBody").innerHTML = html;
+  $("catBody").querySelectorAll("[data-mov]").forEach(el =>
+    el.addEventListener("click", () => { hideSheets(); setTimeout(() => openView(el.dataset.mov), 120); }));
+  showSheet("sheetCat");
+}
+
+/* ---------- MOVIMENTO A COLPO D'OCCHIO ---------- */
+let viewId = null;
+function openView(id){
+  const m = LIVE().find(x => x.id === id);
+  if(!m) return;
+  viewId = id;
+  const eff = effOf(m);
+  const rimb = LIVE().filter(x => (x.tipo === "rimb" || x.tipo === "reso") && x.rif === m.id);
+  const c = catById(m.cat);
+  const d = new Date(m.data + "T12:00:00");
+  const dataLunga = GIORNI[d.getDay()] + " " + d.getDate() + " " + MESI[d.getMonth()] + " " + d.getFullYear();
+  const natura = m.tipo === "out" ? (m.ecc ? "Straordinaria · fuori budget" : "Ordinaria · dentro il budget")
+    : m.tipo === "extra" ? "Sforamento del sistema pocket"
+    : m.tipo === "giro" ? "Giroconto · neutro sul budget" : TIPO_LBL[m.tipo];
+  const segno = m.tipo === "in" ? "+" : m.tipo === "giro" ? "" : "−";
+  const col = m.tipo === "in" ? "var(--green)" : m.tipo === "extra" ? "var(--red)" : m.ecc ? "var(--amber)" : "var(--ink)";
+  $("viewTitle").textContent = m.tipo === "out" ? "Uscita" : TIPO_LBL[m.tipo];
+
+  /* confronto con la stessa sottocategoria: dà senso alla cifra */
+  const simili = LIVE().filter(x => x.tipo === "out" && x.cat === m.cat && x.sub === m.sub && !x.ecc);
+  const media = simili.length ? Math.round(simili.reduce((s,x) => s + effOf(x), 0)/simili.length) : 0;
+  const diff = media ? Math.round((eff - media)/media*100) : null;
+  const mese = stats(m.data.slice(0,7));
+  const quota = mese.ord > 0 && m.tipo === "out" && !m.ecc ? Math.round(eff/mese.ord*100) : null;
+
+  let html = `<div class="vhero">
+    <div class="vamount num" style="color:${col}">${segno}${eurRich(eff)}</div>
+    ${eff !== m.imp ? `<div class="sub3">lordo ${eur(m.imp)} · rimborsato ${eur(m.imp - eff)}</div>` : ""}
+    <div class="vnota">${esc(m.nota || TIPO_LBL[m.tipo])}</div>
+    ${c ? `<div class="cbadge big" style="--cc:${CAT_COLORS[m.cat]||"#8A8F98"}"><i></i>${esc(c.nome)}${m.sub ? " · " + esc(m.sub) : ""}</div>` : ""}
+  </div>
+  <div class="vrows">
+    <div class="vrow"><span>Data</span><b>${dataLunga}</b></div>
+    <div class="vrow"><span>Natura</span><b>${natura}</b></div>`;
+  if(m.tipo === "out"){
+    if(simili.length > 1) html += `<div class="vrow"><span>Media ${esc(m.sub || c?.nome || "categoria")}</span><b>${eur(media)}${diff !== null && Math.abs(diff) >= 5 ? ` <span style="color:${diff > 0 ? "var(--red)" : "var(--green)"}">(${diff > 0 ? "+" : ""}${diff}%)</span>` : ""}</b></div>`;
+    if(quota !== null) html += `<div class="vrow"><span>Peso sul mese</span><b>${quota}% della spesa ordinaria</b></div>`;
+    if(simili.length) html += `<div class="vrow"><span>Frequenza</span><b>${simili.length} ${simili.length === 1 ? "volta" : "volte"} in archivio</b></div>`;
+  }
+  if(rimb.length) html += `<div class="vrow"><span>Rimborsi</span><b>${rimb.length} · ${eur(rimb.reduce((s,x) => s + x.imp, 0))}</b></div>`;
+  if(m.rif){
+    const orig = LIVE().find(x => x.id === m.rif);
+    html += `<div class="vrow"><span>Agganciato a</span><b>${orig ? esc(orig.nota) : "spesa non trovata"}</b></div>`;
+  }
+  html += `</div>`;
+  if(rimb.length){
+    html += `<div class="sectitle">Rimborsi agganciati</div>` + rimb.map(r => movRow(r)).join("");
+  }
+  $("viewBody").innerHTML = html;
+  $("viewBody").querySelectorAll("[data-mov]").forEach(el =>
+    el.addEventListener("click", () => { hideSheets(); setTimeout(() => openView(el.dataset.mov), 120); }));
+  showSheet("sheetView");
 }
 
 /* =================================================================
@@ -1573,6 +1754,45 @@ function buildKeypad(){
   }));
   if(IS_TOUCH){ document.body.classList.add("touch"); $("fImp").readOnly = true; $("fImp").inputMode = "none"; }
 }
+/* Un solo separatore decimale: qualunque cosa arrivi (virgola, punto, incolla,
+   tastiera fisica) viene normalizzata a "1234,56" — mai due separatori. */
+/* Digitazione: il PRIMO separatore è il decimale, gli altri si ignorano.
+   Incolla: riconosce anche i separatori delle migliaia ("1.234,56" → 1234,56). */
+function sanitizeAmount(raw, paste){
+  let s = String(raw).replace(/[^0-9.,]/g, "");
+  if(paste){
+    const lastDot = s.lastIndexOf("."), lastCom = s.lastIndexOf(",");
+    if(lastDot >= 0 && lastCom >= 0){
+      const dec = Math.max(lastDot, lastCom);
+      s = s.slice(0, dec).replace(/[.,]/g, "") + "," + s.slice(dec+1).replace(/[.,]/g, "");
+    } else if(lastDot >= 0 || lastCom >= 0){
+      const pos = Math.max(lastDot, lastCom);
+      const tail = s.slice(pos+1).replace(/[.,]/g, "");
+      const head = s.slice(0, pos).replace(/[.,]/g, "");
+      /* gruppi da 3 cifre → migliaia; 1 o 2 cifre → decimali */
+      s = tail.length === 3 ? head + tail : head + "," + tail;
+    }
+  } else {
+    s = s.replace(/\./g, ",");
+    const i = s.indexOf(",");
+    if(i >= 0) s = s.slice(0, i+1) + s.slice(i+1).replace(/,/g, "");
+  }
+  const [int, dec] = s.split(",");
+  let out = (int || "").slice(0, 7);
+  if(s.includes(",")) out += "," + (dec || "").slice(0, 2);
+  return out;
+}
+function onImpInput(e){
+  const el = $("fImp");
+  const before = el.value, atEnd = el.selectionStart === before.length;
+  const clean = sanitizeAmount(before);
+  if(clean !== before){
+    const pos = el.selectionStart - (before.length - clean.length);
+    el.value = clean;
+    if(!atEnd) try{ el.setSelectionRange(Math.max(0,pos), Math.max(0,pos)); }catch(err){}
+  }
+  syncSave();
+}
 function keyTap(k){
   let v = $("fImp").value;
   if(k === "⌫") v = v.slice(0, -1);
@@ -1584,7 +1804,7 @@ function keyTap(k){
     if(v === "0" && !v.includes(",")) v = "";
     v += k;
   }
-  $("fImp").value = v;
+  $("fImp").value = sanitizeAmount(v);
   syncSave();
 }
 function saveMov(ecc){
@@ -1634,7 +1854,7 @@ function refreshQuadra(root, p){
   box.innerHTML = `<div class="rowline"><span>${diff < 0 ? "Sfori le entrate di" : "Ti resta"}</span><b class="num">${Math.abs(diff).toLocaleString("it-IT")} €</b></div>
     <div class="sub3">${diff < 0 ? "Il budget non quadra: taglia qualche pocket finché non rientri." : diff === 0 ? "Budget allocato al centesimo." : "Margine non allocato: puoi destinarlo a risparmio o accantonamenti."}</div>`;
 }
-function refreshSide(){ $("sideHome").innerHTML = renderHome(); bindView(); }
+function refreshSide(){ $("sideHome").innerHTML = renderSide(); bindView(); }
 function renderSettings(root){
   const pk = profKeyFor(cur);
   const p = DB.profili[pk];
@@ -1838,7 +2058,26 @@ $("seg").addEventListener("click", e => {
 });
 document.querySelectorAll("[data-act]").forEach(b =>
   b.addEventListener("click", () => openMov(null, b.dataset.act)));
-["fImp","fData"].forEach(id => $(id).addEventListener("input", syncSave));
+$("fData").addEventListener("input", syncSave);
+$("fImp").addEventListener("input", onImpInput);
+$("fImp").addEventListener("beforeinput", e => {
+  if(e.data && /[^0-9.,]/.test(e.data)) e.preventDefault();
+});
+$("fImp").addEventListener("keydown", e => {
+  if(e.metaKey || e.ctrlKey || e.key.length > 1) return;
+  if(!/[0-9.,]/.test(e.key)) e.preventDefault();
+});
+$("fImp").addEventListener("paste", e => {
+  e.preventDefault();
+  const t = (e.clipboardData || window.clipboardData).getData("text");
+  $("fImp").value = sanitizeAmount(t, true);
+  syncSave();
+});
+$("fImp").addEventListener("blur", () => {
+  const v = $("fImp").value;
+  if(v && v.endsWith(",")) $("fImp").value = v.slice(0,-1);   // "12," → "12"
+  syncSave();
+});
 $("fNota").addEventListener("input", onNotaInput);
 $("movSave").addEventListener("click", () => saveMov(false));
 $("saveOrd").addEventListener("click", () => saveMov(false));
@@ -1848,6 +2087,12 @@ $("movDelete").addEventListener("click", deleteMov);
 $("backdrop").addEventListener("click", hideSheets);
 $("btnSettings").addEventListener("click", () => { tab = "set"; render(); });
 $("catClose").addEventListener("click", hideSheets);
+$("viewClose").addEventListener("click", hideSheets);
+$("viewEdit").addEventListener("click", () => {
+  const m = LIVE().find(x => x.id === viewId);
+  hideSheets();
+  if(m) setTimeout(() => openMov(m), 140);
+});
 document.addEventListener("keydown", e => { if(e.key === "Escape") hideSheets(); });
 window.addEventListener("resize", () => render());
 window.addEventListener("focus", () => syncNow());
