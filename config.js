@@ -1,14 +1,26 @@
-/* Registro — configurazione sync GitHub.
-   Il token fine-grained (solo Contents R/W sul repo dati) va codificato in
-   base64 e spezzato in TRE parti consecutive: t1 + t2 + t3.
-   Esempio: btoa("github_pat_...") → "Z2l0aHViX3BhdF8..." → dividi in tre.
-   Lascia le parti vuote per lavorare solo in locale (nessun sync). */
+// QUESTO FILE NON CONTIENE PIU IL TOKEN, E NON DEVE TORNARCI.
+//
+// Lo serviva GitHub Pages da un repo pubblico: chiunque aprisse
+// napema.github.io/budget-tracker-webpage/config.js si portava via una chiave di lettura
+// e scrittura sul repo privato dei dati. Il base64 spezzato in tre non
+// nascondeva niente a nessuno - tranne che al secret scanner di GitHub,
+// che un token intero lo avrebbe intercettato e revocato da solo. Cioe:
+// serviva a spegnere l'unico allarme che c'era.
+//
+// La regola che ne resta: in un sito statico non esiste un nascondiglio.
+// Tutto cio che il browser scarica senza autenticarsi lo scarica chiunque.
+//
+// Questa app e in pensione: i dati vivono in ATLAS, che il token lo chiede
+// al dispositivo invece di pubblicarlo (vedi core/credenziali.js la'). Qui
+// resta tutto leggibile in locale, ma il sync non parte piu. Il repo dei
+// dati non e stato toccato: finance-tracker e intatto.
+
 window.REGISTRO_CFG = {
   owner: "napema",
   repo: "finance-tracker",
   path: "registro.json",
   branch: "main",
-  t1: "Z2l0aHViX3BhdF8xMUFYQkRXN1kwb2lncFFYeDN1RX",
-  t2: "h5XzhjSnNnQ1U3TFhaRnpvUkcxYWMxWEE1UEw1enBI",
-  t3: "eG5oMDVzMHE2YmhlNXVXS0U3WFZNVXNtamt2cWtr"
+  t1: "",
+  t2: "",
+  t3: ""
 };
